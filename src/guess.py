@@ -1,9 +1,9 @@
 import random
+from rich import print
 
 # open word list file and create a word list
 with open('data/sgb-words-filtered.txt') as f:
     word_list = list(f.read().splitlines())
-    print(word_list[0])
 
 
 # return random word from word list
@@ -49,6 +49,27 @@ def check_letter(answer, guess):
     return result
 
 
+def highlight_letter(letter, result):
+    colors = {'green': 'bold black on bright_green',
+              'yellow': 'bold black on bright_yellow', 'grey': 'bold black on white'}
+    color = ''
+    match result:
+        case 0:
+            color = 'grey'
+        case 1:
+            color = 'yellow'
+        case 2:
+            color = 'green'
+    return f"[{colors[color]}] {letter} [/{colors[color]}]"
+
+
+def highlight_word(guess, result_list):
+    message = ''
+    for index, result in enumerate(result_list):
+        message += highlight_letter(guess[index], result)
+    return message
+
+
 # main play
 def play():
     answer = get_random_word(word_list).upper()
@@ -64,3 +85,6 @@ def play():
         else:
             print(check_letter(answer, guess))
     print(f'You lose! The answer is {answer}')
+
+
+# print(f"[{colors['green']}] A [/{colors['green']}][{colors['yellow']}] P [{colors['yellow']}][{colors['yellow']}] P [{colors['yellow']}][{colors['grey']}] L [{colors['grey']}][{colors['grey']}] E [{colors['grey']}]")

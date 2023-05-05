@@ -11,15 +11,16 @@ def test_random_word():
 def test_take_input(monkeypatch):
     monkeypatch.setattr('builtins.input', lambda _: 'appl')
     monkeypatch.setattr('builtins.input', lambda _: 'apple')
-    assert guess.take_input() == 'APPLE'
+    monkeypatch.setattr('builtins.input', lambda _: 'puple')
+    assert guess.take_input(['APPLE']) == 'PUPLE'
 
     monkeypatch.setattr('builtins.input', lambda _: 'puple')
-    assert guess.take_input() == 'PUPLE'
+    assert guess.take_input([]) == 'PUPLE'
 
     monkeypatch.setattr('builtins.input', lambda _: '11')
     monkeypatch.setattr('builtins.input', lambda _: '111')
     monkeypatch.setattr('builtins.input', lambda _: 'puppy')
-    assert guess.take_input() == 'PUPPY'
+    assert guess.take_input([]) == 'PUPPY'
 
 
 def test_check_exact_match():
@@ -43,3 +44,18 @@ def test_check_letter_duplicate():
         'apple', 'puple') == [1, 0, 2, 2, 2]
     assert guess.check_letter(
         'apple', 'puppy') == [1, 0, 2, 0, 0]
+
+
+def test_highlight_letter():
+    assert guess.highlight_letter(
+        'L', 2) == '[bold black on bright_green] L [/bold black on bright_green]'
+    assert guess.highlight_letter(
+        'A', 1) == '[bold black on bright_yellow] A [/bold black on bright_yellow]'
+    assert guess.highlight_letter(
+        'O', 0) == '[bold black on white] O [/bold black on white]'
+
+
+def test_highlight_word():
+    assert guess.highlight_word(
+        'PUPLE', [1, 0, 2, 2, 2]
+    ) == "[bold black on bright_yellow] P [/bold black on bright_yellow][bold black on white] U [/bold black on white][bold black on bright_green] P [/bold black on bright_green][bold black on bright_green] L [/bold black on bright_green][bold black on bright_green] E [/bold black on bright_green]"
