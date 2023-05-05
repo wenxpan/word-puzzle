@@ -3,23 +3,30 @@ import random
 # open word list file and create a word list
 with open('data/sgb-words-filtered.txt') as f:
     word_list = list(f.read().splitlines())
+    print(word_list[0])
 
 
 # return random word from word list
-def random_word(words):
+def get_random_word(words):
     return random.choice(words)
 
 
-# check the user input is a valid 5 letter word
-def validate_input(guess):
-    if guess.isalpha() and len(guess) == 5:
-        return True
-    return False
+# check the user input is a valid 5 letter word and not guessed
+def take_input(guessed_list):
+    while True:
+        guess = input('Take a guess: ').upper()
+        if guess in guessed_list:
+            print('You already guessed this word!')
+        elif guess.isalpha() and len(guess) == 5:
+            # return in uppercase
+            return guess
+        else:
+            print('Input not valid! Please enter a 5-letter word')
 
 
 # check if the input is correct
 def check_exact_match(answer, guess):
-    if guess.lower() == answer.lower():
+    if guess.upper() == answer.upper():
         return True
     return False
 
@@ -40,3 +47,20 @@ def check_letter(answer, guess):
             result[index] = 1
             answer_list[answer_list.index(letter)] = 0
     return result
+
+
+# main play
+def play():
+    answer = get_random_word(word_list).upper()
+    guessed_list = []
+    print(f'for dev: word is {answer}')
+    for i in range(1, 7, 1):
+        print(f'Round: {i}/6')
+        guess = take_input(guessed_list)
+        guessed_list.append(guess)
+        if check_exact_match(answer, guess):
+            print('You won!')
+            break
+        else:
+            print(check_letter(answer, guess))
+    print(f'You lose! The answer is {answer}')

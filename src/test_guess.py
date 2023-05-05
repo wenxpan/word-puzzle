@@ -2,22 +2,31 @@ import guess
 
 
 def test_random_word():
-    word = guess.random_word(guess.word_list)
+    word = guess.get_random_word(guess.word_list)
     assert len(word) == 5
     assert word.isalpha()
     assert word in guess.word_list
 
 
-def test_validate_input():
-    assert guess.validate_input('appl') == False
-    assert guess.validate_input('apple') == True
+def test_take_input(monkeypatch):
+    monkeypatch.setattr('builtins.input', lambda _: 'appl')
+    monkeypatch.setattr('builtins.input', lambda _: 'apple')
+    assert guess.take_input() == 'APPLE'
+
+    monkeypatch.setattr('builtins.input', lambda _: 'puple')
+    assert guess.take_input() == 'PUPLE'
+
+    monkeypatch.setattr('builtins.input', lambda _: '11')
+    monkeypatch.setattr('builtins.input', lambda _: '111')
+    monkeypatch.setattr('builtins.input', lambda _: 'puppy')
+    assert guess.take_input() == 'PUPPY'
 
 
 def test_check_exact_match():
     assert guess.check_exact_match('apple', 'APPLE') == True
     assert guess.check_exact_match('apple', 'Apple') == True
     assert guess.check_exact_match('apple', 'apple') == True
-    assert guess.check_exact_match('apple', 'purple') == False
+    assert guess.check_exact_match('apple', 'puple') == False
 
 
 def test_check_letter_normal():
