@@ -58,4 +58,15 @@ def test_highlight_letter():
 def test_highlight_word():
     assert guess.highlight_word(
         'PUPLE', [1, 0, 2, 2, 2]
-    ) == "[bold black on bright_yellow] P [/bold black on bright_yellow][bold black on white] U [/bold black on white][bold black on bright_green] P [/bold black on bright_green][bold black on bright_green] L [/bold black on bright_green][bold black on bright_green] E [/bold black on bright_green]"
+    ) == "[bold black on bright_yellow] P [/bold black on bright_yellow][bold black on white] U [/bold black on white][bold black on bright_green] P [/bold black on bright_green][bold black on bright_green] L [/bold black on bright_green][bold black on bright_green] E [/bold black on bright_green]\n"
+
+
+def test_export_record():
+    guess.export_record(['APPLE', 'PUPLE', 'PUPPY'], 'WATER', 'test')
+    with open('user_data/record_test.txt') as f:
+        data = f.readlines()
+        assert data == ['=================\n',
+                        '  | A P P L E |  \n',
+                        '  | P U P L E |  \n',
+                        '  | P U P P Y |  \n', '=================\n',
+                        'CORRECT WORD IS: WATER\n']
