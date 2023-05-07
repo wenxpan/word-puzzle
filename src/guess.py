@@ -12,10 +12,26 @@ def get_random_word(words):
     return random.choice(words)
 
 
+class StartAgainException(Exception):
+    pass
+
+
+def take_input(prompt):
+    user_input = input(prompt)
+
+    if user_input == '\\quit':
+        raise KeyboardInterrupt
+
+    elif user_input == '\\new':
+        raise StartAgainException
+
+    return user_input
+
+
 # check the user input is a valid 5 letter word and not guessed
-def take_input(guessed_list):
+def check_input_word(guessed_list):
     while True:
-        guess = input('Take a guess: ').upper()
+        guess = take_input('Take a guess: ').upper()
         if guess in guessed_list:
             print('You already guessed this word!')
         elif guess.isalpha() and len(guess) == 5:
@@ -45,12 +61,15 @@ def check_letter(answer, guess):
     # check for misplaced letters
     for index, letter in enumerate(guess):
         if letter in answer_list:
-            result[index] = 1
-            answer_list[answer_list.index(letter)] = 0
+            if result[index] != 2:
+                result[index] = 1
+                answer_list[answer_list.index(letter)] = 0
     return result
 
 
 # highlight letter based on analysis
+
+
 def highlight_letter(letter, result):
     colors = {'green': 'bold black on bright_green',
               'yellow': 'bold black on bright_yellow', 'grey': 'bold black on white'}
@@ -85,13 +104,13 @@ def export_record(guessed_list, answer, name):
 
 
 def play_once():
-    answer = get_random_word(word_list).upper()
+    answer = get_random_word(word_list[0:500]).upper()
     guessed_list = []
     message = ''
     print(f'****for dev: word is {answer}****')
     for i in range(1, 7, 1):
         print(f'Round: {i}/6')
-        guess = take_input(guessed_list)
+        guess = check_input_word(guessed_list)
         guessed_list.append(guess)
         if check_exact_match(answer, guess):
             print('You won!')
@@ -102,18 +121,24 @@ def play_once():
             print(message)
     else:
         print(f'You lose! The answer is {answer}')
-    if input('Would you like to save a record? Y/N\n') == "Y":
+    if take_input('Would you like to save a record? Y/N\n').upper() == "Y":
         current_time = datetime.now().strftime("%Y%m%d%H%M%S")
         export_record(guessed_list, answer, current_time)
 
 
 def play_loop():
     print('Welcome!')
-    while True:
-        play_once()
-        if input('Play again? Y/N\n').upper() != "Y":
-            print('Thank you for playing. See you next time!')
-            break
+    try:
+        while True:
+            try:
+                play_once()
+                if take_input('Play again? Y/N\n').upper() != "Y":
+                    print('Thank you for playing. See you next time!')
+                    break
+            except StartAgainException:
+                continue
+    except KeyboardInterrupt:
+        print('Thank you for playing. See you next time!')
 
 
 play_loop()

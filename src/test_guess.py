@@ -8,19 +8,19 @@ def test_random_word():
     assert word in guess.word_list
 
 
-def test_take_input(monkeypatch):
+def test_check_input_word(monkeypatch):
     monkeypatch.setattr('builtins.input', lambda _: 'appl')
     monkeypatch.setattr('builtins.input', lambda _: 'apple')
     monkeypatch.setattr('builtins.input', lambda _: 'puple')
-    assert guess.take_input(['APPLE']) == 'PUPLE'
+    assert guess.check_input_word(['APPLE']) == 'PUPLE'
 
     monkeypatch.setattr('builtins.input', lambda _: 'puple')
-    assert guess.take_input([]) == 'PUPLE'
+    assert guess.check_input_word([]) == 'PUPLE'
 
     monkeypatch.setattr('builtins.input', lambda _: '11')
     monkeypatch.setattr('builtins.input', lambda _: '111')
     monkeypatch.setattr('builtins.input', lambda _: 'puppy')
-    assert guess.take_input([]) == 'PUPPY'
+    assert guess.check_input_word([]) == 'PUPPY'
 
 
 def test_check_exact_match():
@@ -44,6 +44,8 @@ def test_check_letter_duplicate():
         'apple', 'puple') == [1, 0, 2, 2, 2]
     assert guess.check_letter(
         'apple', 'puppy') == [1, 0, 2, 0, 0]
+    assert guess.check_letter(
+        'tight', 'fight') == [0, 2, 2, 2, 2]
 
 
 def test_highlight_letter():
