@@ -8,19 +8,36 @@ def test_random_word():
     assert word in guess.word_list
 
 
-def test_check_input_word(monkeypatch):
-    monkeypatch.setattr('builtins.input', lambda _: 'appl')
+def test_check_input_word_correct(monkeypatch, capsys):
     monkeypatch.setattr('builtins.input', lambda _: 'apple')
-    monkeypatch.setattr('builtins.input', lambda _: 'puple')
-    assert guess.check_input_word(['APPLE']) == 'PUPLE'
+    assert guess.check_input_word([]) == 'APPLE'
 
-    monkeypatch.setattr('builtins.input', lambda _: 'puple')
-    assert guess.check_input_word([]) == 'PUPLE'
 
-    monkeypatch.setattr('builtins.input', lambda _: '11')
-    monkeypatch.setattr('builtins.input', lambda _: '111')
-    monkeypatch.setattr('builtins.input', lambda _: 'puppy')
-    assert guess.check_input_word([]) == 'PUPPY'
+def test_check_input_word_invalid(monkeypatch, capsys):
+    inputs = iter(['33', 'apple'])
+    monkeypatch.setattr('builtins.input', lambda _: next(inputs))
+    result = guess.check_input_word([])
+    captured = capsys.readouterr()
+    assert captured.out == 'Input not valid. Please enter a 5-letter English word\n'
+    assert result == 'APPLE'
+
+
+def test_check_input_word_guessed(monkeypatch, capsys):
+    inputs = iter(['apple', 'pupil'])
+    monkeypatch.setattr('builtins.input', lambda _: next(inputs))
+    result = guess.check_input_word(['APPLE'])
+    captured = capsys.readouterr()
+    assert captured.out == 'You already guessed this word!\n'
+    assert result == 'PUPIL'
+
+
+def test_check_input_word_incorrect(monkeypatch, capsys):
+    inputs = iter(['appli', 'apply'])
+    monkeypatch.setattr('builtins.input', lambda _: next(inputs))
+    result = guess.check_input_word([])
+    captured = capsys.readouterr()
+    assert captured.out == 'Word not found in dictionary. Did you mean APPLY?\n'
+    assert result == 'APPLY'
 
 
 def test_check_exact_match():

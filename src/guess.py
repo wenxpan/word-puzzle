@@ -1,13 +1,23 @@
 import random
 from rich import print
 from datetime import datetime
+from spellchecker import SpellChecker
 
 # open word list file and create a word list
 with open('data/sgb-words-filtered.txt') as f:
     word_list = list(f.read().splitlines())
 
 
+def welcome():
+    print("""   ---------------------------------WELCOME---------------------------------
+    Welcome to the game! 
+    You will have 6 chances to guess a 5-letter word.
+    Type '\\quit' to exit the app anytime. Type '\\new' to start a new game.
+   -------------------------------------------------------------------------""")
+
 # return random word from word list
+
+
 def get_random_word(words):
     return random.choice(words)
 
@@ -19,10 +29,10 @@ class StartAgainException(Exception):
 def take_input(prompt):
     user_input = input(prompt)
 
-    if user_input == '\\quit':
+    if user_input.upper() == '\\Q':
         raise KeyboardInterrupt
 
-    elif user_input == '\\new':
+    elif user_input.upper() == '\\R':
         raise StartAgainException
 
     return user_input
@@ -31,14 +41,19 @@ def take_input(prompt):
 # check the user input is a valid 5 letter word and not guessed
 def check_input_word(guessed_list):
     while True:
+        # convert to uppercase to compare with previous results
         guess = take_input('Take a guess: ').upper()
+        spell = SpellChecker()
+        misspelled = bool(spell.unknown([guess]))
         if guess in guessed_list:
             print('You already guessed this word!')
-        elif guess.isalpha() and len(guess) == 5:
-            # return in uppercase
-            return guess
+        elif not guess.isalpha() or len(guess) != 5:
+            print('Input not valid. Please enter a 5-letter English word')
+        elif misspelled:
+            print(
+                f'Word not found in dictionary. Did you mean {spell.correction(guess).upper()}?')
         else:
-            print('Input not valid! Please enter a 5-letter word')
+            return guess
 
 
 # check if the input is correct
@@ -81,7 +96,8 @@ def highlight_letter(letter, result):
             color = 'yellow'
         case 2:
             color = 'green'
-    return f"[{colors[color]}] {letter} [/{colors[color]}]"
+    message = f"[{colors[color]}] {letter} [/{colors[color]}]"
+    return message
 
 
 # highlight word based on analysis
@@ -101,12 +117,14 @@ def export_record(guessed_list, answer, name):
             f.write(f"  | {' '.join(word)} |  \n")
         f.write('=================\n')
         f.write(f'CORRECT WORD IS: {answer}\n')
+    print(
+        f"Record saved! You can find it in user_data/record/record_{name}.txt")
 
 
 def play_once():
     answer = get_random_word(word_list[0:500]).upper()
     guessed_list = []
-    message = ''
+    message = '\n'
     print(f'****for dev: word is {answer}****')
     for i in range(1, 7, 1):
         print(f'Round: {i}/6')
@@ -121,24 +139,24 @@ def play_once():
             print(message)
     else:
         print(f'You lose! The answer is {answer}')
-    if take_input('Would you like to save a record? Y/N\n').upper() == "Y":
+    if take_input('Enter "\\s" to save a record.\n').upper() == "\\S":
         current_time = datetime.now().strftime("%Y%m%d%H%M%S")
         export_record(guessed_list, answer, current_time)
 
 
 def play_loop():
-    print('Welcome!')
+    welcome()
     try:
         while True:
             try:
                 play_once()
-                if take_input('Play again? Y/N\n').upper() != "Y":
-                    print('Thank you for playing. See you next time!')
-                    break
+                if take_input('Enter "\\r" to play again. Enter any other button to quit the game.\n').upper() != "\\r":
+                    raise KeyboardInterrupt
             except StartAgainException:
                 continue
     except KeyboardInterrupt:
         print('Thank you for playing. See you next time!')
 
 
-play_loop()
+if __name__ == '__main__':
+    play_loop()
