@@ -84,8 +84,7 @@ def export_record(guessed_list, answer, name):
         f.write(f'CORRECT WORD IS: {answer}\n')
 
 
-# main play
-def play():
+def play_once():
     answer = get_random_word(word_list).upper()
     guessed_list = []
     message = ''
@@ -108,4 +107,13 @@ def play():
         export_record(guessed_list, answer, current_time)
 
 
-play()
+def play_loop():
+    print('Welcome!')
+    while True:
+        play_once()
+        if input('Play again? Y/N\n').upper() != "Y":
+            print('Thank you for playing. See you next time!')
+            break
+
+
+play_loop()
