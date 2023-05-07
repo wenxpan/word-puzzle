@@ -8,12 +8,34 @@ with open('data/sgb-words-filtered.txt') as f:
     word_list = list(f.read().splitlines())
 
 
+class GameSetting():
+    def __init__(self):
+        self.spell_check_enabled = True
+
+    def get_spell_check_enabled(self):
+        return self.spell_check_enabled
+
+    def toggle_spell_check_enabled(self):
+        confirmed = input(
+            f"Spell check setting is currently {'on' if self.spell_check_enabled else 'off'}. Toggling spell check will start a new game. \nEnter 'Y' to confirm. \nEnter any other button to exit setting.\n")
+        if confirmed.upper() == 'Y':
+            self.spell_check_enabled = not self.spell_check_enabled
+            print(
+                f"Spell check setting is now {'on' if self.spell_check_enabled else 'off'}")
+            raise StartAgainException
+        else:
+            print('Back to the main game.')
+
+
+game_setting = GameSetting()
+
+
 def welcome():
     print("""   ---------------------------------WELCOME---------------------------------
     Welcome to the game! 
     You will have 6 chances to guess a 5-letter word.
     Type '\\q' to exit the app anytime. Type '\\r' to start a new game.
-    Type '\\sc' to toggle on and off spell checks
+    Type '\\sc' to toggle on and off spell checks. (NOTE: it will restart the game)
    -------------------------------------------------------------------------""")
 
 # return random word from word list
@@ -41,23 +63,25 @@ def take_input(prompt):
         raise StartAgainException
 
     elif user_input.upper() == '\\SC':
-        raise ToggleSpellCheckException
+        game_setting.toggle_spell_check_enabled()
 
     return user_input
 
 
 # check the user input is a valid 5 letter word and not guessed
-def check_input_word(guessed_list, spellcheck):
+def check_input_word(guessed_list):
     while True:
         # convert to uppercase to compare with previous results
         guess = take_input('Take a guess: ').upper()
         spell = SpellChecker()
         misspelled = bool(spell.unknown([guess]))
-        if guess in guessed_list:
+        if guess == '\\SC':
+            continue
+        elif guess in guessed_list:
             print('You already guessed this word!\n')
         elif not guess.isalpha() or len(guess) != 5:
             print('Input not valid. Please enter a 5-letter English word\n')
-        elif spellcheck and misspelled:
+        elif game_setting.get_spell_check_enabled() and misspelled:
             print(
                 f'Word not found in dictionary.\n')
         else:
@@ -134,16 +158,9 @@ def play_once():
     guessed_list = []
     message = '\n'
     print(f'****for dev: word is {answer}****')
-    spell_check_setting = True
     for i in range(1, 7, 1):
         print(f'Round: {i}/6')
-        try:
-            guess = check_input_word(guessed_list, spell_check_setting)
-        except ToggleSpellCheckException:
-            spell_check_setting = not spell_check_setting
-            print(
-                f"Spell check setting now {'on' if spell_check_setting else 'off'}")
-            guess = check_input_word(guessed_list, spell_check_setting)
+        guess = check_input_word(guessed_list)
         guessed_list.append(guess)
         if check_exact_match(answer, guess):
             print('You won!')
@@ -154,9 +171,13 @@ def play_once():
             print(message)
     else:
         print(f'You lose! The answer is {answer}')
-    if take_input('Enter "\\s" to save a record.\n').upper() == "\\S":
+    continue_prompt = take_input(
+        'Enter "\\s" to save a record and start a new game.\nEnter "\\q" to quit. Enter any other button to start a new game.\n').upper()
+    if continue_prompt == "\\S":
         current_time = datetime.now().strftime("%Y%m%d%H%M%S")
         export_record(guessed_list, answer, current_time)
+    # elif continue_prompt != "\\R":
+    #     raise KeyboardInterrupt
 
 
 def play_loop():
@@ -165,8 +186,6 @@ def play_loop():
         while True:
             try:
                 play_once()
-                if take_input('Enter "\\r" to play again. Enter any other button to quit the game.\n').upper() != "\\R":
-                    raise KeyboardInterrupt
             except StartAgainException:
                 continue
     except KeyboardInterrupt:
