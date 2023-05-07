@@ -12,7 +12,8 @@ def welcome():
     print("""   ---------------------------------WELCOME---------------------------------
     Welcome to the game! 
     You will have 6 chances to guess a 5-letter word.
-    Type '\\quit' to exit the app anytime. Type '\\new' to start a new game.
+    Type '\\q' to exit the app anytime. Type '\\r' to start a new game.
+    Type '\\sc' to toggle on and off spell checks
    -------------------------------------------------------------------------""")
 
 # return random word from word list
@@ -26,6 +27,10 @@ class StartAgainException(Exception):
     pass
 
 
+class ToggleSpellCheckException(Exception):
+    pass
+
+
 def take_input(prompt):
     user_input = input(prompt)
 
@@ -35,23 +40,26 @@ def take_input(prompt):
     elif user_input.upper() == '\\R':
         raise StartAgainException
 
+    elif user_input.upper() == '\\SC':
+        raise ToggleSpellCheckException
+
     return user_input
 
 
 # check the user input is a valid 5 letter word and not guessed
-def check_input_word(guessed_list):
+def check_input_word(guessed_list, spellcheck):
     while True:
         # convert to uppercase to compare with previous results
         guess = take_input('Take a guess: ').upper()
         spell = SpellChecker()
         misspelled = bool(spell.unknown([guess]))
         if guess in guessed_list:
-            print('You already guessed this word!')
+            print('You already guessed this word!\n')
         elif not guess.isalpha() or len(guess) != 5:
-            print('Input not valid. Please enter a 5-letter English word')
-        elif misspelled:
+            print('Input not valid. Please enter a 5-letter English word\n')
+        elif spellcheck and misspelled:
             print(
-                f'Word not found in dictionary. Did you mean {spell.correction(guess).upper()}?')
+                f'Word not found in dictionary.\n')
         else:
             return guess
 
@@ -126,9 +134,16 @@ def play_once():
     guessed_list = []
     message = '\n'
     print(f'****for dev: word is {answer}****')
+    spell_check_setting = True
     for i in range(1, 7, 1):
         print(f'Round: {i}/6')
-        guess = check_input_word(guessed_list)
+        try:
+            guess = check_input_word(guessed_list, spell_check_setting)
+        except ToggleSpellCheckException:
+            spell_check_setting = not spell_check_setting
+            print(
+                f"Spell check setting now {'on' if spell_check_setting else 'off'}")
+            guess = check_input_word(guessed_list, spell_check_setting)
         guessed_list.append(guess)
         if check_exact_match(answer, guess):
             print('You won!')
@@ -150,7 +165,7 @@ def play_loop():
         while True:
             try:
                 play_once()
-                if take_input('Enter "\\r" to play again. Enter any other button to quit the game.\n').upper() != "\\r":
+                if take_input('Enter "\\r" to play again. Enter any other button to quit the game.\n').upper() != "\\R":
                     raise KeyboardInterrupt
             except StartAgainException:
                 continue

@@ -36,7 +36,7 @@ def test_check_input_word_incorrect(monkeypatch, capsys):
     monkeypatch.setattr('builtins.input', lambda _: next(inputs))
     result = guess.check_input_word([])
     captured = capsys.readouterr()
-    assert captured.out == 'Word not found in dictionary. Did you mean APPLY?\n'
+    assert captured.out == 'Word not found in dictionary.'
     assert result == 'APPLY'
 
 
