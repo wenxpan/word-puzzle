@@ -18,7 +18,7 @@ def test_check_input_word_invalid(monkeypatch, capsys):
     monkeypatch.setattr('builtins.input', lambda _: next(inputs))
     result = guess.check_input_word([])
     captured = capsys.readouterr()
-    assert captured.out == 'Input not valid. Please enter a 5-letter English word\n'
+    assert captured.out == 'Input not valid. Please enter a 5-letter English word\n\n'
     assert result == 'APPLE'
 
 
@@ -27,7 +27,7 @@ def test_check_input_word_guessed(monkeypatch, capsys):
     monkeypatch.setattr('builtins.input', lambda _: next(inputs))
     result = guess.check_input_word(['APPLE'])
     captured = capsys.readouterr()
-    assert captured.out == 'You already guessed this word!\n'
+    assert captured.out == 'You already guessed this word!\n\n'
     assert result == 'PUPIL'
 
 
@@ -36,7 +36,7 @@ def test_check_input_word_incorrect(monkeypatch, capsys):
     monkeypatch.setattr('builtins.input', lambda _: next(inputs))
     result = guess.check_input_word([])
     captured = capsys.readouterr()
-    assert captured.out == 'Word not found in dictionary.'
+    assert captured.out == 'Word not found in dictionary.\n\n'
     assert result == 'APPLY'
 
 
