@@ -26,9 +26,22 @@ class Player():
                 self.spell_check_enabled = save["spell_check_enabled"]
                 self.records = save["records"]
             print(
-                f'data loaded from user_data/save_{self.name}.json\ndata: {save}')
+                f'data loaded from user_data/save_{self.name}.json')
         except FileNotFoundError:
             pass
+
+    def calculate_wins(self):
+        win_count = 0
+        for round in self.records:
+            if round["answer"] in round["guess"]:
+                win_count += 1
+        all_count = len(self.records)
+        return f'Total wins: {win_count}/{all_count}'
+
+    def show_status(self):
+        print(self.calculate_wins())
+        print(f'spellcheck: {self.display_spell_check_status}')
+        print('options: toggle Spellcheck / upload word list / export records')
 
     def welcome(self):
         print(f"""   ---------------------------------WELCOME---------------------------------
@@ -64,3 +77,26 @@ class Player():
         entry = {'answer': answer, 'guess': guessed_list,
                  'time': [start_time, end_time]}
         self.records.append(entry)
+
+    def delete_player(self):
+        pass
+
+    def clear_record(self):
+        self.records = []
+
+    def display_records(self):
+        pass
+
+    def export_records(self):
+        pass
+
+    # export record as txt file
+    def export_record(self, guessed_list, answer, name):
+        with open(f'user_data/record_{name}.txt', 'w') as f:
+            f.write('=================\n')
+            for word in guessed_list:
+                f.write(f"  | {' '.join(word)} |  \n")
+            f.write('=================\n')
+            f.write(f'CORRECT WORD IS: {answer}\n')
+        print(
+            f"Record saved! You can find it in user_data/record/record_{name}.txt")

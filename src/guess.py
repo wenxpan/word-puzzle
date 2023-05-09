@@ -119,18 +119,6 @@ def highlight_word(guess, result_list):
     return message
 
 
-# export record as txt file
-def export_record(guessed_list, answer, name):
-    with open(f'user_data/record_{name}.txt', 'w') as f:
-        f.write('=================\n')
-        for word in guessed_list:
-            f.write(f"  | {' '.join(word)} |  \n")
-        f.write('=================\n')
-        f.write(f'CORRECT WORD IS: {answer}\n')
-    print(
-        f"Record saved! You can find it in user_data/record/record_{name}.txt")
-
-
 # one round of play
 def play_once():
     # draw a random word from list
@@ -168,7 +156,7 @@ def play_once():
     continue_prompt = take_input(
         'Progress auto saved. \nEnter "\\s" to save a separate record and start a new game.\nEnter "\\q" to quit. Enter any other button to start a new game.\n').upper()
     if continue_prompt == "\\S":
-        export_record(guessed_list, answer, end_time)
+        player.export_record(guessed_list, answer, end_time)
 
 
 def play_loop():
