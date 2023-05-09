@@ -150,6 +150,8 @@ def play_once():
     # set initial message
     message = '\n'
     print(f'****for dev: word is {answer}****')
+    start_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+    print(start_time)
     # loop 6 rounds of guess
     for i in range(1, 7, 1):
         print(
@@ -171,11 +173,12 @@ def play_once():
     else:
         print(f'You lose! The answer is {answer}')
     # check how the user would like to continue
+    end_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+    print(end_time)
     continue_prompt = take_input(
         'Enter "\\s" to save a record and start a new game.\nEnter "\\q" to quit. Enter any other button to start a new game.\n').upper()
     if continue_prompt == "\\S":
-        current_time = datetime.now().strftime("%Y%m%d%H%M%S")
-        export_record(guessed_list, answer, current_time)
+        export_record(guessed_list, answer, end_time)
 
 
 def play_loop():

@@ -27,6 +27,7 @@ class Player():
     def get_save_data(self):
         return self.save_data
 
-    def update_save_data(self, answer, guessed_list, time):
-        entry = {'answer': answer, 'guess': guessed_list, 'time': time}
+    def update_save_data(self, answer, guessed_list, start_time, end_time):
+        entry = {'answer': answer, 'guess': guessed_list,
+                 'time': [start_time, end_time]}
         self.save_data.append(entry)
