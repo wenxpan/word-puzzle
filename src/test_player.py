@@ -26,3 +26,23 @@ def test_toggle_spell_check_enabled_cancel(player, monkeypatch, capsys):
     captured = capsys.readouterr()
     assert player.get_spell_check_enabled() == True
     assert captured.out == 'Back to the main game.\n'
+
+
+def test_get_save_data(player):
+    assert player.get_save_data() == []
+
+
+def test_update_save_data(player):
+    answer = 'APPLE'
+    guessed_list = ["PUPIL", "APPLY", "ORBIT"]
+    time = '202305091220'
+    player.update_save_data(answer, guessed_list, time)
+    assert player.get_save_data() == [
+        {'answer': 'APPLE', 'guess': ["PUPIL", "APPLY", "ORBIT"], 'time': '202305091220'}]
+
+    another_answer = "QUICK"
+    another_guessed_list = ["PUPIL", "APPLY", "QUICK"]
+    another_time = '202305091220'
+    player.update_save_data(another_answer, another_guessed_list, another_time)
+    assert player.get_save_data() == [{'answer': 'APPLE', 'guess': ["PUPIL", "APPLY", "ORBIT"], 'time': '202305091220'}, {
+        'answer': "QUICK", 'guess': ["PUPIL", "APPLY", "QUICK"], "time": '202305091220'}]
