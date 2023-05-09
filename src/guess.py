@@ -163,7 +163,8 @@ def play_once():
         print(f'You lose! The answer is {answer}')
     # check how the user would like to continue
     end_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-    player.update_save_data(answer, guessed_list, start_time, end_time)
+    player.update_records(answer, guessed_list, start_time, end_time)
+    player.save_data()
     continue_prompt = take_input(
         'Progress auto saved. \nEnter "\\s" to save a separate record and start a new game.\nEnter "\\q" to quit. Enter any other button to start a new game.\n').upper()
     if continue_prompt == "\\S":
@@ -172,6 +173,7 @@ def play_once():
 
 def play_loop():
     # display welcome message
+    player.load_data()
     player.welcome()
     try:
         # main play loop

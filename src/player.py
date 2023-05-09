@@ -1,3 +1,6 @@
+import json
+
+
 class StartAgainException(Exception):
     pass
 
@@ -6,8 +9,34 @@ class StartAgainException(Exception):
 class Player():
     def __init__(self, name):
         self.spell_check_enabled = True
-        self.save_data = []
         self.name = name
+        self.records = []
+
+    def save_data(self):
+        save = {"name": self.name,
+                "spell_check_enabled": self.spell_check_enabled, "records": self.records}
+        with open(f'user_data/save_{self.name}.json', 'w') as f:
+            json.dump(save, f, indent=4)
+        print(f'data saved to user_data/save_{self.name}.json')
+
+    def load_data(self):
+        try:
+            with open(f'user_data/save_{self.name}.json') as f:
+                save = json.load(f)
+                self.spell_check_enabled = save["spell_check_enabled"]
+                self.records = save["records"]
+            print(
+                f'data loaded from user_data/save_{self.name}.json\ndata: {save}')
+        except FileNotFoundError:
+            pass
+
+    def welcome(self):
+        print(f"""   ---------------------------------WELCOME---------------------------------
+        Hi {self.name}, welcome to the game! 
+        You will have 6 chances to guess a 5-letter word.
+        Type '\\q' to exit the app anytime. Type '\\r' to start a new game.
+        Type '\\sc' to toggle on and off spell checks. (NOTE: it will restart the game)
+    -------------------------------------------------------------------------""")
 
     # get current spell check state
     def get_spell_check_enabled(self):
@@ -28,18 +57,10 @@ class Player():
         else:
             print('Back to the main game.')
 
-    def get_save_data(self):
-        return self.save_data
+    def get_records(self):
+        return self.records
 
-    def update_save_data(self, answer, guessed_list, start_time, end_time):
+    def update_records(self, answer, guessed_list, start_time, end_time):
         entry = {'answer': answer, 'guess': guessed_list,
                  'time': [start_time, end_time]}
-        self.save_data.append(entry)
-
-    def welcome(self):
-        print(f"""   ---------------------------------WELCOME---------------------------------
-        Hi {self.name}, welcome to the game! 
-        You will have 6 chances to guess a 5-letter word.
-        Type '\\q' to exit the app anytime. Type '\\r' to start a new game.
-        Type '\\sc' to toggle on and off spell checks. (NOTE: it will restart the game)
-    -------------------------------------------------------------------------""")
+        self.records.append(entry)
