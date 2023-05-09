@@ -20,7 +20,7 @@ class Player():
         if confirmed.upper() == 'Y':
             self.spell_check_enabled = not self.spell_check_enabled
             print(
-                f"Spell check setting is now {'on' if self.spell_check_enabled else 'off'}")
+                f"Spell check setting is now {'on' if self.spell_check_enabled else 'off'}.")
             raise StartAgainException
         else:
             print('Back to the main game.')
