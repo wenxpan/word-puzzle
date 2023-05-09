@@ -1,6 +1,6 @@
 {
     "name": "test-user",
-    "spell_check_enabled": true,
+    "spell_check_enabled": false,
     "records": [
         {
             "answer": "STORY",
@@ -58,6 +58,31 @@
             "time": [
                 "2023-05-09 20:42:09",
                 "2023-05-09 20:42:11"
+            ]
+        },
+        {
+            "answer": "OWNED",
+            "guess": [
+                "OWNED"
+            ],
+            "time": [
+                "2023-05-09 21:21:46",
+                "2023-05-09 21:21:51"
+            ]
+        },
+        {
+            "answer": "QUICK",
+            "guess": [
+                "APPLE",
+                "PUPIL",
+                "MOUNT",
+                "APPLY",
+                "SAVER",
+                "LIFER"
+            ],
+            "time": [
+                "2023-05-09 21:21:59",
+                "2023-05-09 21:22:11"
             ]
         }
     ]

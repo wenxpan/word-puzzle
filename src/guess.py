@@ -30,11 +30,8 @@ def take_input(prompt):
     elif user_input.upper() == '\\R':
         raise StartAgainException
 
-    # toggle spellcheck
-    elif user_input.upper() == '\\SC':
-        player.toggle_spell_check_enabled()
-
-    return user_input
+    else:
+        return user_input
 
 
 # check the user guess is a valid 5 letter word and not already guessed

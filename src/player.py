@@ -5,7 +5,26 @@ class StartAgainException(Exception):
     pass
 
 
+def validate_player():
+    while True:
+        name = input('please enter player name.\n')
+        try:
+            with open(f'user_data/save_{name}.json') as f:
+                player = Player(name)
+                player.load_data()
+                return player
+        except FileNotFoundError:
+            prompt = input(
+                'profile not found. Enter "Y" to create a profile. Enter any other key to enter another player name.\n')
+            if prompt == "Y":
+                player = Player(name)
+                player.save_data()
+                return player
+
+
 # class with game settings
+
+
 class Player():
     def __init__(self, name):
         self.spell_check_enabled = True
@@ -20,15 +39,12 @@ class Player():
         print(f'data saved to user_data/save_{self.name}.json')
 
     def load_data(self):
-        try:
-            with open(f'user_data/save_{self.name}.json') as f:
-                save = json.load(f)
-                self.spell_check_enabled = save["spell_check_enabled"]
-                self.records = save["records"]
-            print(
-                f'data loaded from user_data/save_{self.name}.json')
-        except FileNotFoundError:
-            pass
+        with open(f'user_data/save_{self.name}.json') as f:
+            save = json.load(f)
+            self.spell_check_enabled = save["spell_check_enabled"]
+            self.records = save["records"]
+        print(
+            f'data loaded from user_data/save_{self.name}.json')
 
     def calculate_wins(self):
         win_count = 0
@@ -40,15 +56,14 @@ class Player():
 
     def show_status(self):
         print(self.calculate_wins())
-        print(f'spellcheck: {self.display_spell_check_status}')
+        print(f'spellcheck: {self.display_spell_check_status()}')
         print('options: toggle Spellcheck / upload word list / export records')
 
     def welcome(self):
         print(f"""   ---------------------------------WELCOME---------------------------------
         Hi {self.name}, welcome to the game! 
         You will have 6 chances to guess a 5-letter word.
-        Type '\\q' to exit the app anytime. Type '\\r' to start a new game.
-        Type '\\sc' to toggle on and off spell checks. (NOTE: it will restart the game)
+        Type '\\q' to exit the app anytime. Type '\\r' to restart the game.
     -------------------------------------------------------------------------""")
 
     # get current spell check state
@@ -60,15 +75,9 @@ class Player():
 
     # toggle spell check on or off
     def toggle_spell_check_enabled(self):
-        confirmed = input(
-            f"Spell check setting is currently {self.display_spell_check_status()}. Toggling spell check will start a new game. \nEnter 'Y' to confirm. \nEnter any other button to exit setting.\n")
-        if confirmed.upper() == 'Y':
-            self.spell_check_enabled = not self.spell_check_enabled
-            print(
-                f"Spell check setting is now {self.display_spell_check_status()}.")
-            raise StartAgainException
-        else:
-            print('Back to the main game.')
+        self.spell_check_enabled = not self.spell_check_enabled
+        print(
+            f"Spell check setting is now {self.display_spell_check_status()}.")
 
     def get_records(self):
         return self.records
