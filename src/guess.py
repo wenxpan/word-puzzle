@@ -10,17 +10,7 @@ with open('data/sgb-words-filtered.txt') as f:
     word_list = list(f.read().splitlines())
 
 
-player1 = Player()
-
-
-# show welcome message at launch
-def welcome():
-    print("""   ---------------------------------WELCOME---------------------------------
-    Welcome to the game! 
-    You will have 6 chances to guess a 5-letter word.
-    Type '\\q' to exit the app anytime. Type '\\r' to start a new game.
-    Type '\\sc' to toggle on and off spell checks. (NOTE: it will restart the game)
-   -------------------------------------------------------------------------""")
+player = Player('test-user')
 
 
 # return random word from word list
@@ -42,7 +32,7 @@ def take_input(prompt):
 
     # toggle spellcheck
     elif user_input.upper() == '\\SC':
-        player1.toggle_spell_check_enabled()
+        player.toggle_spell_check_enabled()
 
     return user_input
 
@@ -62,7 +52,7 @@ def check_input_word(guessed_list):
         elif not guess.isalpha() or len(guess) != 5:
             print('Input not valid. Please enter a 5-letter English word\n')
         # if spell check enabled, check if it is misspelled
-        elif player1.get_spell_check_enabled() and misspelled:
+        elif player.get_spell_check_enabled() and misspelled:
             print(
                 f'Word not found in dictionary.\n')
         # return guessed word if all validation passed
@@ -151,11 +141,10 @@ def play_once():
     message = '\n'
     print(f'****for dev: word is {answer}****')
     start_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-    print(start_time)
     # loop 6 rounds of guess
     for i in range(1, 7, 1):
         print(
-            f"==========================================\n(Round: {i}/6              SpellCheck: {'on' if player1.get_spell_check_enabled() else 'off'})\n")
+            f"==========================================\n(Round: {i}/6              SpellCheck: {player.display_spell_check_status()})\n")
         # get a valid word for analysis
         guess = check_input_word(guessed_list)
         # add the word to guessed list
@@ -174,16 +163,16 @@ def play_once():
         print(f'You lose! The answer is {answer}')
     # check how the user would like to continue
     end_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-    print(end_time)
+    player.update_save_data(answer, guessed_list, start_time, end_time)
     continue_prompt = take_input(
-        'Enter "\\s" to save a record and start a new game.\nEnter "\\q" to quit. Enter any other button to start a new game.\n').upper()
+        'Progress auto saved. \nEnter "\\s" to save a separate record and start a new game.\nEnter "\\q" to quit. Enter any other button to start a new game.\n').upper()
     if continue_prompt == "\\S":
         export_record(guessed_list, answer, end_time)
 
 
 def play_loop():
     # display welcome message
-    welcome()
+    player.welcome()
     try:
         # main play loop
         while True:
