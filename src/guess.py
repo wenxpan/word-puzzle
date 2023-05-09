@@ -3,37 +3,14 @@ from rich import print
 from rich.prompt import Prompt
 from datetime import datetime
 from spellchecker import SpellChecker
+from player import Player, StartAgainException
 
 # open word list file and create a word list
 with open('data/sgb-words-filtered.txt') as f:
     word_list = list(f.read().splitlines())
 
 
-# class with game settings
-class GameSetting():
-    def __init__(self):
-        self.spell_check_enabled = True
-
-    # get current spell check state
-
-    def get_spell_check_enabled(self):
-        return self.spell_check_enabled
-
-    # toggle spell check on or off
-
-    def toggle_spell_check_enabled(self):
-        confirmed = input(
-            f"Spell check setting is currently {'on' if self.spell_check_enabled else 'off'}. Toggling spell check will start a new game. \nEnter 'Y' to confirm. \nEnter any other button to exit setting.\n")
-        if confirmed.upper() == 'Y':
-            self.spell_check_enabled = not self.spell_check_enabled
-            print(
-                f"Spell check setting is now {'on' if self.spell_check_enabled else 'off'}")
-            raise StartAgainException
-        else:
-            print('Back to the main game.')
-
-
-game_setting = GameSetting()
+player1 = Player()
 
 
 # show welcome message at launch
@@ -51,15 +28,6 @@ def get_random_word(words):
     return random.choice(words)
 
 
-# define two exception classes
-class StartAgainException(Exception):
-    pass
-
-
-class ToggleSpellCheckException(Exception):
-    pass
-
-
 # take user input and validate if it is special command; if not, return the input value
 def take_input(prompt):
     user_input = input(prompt)
@@ -74,7 +42,7 @@ def take_input(prompt):
 
     # toggle spellcheck
     elif user_input.upper() == '\\SC':
-        game_setting.toggle_spell_check_enabled()
+        player1.toggle_spell_check_enabled()
 
     return user_input
 
@@ -94,7 +62,7 @@ def check_input_word(guessed_list):
         elif not guess.isalpha() or len(guess) != 5:
             print('Input not valid. Please enter a 5-letter English word\n')
         # if spell check enabled, check if it is misspelled
-        elif game_setting.get_spell_check_enabled() and misspelled:
+        elif player1.get_spell_check_enabled() and misspelled:
             print(
                 f'Word not found in dictionary.\n')
         # return guessed word if all validation passed
@@ -185,7 +153,7 @@ def play_once():
     # loop 6 rounds of guess
     for i in range(1, 7, 1):
         print(
-            f"==========================================\n(Round: {i}/6              SpellCheck: {'on' if game_setting.get_spell_check_enabled() else 'off'})\n")
+            f"==========================================\n(Round: {i}/6              SpellCheck: {'on' if player1.get_spell_check_enabled() else 'off'})\n")
         # get a valid word for analysis
         guess = check_input_word(guessed_list)
         # add the word to guessed list
