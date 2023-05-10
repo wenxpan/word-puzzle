@@ -24,27 +24,28 @@ def setting():
     while True:
         player.show_status()
         prompt = input(show_options())
-        if prompt == "1":
-            player.toggle_spell_check_enabled()
-        elif prompt == "2":
-            pass
-        elif prompt == "3":
-            pass
-        elif prompt == "4":
-            player.set_list_path()
-        elif prompt == "\\s":
-            player.save_data()
-            print('Changes saved.\n')
-        elif prompt == '\\r':
-            player.load_data()
-            pass
-        elif prompt == "\\q":
-            confirm = input(
-                'Confirm you want to quit? Type "Y" to confirm.\n').upper()
-            if confirm == "Y":
-                break
-        else:
-            print('Invalid input.')
+        match prompt:
+            case "1":
+                player.toggle_spell_check_enabled()
+            case "2":
+                pass
+            case "3":
+                pass
+            case "4":
+                player.set_list_path()
+            case "\\s":
+                player.save_data()
+                print('Changes saved.\n')
+            case '\\r':
+                player.load_data()
+                pass
+            case "\\q":
+                confirm = input(
+                    'Confirm you want to quit? Type "Y" to confirm.\n').upper()
+                if confirm == "Y":
+                    break
+            case other:
+                print('Invalid input.')
     print('See you next time!')
 
 
