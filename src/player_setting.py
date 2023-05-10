@@ -8,10 +8,12 @@ def show_options():
         '2': 'show records',
         '3': 'export records (txt)',
         '4': 'select word list',
-        '5': 'save changes',
-        '6': 'close'}
+        '5': "rename",
+        '\\s': 'save changes',
+        '\\r': 'reset',
+        '\\q': 'close'}
     message = 'What do you want to do?\n'
-    for k, v in instructions:
+    for k, v in instructions.items():
         message += f'{k} - {v}\n'
     return message
 
@@ -19,8 +21,8 @@ def show_options():
 def setting():
     player = validate_player()
     print(f'Welcome, {player.name}!')  # change this to method
-    player.show_status()
     while True:
+        player.show_status()
         prompt = input(show_options())
         if prompt == "1":
             player.toggle_spell_check_enabled()
@@ -29,14 +31,16 @@ def setting():
         elif prompt == "3":
             pass
         elif prompt == "4":
-            pass
-        elif prompt == "5":
+            player.set_list_path()
+        elif prompt == "\\s":
             player.save_data()
-            print('Changes saved.')
-            break
-        elif prompt == "6":
+            print('Changes saved.\n')
+        elif prompt == '\\r':
+            player.load_data()
+            pass
+        elif prompt == "\\q":
             confirm = input(
-                'Discarding all changes and quit? Type "Y" to confirm.').upper()
+                'Confirm you want to quit? Type "Y" to confirm.\n').upper()
             if confirm == "Y":
                 break
         else:

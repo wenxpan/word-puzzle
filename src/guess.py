@@ -35,7 +35,7 @@ def take_input(prompt):
 
 
 # check the user guess is a valid 5 letter word and not already guessed
-def check_input_word(guessed_list):
+def check_input_word(guessed_list, word_length):
     # repeatedly ask for input until it receives a valid word for analysis
     while True:
         # convert to uppercase to compare with previous results
@@ -46,8 +46,9 @@ def check_input_word(guessed_list):
         if guess in guessed_list:
             print('You already guessed this word!\n')
         # check if input is an English word and 5 letters long
-        elif not guess.isalpha() or len(guess) != 5:
-            print('Input not valid. Please enter a 5-letter English word\n')
+        elif not guess.isalpha() or len(guess) != word_length:
+            print(
+                f'Input not valid. Please enter a {word_length}-letter English word\n')
         # if spell check enabled, check if it is misspelled
         elif player.get_spell_check_enabled() and misspelled:
             print(
@@ -66,9 +67,9 @@ def check_exact_match(answer, guess):
 
 
 # analyse user input and compare each letter
-def check_letter(answer, guess):
+def check_letter(answer, guess, word_length):
     # set up result array, 0 = wrong, 1 = misplaced, 2 = correct
-    result = [0] * 5
+    result = [0] * word_length
     # convert answer string to a list, to compare both letter and order
     answer_list = list(answer)
     # round 1: check for correct letters
@@ -120,6 +121,7 @@ def highlight_word(guess, result_list):
 def play_once():
     # draw a random word from list
     answer = get_random_word(word_list[0:500]).upper()
+    word_length = len(answer)
     # set a list of guessed words
     guessed_list = []
     # set initial message
@@ -131,7 +133,7 @@ def play_once():
         print(
             f"==========================================\n(Round: {i}/6              SpellCheck: {player.display_spell_check_status()})\n")
         # get a valid word for analysis
-        guess = check_input_word(guessed_list)
+        guess = check_input_word(guessed_list, word_length)
         # add the word to guessed list
         guessed_list.append(guess)
         # if guess matches answer, show winning message and end the loop
@@ -140,7 +142,7 @@ def play_once():
             break
         # if not won, compare and show result
         else:
-            result = check_letter(answer, guess)
+            result = check_letter(answer, guess, word_length)
             message += highlight_word(guess, result)
             print(message)
     # after loop ends and the user has not won, display losing message

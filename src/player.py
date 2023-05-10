@@ -36,15 +36,21 @@ class Player():
     def get_list_path(self):
         return self.list_path
 
-    def set_list_path(self, path):
+    def set_list_path(self):
         print('Current lists in the folder:')
-        print(os.listdir('word_lists'), sep='\n')
-        path = input('please enter the file name you want to use')
-        self.list_path = f'word_lists/{path}'
+        print(*os.listdir('word_lists'), sep='\n')
+        while True:
+            path = input('please enter the file name you want to use\n\n')
+            if path in os.listdir('word_lists'):
+                self.list_path = f'word_lists/{path}'
+                print(f'word list now set to word_lists/{path}')
+                break
+            else:
+                print('invalid. try again.')
 
     def save_data(self):
         save = {"name": self.name,
-                "spell_check_enabled": self.spell_check_enabled, "records": self.records}
+                "spell_check_enabled": self.spell_check_enabled, "list_path": self.list_path, "records": self.records}
         with open(f'user_data/save_data.json', 'w') as f:
             json.dump(save, f, indent=4)
         print(f'data saved to user_data/save_data.json')
@@ -54,6 +60,7 @@ class Player():
             save = json.load(f)
             self.name = save["name"]
             self.spell_check_enabled = save["spell_check_enabled"]
+            self.list_path = save["list_path"]
             self.records = save["records"]
         print(
             f'data loaded from user_data/save_data.json')
