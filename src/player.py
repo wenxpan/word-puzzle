@@ -6,45 +6,42 @@ class StartAgainException(Exception):
 
 
 def validate_player():
-    while True:
-        name = input('please enter player name.\n')
-        try:
-            with open(f'user_data/save_{name}.json') as f:
-                player = Player(name)
-                player.load_data()
-                return player
-        except FileNotFoundError:
-            prompt = input(
-                'profile not found. Enter "Y" to create a profile. Enter any other key to enter another player name.\n')
-            if prompt == "Y":
-                player = Player(name)
-                player.save_data()
-                return player
+    try:
+        player = Player()
+        player.load_data()
+    except FileNotFoundError:
+        prompt = input(
+            'Enter your name to create a profile:\n')
+        player = Player()
+        player.set_name(prompt)
+        player.save_data()
+    return player
 
 
 # class with game settings
-
-
 class Player():
-    def __init__(self, name):
+    def __init__(self):
         self.spell_check_enabled = True
-        self.name = name
+        self.name = ''
         self.records = []
+
+    def set_name(self, name):
+        self.name = name
 
     def save_data(self):
         save = {"name": self.name,
                 "spell_check_enabled": self.spell_check_enabled, "records": self.records}
-        with open(f'user_data/save_{self.name}.json', 'w') as f:
+        with open(f'user_data/save_data.json', 'w') as f:
             json.dump(save, f, indent=4)
-        print(f'data saved to user_data/save_{self.name}.json')
+        print(f'data saved to user_data/save_data.json')
 
     def load_data(self):
-        with open(f'user_data/save_{self.name}.json') as f:
+        with open(f'user_data/save_data.json') as f:
             save = json.load(f)
             self.spell_check_enabled = save["spell_check_enabled"]
             self.records = save["records"]
         print(
-            f'data loaded from user_data/save_{self.name}.json')
+            f'data loaded from user_data/save_data.json')
 
     def calculate_wins(self):
         win_count = 0

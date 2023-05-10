@@ -3,7 +3,7 @@ from player import validate_player
 
 def setting():
     player = validate_player()
-    print(f'Welcome, {player.name}!')
+    print(f'Welcome, {player.name}!')  # change this to method
     player.show_status()
     while True:
         prompt = input(
