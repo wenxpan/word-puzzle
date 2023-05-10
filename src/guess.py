@@ -3,14 +3,14 @@ from rich import print
 from rich.prompt import Prompt
 from datetime import datetime
 from spellchecker import SpellChecker
-from player import Player, StartAgainException
+from player import Player, StartAgainException, validate_player
+
+player = validate_player()
+
 
 # open word list file and create a word list
-with open('data/sgb-words-filtered.txt') as f:
+with open(player.get_list_path()) as f:
     word_list = list(f.read().splitlines())
-
-
-player = Player('test-user')
 
 
 # return random word from word list

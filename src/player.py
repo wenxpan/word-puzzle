@@ -1,4 +1,5 @@
 import json
+import os
 
 
 class StartAgainException(Exception):
@@ -24,9 +25,22 @@ class Player():
         self.spell_check_enabled = True
         self.name = ''
         self.records = []
+        self.list_path = 'word_lists/5-letter-words-easy.txt'
 
     def set_name(self, name):
         self.name = name
+
+    def get_name(self):
+        return self.name
+
+    def get_list_path(self):
+        return self.list_path
+
+    def set_list_path(self, path):
+        print('Current lists in the folder:')
+        print(os.listdir('word_lists'), sep='\n')
+        path = input('please enter the file name you want to use')
+        self.list_path = f'word_lists/{path}'
 
     def save_data(self):
         save = {"name": self.name,
@@ -38,6 +52,7 @@ class Player():
     def load_data(self):
         with open(f'user_data/save_data.json') as f:
             save = json.load(f)
+            self.name = save["name"]
             self.spell_check_enabled = save["spell_check_enabled"]
             self.records = save["records"]
         print(
@@ -54,7 +69,7 @@ class Player():
     def show_status(self):
         print(self.calculate_wins())
         print(f'spellcheck: {self.display_spell_check_status()}')
-        print('options: toggle Spellcheck / upload word list / export records')
+        print(f'Selected word list: {self.list_path}')
 
     def welcome(self):
         print(f"""   ---------------------------------WELCOME---------------------------------

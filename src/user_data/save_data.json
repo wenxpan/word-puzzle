@@ -1,5 +1,16 @@
 {
-    "name": "test",
-    "spell_check_enabled": false,
-    "records": []
+    "name": "Sayo",
+    "spell_check_enabled": true,
+    "records": [
+        {
+            "answer": "TOWNS",
+            "guess": [
+                "TOWNS"
+            ],
+            "time": [
+                "2023-05-10 16:40:00",
+                "2023-05-10 16:40:10"
+            ]
+        }
+    ]
 }
