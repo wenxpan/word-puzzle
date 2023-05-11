@@ -63,7 +63,7 @@ class Player():
                 if path_index in range(0, len(path_list)):
                     self.list_path = f'word_lists/{path_list[path_index]}'
                     print(
-                        f'word list now set to word_lists/{path_list[path_index]}')
+                        f'word list now set to word_lists/{path_list[path_index]}\nNote: remember to toggle off spell check if the words cannot be found in dictionary!')
                     break
                 else:
                     raise ValueError
@@ -138,9 +138,6 @@ class Player():
                  'time': [start_time, end_time]}
         self.records.append(entry)
 
-    def delete_player(self):
-        pass
-
     def clear_record(self):
         self.records = []
 
@@ -181,27 +178,3 @@ class Player():
     def export_records_latest(self):
         start_time = self.records[-1]["time"][0]
         self.export_records([self.records[-1]], start_time)
-
-
-# "records": [
-#         {
-#             "answer": "STONE",
-#             "guess": [
-#                 "APPLE",
-#                 "APPLY"
-#             ],
-#             "time": [
-#                 "2023-05-11 13:15:43",
-#                 "2023-05-11 13:16:05"
-#             ]
-#         },
-#         {
-#             "answer": "CRIPPLE",
-#             "guess": [
-#                 "CRIPPLE"
-#             ],
-#             "time": [
-#                 "2023-05-11 13:54:10",
-#                 "2023-05-11 13:54:14"
-#             ]
-#         }]
