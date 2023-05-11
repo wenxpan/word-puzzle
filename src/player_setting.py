@@ -16,16 +16,13 @@ def show_options():
     message = 'What do you want to do?\n'
     for k, v in instructions.items():
         message += f'{k} - {v}\n'
-    return message
+    print(message)
 
 
-def setting():
-    player = validate_player()
-    print(f'Welcome, {player.name}!')  # change this to method
+def change_settings_loop(player):
     while True:
         player.show_status()
-        text = show_options()
-        print(f'{text: ^20}')
+        show_options()
         prompt = input()
         match prompt:
             case "1":
@@ -53,6 +50,12 @@ def setting():
                     break
             case other:
                 print('Invalid input.')
+
+
+def setting():
+    player = validate_player()
+    print(f'Welcome, {player.get_name()}!')
+    change_settings_loop(player)
     print('See you next time!')
 
 
