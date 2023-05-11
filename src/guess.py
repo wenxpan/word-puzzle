@@ -126,12 +126,13 @@ def play_once():
     guessed_list = []
     # set initial message
     message = '\n'
+    num_chances = player.get_num_chances()
     print(f'****for dev: word is {answer}****')
     start_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
     # loop 6 rounds of guess
-    for i in range(1, 7, 1):
+    for i in range(1, num_chances+1, 1):
         print(
-            f"==========================================\n(Round: {i}/6              SpellCheck: {player.display_spell_check_status()})\n")
+            f"==========================================\n(Round: {i}/{num_chances}              SpellCheck: {player.display_spell_check_status()})\n")
         # get a valid word for analysis
         guess = check_input_word(guessed_list, word_length)
         # add the word to guessed list

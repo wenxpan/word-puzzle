@@ -9,6 +9,7 @@ def show_options():
         '3': 'export records (txt)',
         '4': 'select word list',
         '5': "rename",
+        '6': 'set number of chances',
         '\\s': 'save changes',
         '\\r': 'reset',
         '\\q': 'close'}
@@ -37,6 +38,8 @@ def setting():
                 player.set_list_path()
             case "5":
                 player.set_name(input("Enter new name:\n"))
+            case "6":
+                player.set_num_chances()
             case "\\s":
                 player.save_data()
                 print('Changes saved.\n')

@@ -23,9 +23,22 @@ def validate_player():
 class Player():
     def __init__(self):
         self.spell_check_enabled = True
-        self.name = ''
+        self.name = 'user'
         self.records = []
         self.list_path = 'word_lists/5-letter-words-easy.txt'
+        self.num_chances = 6
+
+    def get_num_chances(self):
+        return self.num_chances
+
+    def set_num_chances(self):
+        num = input('Enter number of chances:\n')
+        while True:
+            try:
+                self.num_chances = int(num)
+                break
+            except:
+                print('Please input number. Try again.')
 
     def set_name(self, name):
         self.name = name
@@ -50,7 +63,10 @@ class Player():
 
     def save_data(self):
         save = {"name": self.name,
-                "spell_check_enabled": self.spell_check_enabled, "list_path": self.list_path, "records": self.records}
+                "spell_check_enabled": self.spell_check_enabled,
+                "num_chances": self.num_chances,
+                "list_path": self.list_path,
+                "records": self.records}
         with open(f'user_data/save_data.json', 'w') as f:
             json.dump(save, f, indent=4)
         print(f'data saved to user_data/save_data.json')
@@ -58,10 +74,15 @@ class Player():
     def load_data(self):
         with open(f'user_data/save_data.json') as f:
             save = json.load(f)
-            self.name = save["name"]
-            self.spell_check_enabled = save["spell_check_enabled"]
-            self.list_path = save["list_path"]
-            self.records = save["records"]
+            try:
+                self.name = save["name"]
+                self.spell_check_enabled = save["spell_check_enabled"]
+                self.num_chances = save["num_chances"]
+                self.list_path = save["list_path"]
+                self.records = save["records"]
+            except:
+                print(
+                    'save file corrupted. Default settings will be used.')
         print(
             f'data loaded from user_data/save_data.json')
 
@@ -77,6 +98,7 @@ class Player():
         print(self.calculate_wins())
         print(f'Player: {self.name}')
         print(f'spellcheck: {self.display_spell_check_status()}')
+        print(f'number of chances:{self.num_chances}')
         print(f'Selected word list: {self.list_path}')
 
     def welcome(self):
