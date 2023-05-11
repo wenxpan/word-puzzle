@@ -157,9 +157,9 @@ class Player():
         print(
             f"Record saved! You can find it in user_data/record/record_{name}.txt")
 
-    def export_all_records(self):
-        record_list = self.records
-        with open(f'user_data/record_{self.name}.txt', 'w') as f:
+    def export_records(self, record_list, name):
+        # record_list = self.records
+        with open(f'user_data/record_{name}.txt', 'w') as f:
             for entry_dict in record_list:
                 answer = entry_dict['answer']
                 guessed_list = entry_dict['guess']
@@ -172,6 +172,15 @@ class Player():
                     f.write(f"  | {' '.join(word)} |  \n")
                 f.write(decorator)
                 f.write(f'CORRECT WORD IS: {answer}\n\n')
+        print(
+            f"Record saved! You can find it in user_data/record/record_{name}.txt")
+
+    def export_records_all(self):
+        self.export_records(self.records, self.name)
+
+    def export_records_latest(self):
+        start_time = self.records[-1]["time"][0]
+        self.export_records([self.records[-1]], start_time)
 
 
 # "records": [

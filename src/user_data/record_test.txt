@@ -31,3 +31,29 @@ Start time: 2023-05-11 14:04:50
 =================
 CORRECT WORD IS: AHEAD
 
+Start time: 2023-05-11 14:25:43
+=================
+  | F I X E D |  
+=================
+CORRECT WORD IS: FIXED
+
+Start time: 2023-05-11 14:26:06
+=================
+  | H U R R Y |  
+=================
+CORRECT WORD IS: HURRY
+
+Start time: 2023-05-11 14:26:41
+=================
+  | L Y I N G |  
+=================
+CORRECT WORD IS: LYING
+
+Start time: 2023-05-11 14:26:44
+=================
+  | A P P L E |  
+  | A P P L Y |  
+  | S I G N S |  
+=================
+CORRECT WORD IS: SIGNS
+

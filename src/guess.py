@@ -156,7 +156,7 @@ def play_once():
     continue_prompt = take_input(
         'Progress auto saved. \nEnter "\\s" to save a separate record and start a new game.\nEnter "\\q" to quit. Enter any other button to start a new game.\n').upper()
     if continue_prompt == "\\S":
-        player.export_record(guessed_list, answer, end_time)
+        player.export_records_latest()
 
 
 def play_loop():
