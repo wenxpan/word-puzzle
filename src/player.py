@@ -2,11 +2,7 @@ import json
 import os
 
 
-class StartAgainException(Exception):
-    pass
-
-
-def validate_player():
+def create_player():
     try:
         player = Player()
         player.load_data()
@@ -109,13 +105,6 @@ class Player():
         print(f'spellcheck: {self.display_spell_check_status()}')
         print(f'number of chances:{self.num_chances}')
         print(f'Selected word list: {self.list_path}')
-
-    def welcome(self):
-        print(f"""   ---------------------------------WELCOME---------------------------------
-        Hi {self.name}, welcome to the game! 
-        You will have {self.num_chances} chances to guess a English word.
-        Type '\\q' to exit the app anytime. Type '\\r' to restart the game.
-    -------------------------------------------------------------------------""")
 
     # get current spell check state
     def get_spell_check_enabled(self):

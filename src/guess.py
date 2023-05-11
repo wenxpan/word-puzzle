@@ -3,9 +3,21 @@ from rich import print
 from rich.prompt import Prompt
 from datetime import datetime
 from spellchecker import SpellChecker
-from player import Player, StartAgainException, validate_player
+from player import create_player
 
-player = validate_player()
+player = create_player()
+
+
+class StartAgainException(Exception):
+    pass
+
+
+def welcome(name, num_chances):
+    print(f"""   ---------------------------------WELCOME---------------------------------
+    Hi {name}, welcome to the game! 
+    You will have {num_chances} chances to guess a English word.
+    Type '\\q' to exit the app anytime. Type '\\r' to restart the game.
+-------------------------------------------------------------------------""")
 
 
 # open word list file and create a word list
@@ -162,7 +174,7 @@ def play_once():
 def play_loop():
     # display welcome message
     player.load_data()
-    player.welcome()
+    welcome(player.get_name(), player.get_num_chances())
     try:
         # main play loop
         while True:
