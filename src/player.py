@@ -58,7 +58,9 @@ class Player():
             try:
                 path_index = int(
                     input('please enter the file name you want to use\n\n')) - 1
-                if path_index in range(1, len(path_list)):
+                x = range(1, len(path_list))
+                print('index', x)
+                if path_index in range(0, len(path_list)):
                     self.list_path = f'word_lists/{path_list[path_index]}'
                     print(
                         f'word list now set to word_lists/{path_list[path_index]}')
@@ -142,19 +144,55 @@ class Player():
     def clear_record(self):
         self.records = []
 
-    def display_records(self):
-        pass
-
-    def export_records(self):
-        pass
-
     # export record as txt file
+
     def export_record(self, guessed_list, answer, name):
         with open(f'user_data/record_{name}.txt', 'w') as f:
-            f.write('=================\n')
+            decorator = f'{"=" * (2*len(answer) + 7)}\n'
+            f.write(decorator)
             for word in guessed_list:
                 f.write(f"  | {' '.join(word)} |  \n")
-            f.write('=================\n')
+            f.write(decorator)
             f.write(f'CORRECT WORD IS: {answer}\n')
         print(
             f"Record saved! You can find it in user_data/record/record_{name}.txt")
+
+    def export_all_records(self):
+        record_list = self.records
+        with open(f'user_data/record_{self.name}.txt', 'w') as f:
+            for entry_dict in record_list:
+                answer = entry_dict['answer']
+                guessed_list = entry_dict['guess']
+                time = entry_dict['time'][0]
+
+                f.write(f'Start time: {time}\n')
+                decorator = f'{"=" * (2*len(answer) + 7)}\n'
+                f.write(decorator)
+                for word in guessed_list:
+                    f.write(f"  | {' '.join(word)} |  \n")
+                f.write(decorator)
+                f.write(f'CORRECT WORD IS: {answer}\n\n')
+
+
+# "records": [
+#         {
+#             "answer": "STONE",
+#             "guess": [
+#                 "APPLE",
+#                 "APPLY"
+#             ],
+#             "time": [
+#                 "2023-05-11 13:15:43",
+#                 "2023-05-11 13:16:05"
+#             ]
+#         },
+#         {
+#             "answer": "CRIPPLE",
+#             "guess": [
+#                 "CRIPPLE"
+#             ],
+#             "time": [
+#                 "2023-05-11 13:54:10",
+#                 "2023-05-11 13:54:14"
+#             ]
+#         }]

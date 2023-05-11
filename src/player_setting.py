@@ -26,7 +26,7 @@ def change_settings_loop(player):
             case "1":
                 player.toggle_spell_check_enabled()
             case "2":
-                pass
+                player.export_all_records()
             case "3":
                 player.set_list_path()
             case "4":
