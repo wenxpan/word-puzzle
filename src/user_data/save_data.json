@@ -2,7 +2,7 @@
     "name": "test",
     "spell_check_enabled": true,
     "num_chances": 10,
-    "list_path": "word_lists/5-letter-words-easy.txt",
+    "list_path": "word_lists/7-letter-words-common.txt",
     "records": [
         {
             "answer": "STONE",

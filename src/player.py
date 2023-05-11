@@ -51,14 +51,21 @@ class Player():
 
     def set_list_path(self):
         print('Current lists in the folder:')
-        print(*os.listdir('word_lists'), sep='\n')
+        path_list = os.listdir('word_lists')
+        for i, v in enumerate(path_list):
+            print(f'{i+1} - {v}')
         while True:
-            path = input('please enter the file name you want to use\n\n')
-            if path in os.listdir('word_lists'):
-                self.list_path = f'word_lists/{path}'
-                print(f'word list now set to word_lists/{path}')
-                break
-            else:
+            try:
+                path_index = int(
+                    input('please enter the file name you want to use\n\n')) - 1
+                if path_index in range(1, len(path_list)):
+                    self.list_path = f'word_lists/{path_list[path_index]}'
+                    print(
+                        f'word list now set to word_lists/{path_list[path_index]}')
+                    break
+                else:
+                    raise ValueError
+            except ValueError:
                 print('invalid. try again.')
 
     def save_data(self):
