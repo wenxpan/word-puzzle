@@ -39,7 +39,7 @@ def check_input_word(guessed_list, word_length):
     # repeatedly ask for input until it receives a valid word for analysis
     while True:
         # convert to uppercase to compare with previous results
-        guess = take_input('Take a guess: ').upper()
+        guess = take_input(f'Take a guess: ({word_length} letters)\n').upper()
         spell = SpellChecker()
         misspelled = bool(spell.unknown([guess]))
         # check if word is already guessed

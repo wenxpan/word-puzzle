@@ -1,15 +1,13 @@
 from player import validate_player
-import os
 
 
 def show_options():
     instructions = {
         '1': 'toggle spell check',
-        '2': 'show records',
-        '3': 'export records (txt)',
-        '4': 'select word list',
-        '5': "rename",
-        '6': 'set number of chances',
+        '2': 'export records (txt)',
+        '3': 'select word list',
+        '4': "rename",
+        '5': 'set number of chances',
         '\\s': 'save changes',
         '\\r': 'reset',
         '\\q': 'close'}
@@ -30,12 +28,10 @@ def change_settings_loop(player):
             case "2":
                 pass
             case "3":
-                pass
-            case "4":
                 player.set_list_path()
-            case "5":
+            case "4":
                 player.set_name(input("Enter new name:\n"))
-            case "6":
+            case "5":
                 player.set_num_chances()
             case "\\s":
                 player.save_data()

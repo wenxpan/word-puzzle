@@ -111,7 +111,7 @@ class Player():
     def welcome(self):
         print(f"""   ---------------------------------WELCOME---------------------------------
         Hi {self.name}, welcome to the game! 
-        You will have 6 chances to guess a 5-letter word.
+        You will have {self.num_chances} chances to guess a English word.
         Type '\\q' to exit the app anytime. Type '\\r' to restart the game.
     -------------------------------------------------------------------------""")
 
