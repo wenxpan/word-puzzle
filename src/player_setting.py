@@ -8,6 +8,7 @@ def show_options():
         '3': 'select word list',
         '4': "rename",
         '5': 'set number of chances',
+        '6': 'clear records',
         '\\s': 'save changes',
         '\\r': 'reset',
         '\\q': 'close'}
@@ -33,6 +34,8 @@ def change_settings_loop(player):
                 player.set_name(input("Enter new name:\n"))
             case "5":
                 player.set_num_chances()
+            case "6":
+                player.clear_records()
             case "\\s":
                 player.save_data()
                 print('Changes saved.\n')

@@ -138,8 +138,11 @@ class Player():
                  'time': [start_time, end_time]}
         self.records.append(entry)
 
-    def clear_record(self):
-        self.records = []
+    def clear_records(self):
+        if input("Clearing all records? Type 'Y' to confirm.\n").upper() == 'Y':
+            self.records = []
+        else:
+            print('back to setting.')
 
     # export record as txt file
 
@@ -155,22 +158,24 @@ class Player():
             f"Record saved! You can find it in user_data/record/record_{name}.txt")
 
     def export_records(self, record_list, name):
-        # record_list = self.records
-        with open(f'user_data/record_{name}.txt', 'w') as f:
-            for entry_dict in record_list:
-                answer = entry_dict['answer']
-                guessed_list = entry_dict['guess']
-                time = entry_dict['time'][0]
+        if record_list:
+            with open(f'user_data/record_{name}.txt', 'w') as f:
+                for entry_dict in record_list:
+                    answer = entry_dict['answer']
+                    guessed_list = entry_dict['guess']
+                    time = entry_dict['time'][0]
 
-                f.write(f'Start time: {time}\n')
-                decorator = f'{"=" * (2*len(answer) + 7)}\n'
-                f.write(decorator)
-                for word in guessed_list:
-                    f.write(f"  | {' '.join(word)} |  \n")
-                f.write(decorator)
-                f.write(f'CORRECT WORD IS: {answer}\n\n')
-        print(
-            f"Record saved! You can find it in user_data/record/record_{name}.txt")
+                    f.write(f'Start time: {time}\n')
+                    decorator = f'{"=" * (2*len(answer) + 7)}\n'
+                    f.write(decorator)
+                    for word in guessed_list:
+                        f.write(f"  | {' '.join(word)} |  \n")
+                    f.write(decorator)
+                    f.write(f'CORRECT WORD IS: {answer}\n\n')
+                print(
+                    f"Record saved! You can find it in user_data/record/record_{name}.txt")
+        else:
+            print('no record found.')
 
     def export_records_all(self):
         self.export_records(self.records, self.name)
