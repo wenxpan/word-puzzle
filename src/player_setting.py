@@ -1,4 +1,4 @@
-from player import validate_player
+from player import create_player
 
 
 def show_options():
@@ -12,16 +12,16 @@ def show_options():
         '\\s': 'save changes',
         '\\r': 'reset',
         '\\q': 'close'}
-    message = 'What do you want to do?\n'
+    message = '    What do you want to do?\n'
     for k, v in instructions.items():
-        message += f'{k} - {v}\n'
-    print(message)
+        message += f'    {k} - {v}\n'
+    return message
 
 
 def change_settings_loop(player):
     while True:
         player.show_status()
-        show_options()
+        print(show_options())
         prompt = input()
         match prompt:
             case "1":
@@ -52,7 +52,7 @@ def change_settings_loop(player):
 
 
 def setting():
-    player = validate_player()
+    player = create_player()
     print(f'Welcome, {player.get_name()}!')
     change_settings_loop(player)
     print('See you next time!')

@@ -77,19 +77,21 @@ class Player():
         print(f'data saved to user_data/save_data.json')
 
     def load_data(self):
-        with open(f'user_data/save_data.json') as f:
-            save = json.load(f)
-            try:
+        try:
+            with open(f'user_data/save_data.json') as f:
+                save = json.load(f)
+                # for k, _ in save.items():
+                # self[k] = save[k]
                 self.name = save["name"]
                 self.spell_check_enabled = save["spell_check_enabled"]
                 self.num_chances = save["num_chances"]
                 self.list_path = save["list_path"]
                 self.records = save["records"]
-            except:
-                print(
-                    'save file corrupted. Default settings will be used.')
-        print(
-            f'data loaded from user_data/save_data.json')
+            print(
+                f'data loaded from user_data/save_data.json')
+        except KeyError:
+            print(
+                'save file corrupted. Default settings will be used.')
 
     def calculate_wins(self):
         win_count = 0

@@ -1,7 +1,31 @@
 {
-    "name": "test",
+    "name": "user",
     "spell_check_enabled": true,
-    "num_chances": 10,
-    "list_path": "word_lists/first-names.txt",
-    "records": []
+    "num_chances": 6,
+    "list_path": "word_lists/5-letter-words-easy.txt",
+    "records": [
+        {
+            "answer": "CENTS",
+            "guess": [
+                "CENTS"
+            ],
+            "time": [
+                "2023-05-11 17:15:24",
+                "2023-05-11 17:15:26"
+            ]
+        },
+        {
+            "answer": "WINDS",
+            "guess": [
+                "HELLO",
+                "WATER",
+                "DINKS",
+                "WINDS"
+            ],
+            "time": [
+                "2023-05-12 09:07:25",
+                "2023-05-12 09:08:04"
+            ]
+        }
+    ]
 }

@@ -4,20 +4,13 @@ from rich.prompt import Prompt
 from datetime import datetime
 from spellchecker import SpellChecker
 from player import create_player
+from story import print_welcome
 
 player = create_player()
 
 
 class StartAgainException(Exception):
     pass
-
-
-def welcome(name, num_chances):
-    print(f"""   ---------------------------------WELCOME---------------------------------
-    Hi {name}, welcome to the game! 
-    You will have {num_chances} chances to guess a English word.
-    Type '\\q' to exit the app anytime. Type '\\r' to restart the game.
--------------------------------------------------------------------------""")
 
 
 # open word list file and create a word list
@@ -64,7 +57,7 @@ def check_input_word(guessed_list, word_length):
         # if spell check enabled, check if it is misspelled
         elif player.get_spell_check_enabled() and misspelled:
             print(
-                f'Word not found in dictionary.\n')
+                f'Friendly Fairy warns you that the word is not in the dictionary. Try another word!\n')
         # return guessed word if all validation passed
         else:
             return guess
@@ -141,6 +134,7 @@ def play_once():
     num_chances = player.get_num_chances()
     print(f'****for dev: word is {answer}****')
     start_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+    # start_time = datetime.now()
     # loop 6 rounds of guess
     for i in range(1, num_chances+1, 1):
         print(
@@ -163,6 +157,7 @@ def play_once():
         print(f'You lose! The answer is {answer}')
     # check how the user would like to continue
     end_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+    # end_time = datetime.now()
     player.update_records(answer, guessed_list, start_time, end_time)
     player.save_data()
     continue_prompt = take_input(
@@ -174,7 +169,7 @@ def play_once():
 def play_loop():
     # display welcome message
     player.load_data()
-    welcome(player.get_name(), player.get_num_chances())
+    print_welcome(player.get_name(), player.get_num_chances())
     try:
         # main play loop
         while True:
