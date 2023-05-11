@@ -23,7 +23,9 @@ def setting():
     print(f'Welcome, {player.name}!')  # change this to method
     while True:
         player.show_status()
-        prompt = input(show_options())
+        text = show_options()
+        print(f'{text: ^20}')
+        prompt = input()
         match prompt:
             case "1":
                 player.toggle_spell_check_enabled()
@@ -33,6 +35,8 @@ def setting():
                 pass
             case "4":
                 player.set_list_path()
+            case "5":
+                player.set_name(input("Enter new name:\n"))
             case "\\s":
                 player.save_data()
                 print('Changes saved.\n')

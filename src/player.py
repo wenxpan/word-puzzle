@@ -75,6 +75,7 @@ class Player():
 
     def show_status(self):
         print(self.calculate_wins())
+        print(f'Player: {self.name}')
         print(f'spellcheck: {self.display_spell_check_status()}')
         print(f'Selected word list: {self.list_path}')
 
