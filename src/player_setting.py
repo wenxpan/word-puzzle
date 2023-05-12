@@ -39,13 +39,6 @@ def change_settings_loop(player):
                 show_options()
             case "SHOW":
                 player.show_status()
-            # case "save":
-            #     player.save_data()
-            #     print("**Changes saved.**\n")
-            # case "reset":
-            #     player.load_data()
-            #     print("\n**Changes discarded. Status loaded from last saved.**\n")
-            #     player.show_status()
             case "QUIT":
                 will_save = input(
                     "\n**Save changes before quit?\n"
