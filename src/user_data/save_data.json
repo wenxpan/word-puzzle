@@ -1,0 +1,48 @@
+{
+    "name": "usertest",
+    "spell_check_enabled": true,
+    "num_chances": 6,
+    "list_path": "word_lists/5-letter-words-easy.txt",
+    "records": [
+        {
+            "answer": "BIRTH",
+            "guess": [
+                "BIRTH"
+            ],
+            "start_time": "2023-05-12 14:43:21"
+        },
+        {
+            "answer": "ROOFS",
+            "guess": [
+                "ROOFS"
+            ],
+            "start_time": "2023-05-12 14:44:02"
+        },
+        {
+            "answer": "LABOR",
+            "guess": [
+                "LABOR"
+            ],
+            "start_time": "2023-05-12 14:44:15"
+        },
+        {
+            "answer": "TITLE",
+            "guess": [
+                "APPLE",
+                "WATER",
+                "FAILS",
+                "POOLS",
+                "FIRES",
+                "MOUNT"
+            ],
+            "start_time": "2023-05-12 14:44:49"
+        },
+        {
+            "answer": "TOUGH",
+            "guess": [
+                "TOUGH"
+            ],
+            "start_time": "2023-05-12 14:46:32"
+        }
+    ]
+}

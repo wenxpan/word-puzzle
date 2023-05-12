@@ -162,7 +162,7 @@ def play_once():
         # if guess matches answer, show winning message and end the loop
         if check_exact_match(answer, guess):
             print(
-                f"[green]The spell works! {random.choice(win_messages)}[/green]")
+                f"[italic green]The spell works! {random.choice(win_messages)}[/italic green]")
             break
         # if not won, compare and show hints
         else:
@@ -173,18 +173,19 @@ def play_once():
     # if loop ends without breaking(i.e. the user has not won), display losing message
     else:
         print(
-            "You've run out of chances! "
+            "[italic purple]You've run out of chances! "
             f"The secret word is [bold]{answer}[/bold].\n"
-            f"[italic purple]{random.choice(lose_messages)}[/italic purple]\n"
+            f"{random.choice(lose_messages)}[/italic purple]\n"
         )
     # store current record in player object and export as json file
     player.update_records(answer, guessed_list, start_time)
     player.save_data()
     # display prompt to continue/save/quit the game
     continue_prompt = take_input(
-        "Progress auto saved. Head to user_data/save_data.json to copy backups.\n"
+        "\n**Progress auto saved. Head to user_data/save_data.json to copy backups.**\n"
         "Enter '\\s' to export current round as txt and start a new game.\n"
-        "Enter '\\q' to quit. Enter any other button to start a new game.\n")
+        "Enter '\\q' to quit.\n"
+        "Enter any other button to start a new game.\n")
     # if user types \s, export record of the latest play
     if continue_prompt.upper() == "\\S":
         player.export_records_latest()
@@ -204,7 +205,7 @@ def play_loop():
     # exit the game when user raises keyboard interrupt (ctrl+c and \q)
     except KeyboardInterrupt:
         print(
-            "[blue]Mr. Python seems disappointed. He hopes to see you soon![/blue]")
+            "[italic blue]Mr. Python seems disappointed. He hopes to see you soon![/italic blue]")
 
 
 if __name__ == "__main__":

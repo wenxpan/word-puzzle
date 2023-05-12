@@ -40,7 +40,6 @@ win_messages = [
     "Yum yum. Mr. Python was really happy.",
     "You felt relieved.",
     "Mr. Python invited you to join the feast.",
-    "Mr. Python tossed a small piece of the pie to Friendly Fairy.",
     "Friendly Fairy smiled and flew away."
 ]
 
