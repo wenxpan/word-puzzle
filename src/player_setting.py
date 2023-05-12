@@ -1,60 +1,64 @@
 from player import create_player
+from rich.prompt import Prompt
+from rich import print
 
 
 def show_options():
-    message = """
-    1 - toggle spell check
-    2 - export records (txt)
-    3 - select word list
-    4 - rename
-    5 - set number of chances
-    6 - clear records
-    \\h - show options
-    \\s - save changes
-    \\r - discard changes
-    \\q - quit
+    message = """               Settings:
+                [bold]1 - rename
+                2 - toggle spell check
+                3 - change word list
+                4 - set number of chances
+                5 - export all records as txt file
+                6 - clear records[/bold]
+                help - show options
+                save - save changes
+                reset - discard changes
+                quit - quit
     """
     print(message)
 
 
 def change_settings_loop(player):
-    show_options()
     while True:
-        player.show_status()
         prompt = input(
-            "What do you want to do?\nEnter \\h to show a list of options available")
+            "\n**What do you want to do? (Enter 'help' for a list of options)**\n")
         match prompt:
             case "1":
-                player.toggle_spell_check_enabled()
+                player.rename()
             case "2":
-                player.export_records_all()
+                player.toggle_spell_check_enabled()
             case "3":
                 player.set_list_path()
             case "4":
-                player.set_name(input("Enter new name:\n"))
-            case "5":
                 player.set_num_chances()
+            case "5":
+                player.export_records_all()
             case "6":
                 player.clear_records()
-            case "\\h":
+            case "help":
                 show_options()
-            case "\\s":
+            case "save":
                 player.save_data()
-                print('Changes saved.\n')
-            case '\\r':
+                print('**Changes saved.**\n')
+            case 'reset':
                 player.load_data()
-            case "\\q":
+                print('\n**Changes discarded. Status loaded from last saved.**\n')
+                player.show_status()
+            case "quit":
                 confirm = input(
-                    'Confirm you want to quit? Type "Y" to confirm.\n').upper()
+                    '\n**Confirm you want to quit? Type "Y" to confirm.**\n').upper()
                 if confirm == "Y":
                     break
             case other:
-                print('Invalid input.')
+                print('**Invalid input. Try again.**')
 
 
 def setting():
     player = create_player()
-    print(f'Welcome, {player.get_name()}!')
+    print(f'\n        Welcome, {player.get_name()}!')
+    player.show_status()
+    show_options()
     change_settings_loop(player)
     print('See you next time!')
 

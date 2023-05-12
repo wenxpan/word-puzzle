@@ -1,8 +1,8 @@
 {
-    "name": "user",
-    "spell_check_enabled": true,
-    "num_chances": 6,
-    "list_path": "word_lists/5-letter-words-easy.txt",
+    "name": "snakkie",
+    "spell_check_enabled": false,
+    "num_chances": 4,
+    "list_path": "word_lists/5-letter-words-all.txt",
     "records": [
         {
             "answer": "CENTS",

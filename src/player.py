@@ -39,6 +39,16 @@ class Player():
     def set_name(self, name):
         self.name = name
 
+    def rename(self):
+        while True:
+            name = input("Enter new name (15 characters max):\n")
+            if len(name) <= 15:
+                self.set_name(name)
+                print(f'Renamed successfully! You are now called {self.name}')
+                break
+            else:
+                print('Invalid input. Try again.')
+
     def get_name(self):
         return self.name
 
@@ -46,20 +56,20 @@ class Player():
         return self.list_path
 
     def set_list_path(self):
-        print('Current lists in the folder:')
-        path_list = os.listdir('word_lists')
-        for i, v in enumerate(path_list):
-            print(f'{i+1} - {v}')
+        print(
+            '\nChanging to another word list - current files in the word_lists folder:')
+        file_list = os.listdir('word_lists')
+        for i, v in enumerate(file_list):
+            print(f'{i} - {v}')
         while True:
             try:
-                path_index = int(
-                    input('please enter the file name you want to use\n\n')) - 1
-                x = range(1, len(path_list))
-                print('index', x)
-                if path_index in range(0, len(path_list)):
-                    self.list_path = f'word_lists/{path_list[path_index]}'
+                new_index = int(
+                    input('please enter the file index you want to use\n\n'))
+                if new_index in range(0, len(file_list)):
+                    new_path = f"word_lists/{file_list[new_index]}"
+                    self.list_path = {new_path}
                     print(
-                        f'word list now set to word_lists/{path_list[path_index]}\nNote: remember to toggle off spell check if the words cannot be found in dictionary!')
+                        f'Word list now set to {new_path}\nNote: toggle off spell check if the words cannot be found in dictionary.')
                     break
                 else:
                     raise ValueError
@@ -87,8 +97,7 @@ class Player():
                 self.num_chances = save["num_chances"]
                 self.list_path = save["list_path"]
                 self.records = save["records"]
-            print(
-                f'data loaded from user_data/save_data.json')
+            print("*data loaded from user_data/save_data.json*")
         except KeyError:
             print(
                 'save file corrupted. Default settings will be used.')
@@ -102,11 +111,15 @@ class Player():
         return f'Total wins: {win_count}/{all_count}'
 
     def show_status(self):
-        print(self.calculate_wins())
-        print(f'Player: {self.name}')
-        print(f'spellcheck: {self.display_spell_check_status()}')
-        print(f'number of chances:{self.num_chances}')
-        print(f'Selected word list: {self.list_path}')
+        print(f"""
+        ------------------------PLAYER PROFILE---------------------------
+        Player: {self.name}
+        Total wins: {self.calculate_wins()}
+        Spellcheck: {self.display_spell_check_status()}
+        Number of chances for each game:{self.num_chances}
+        Selected word list: {self.list_path}
+        -----------------------------------------------------------------
+        """)
 
     # get current spell check state
     def get_spell_check_enabled(self):
@@ -164,7 +177,7 @@ class Player():
                     f.write(decorator)
                     f.write(f'CORRECT WORD IS: {answer}\n\n')
                 print(
-                    f"Record saved! You can find it in user_data/record/record_{name}.txt")
+                    f"Record exported! You can find it in user_data/record/record_{name}.txt")
         else:
             print('no record found.')
 
