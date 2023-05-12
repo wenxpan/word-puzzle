@@ -1,6 +1,7 @@
 import json
 import os
 from datetime import datetime
+from helper import print_red, convert_time_string
 
 
 def create_player():
@@ -91,8 +92,6 @@ class Player():
         try:
             with open(f"user_data/save_data.json") as f:
                 save = json.load(f)
-                # for k, _ in save.items():
-                # self[k] = save[k]
                 self.name = save["name"]
                 self.spell_check_enabled = save["spell_check_enabled"]
                 self.num_chances = save["num_chances"]
@@ -100,8 +99,8 @@ class Player():
                 self.records = save["records"]
             print("*data loaded from user_data/save_data.json*")
         except KeyError:
-            print(
-                "save file corrupted. Default settings will be used.")
+            print_red(
+                "Save file corrupted. Default settings will be used.")
 
     def calculate_wins(self):
         win_count = 0
@@ -146,36 +145,40 @@ class Player():
     def clear_records(self):
         if input("Clearing all records? Type 'Y' to confirm.\n").upper() == "Y":
             self.records = []
+            print("All cleared!")
         else:
             print("Back to setting.")
 
     # export record as txt file
     def export_records(self, record_list, name):
-        if record_list:
-            with open(f"user_data/record_{name}.txt", "w") as f:
-                for entry_dict in record_list:
-                    answer = entry_dict["answer"]
-                    guessed_list = entry_dict["guess"]
-                    time = entry_dict["time"][0]
+        try:
+            if record_list:
+                with open(f"user_data/record_{name}.txt", "w") as f:
+                    for entry_dict in record_list:
+                        answer = entry_dict["answer"]
+                        guessed_list = entry_dict["guess"]
+                        time = entry_dict["time"][0]
 
-                    f.write(f"Start time: {time}\n")
-                    decorating_line = f"{'=' * (2*len(answer) + 7)}\n"
-                    f.write(decorating_line)
-                    for word in guessed_list:
-                        f.write(f"  | {' '.join(word)} |  \n")
-                    f.write(decorating_line)
-                    f.write(f"CORRECT WORD IS: {answer}\n\n")
-                print(
-                    f"Record exported! You can find it in user_data/record/record_{name}.txt")
-        else:
-            print("no record found.")
+                        f.write(f"Start time: {time}\n")
+                        decorating_line = f"{'=' * (2*len(answer) + 7)}\n"
+                        f.write(decorating_line)
+                        for word in guessed_list:
+                            f.write(f"  | {' '.join(word)} |  \n")
+                        f.write(decorating_line)
+                        f.write(f"CORRECT WORD IS: {answer}\n\n")
+                    print(
+                        f"Record exported! You can find it in user_data/record/record_{name}.txt")
+            else:
+                print("no record found.")
+        except IndexError:
+            print(
+                f"Save data corrupted. Please do not edit the save file.\nClear all records to export future games.")
 
     def export_records_all(self):
         self.export_records(self.records, self.name)
 
     def export_records_latest(self):
         start_time = self.records[-1]["time"][0]
-        start_time_obj = datetime.strptime(
-            start_time, "%Y-%m-%d %H:%M:%S")
-        start_time_formatted = start_time_obj.strftime("%Y%m%d%H%M%S")
+        start_time_formatted = convert_time_string(
+            start_time, "%Y-%m-%d %H:%M:%S", "%Y%m%d%H%M%S")
         self.export_records([self.records[-1]], start_time_formatted)

@@ -10,10 +10,10 @@ def print_welcome(name, num_chances):
   | |/ |/ / /_/ / _, _/ /_/ /  / ____// // /___   
   |__/|__/\____/_/ |_/_____/  /_/   /___/_____/   
 
-  Hello, {name}! Welcome to WORD PIE.
+  Hello, {name}! Welcome to [bold]WORD PIE[/bold], a word guessing game.
 
   [bold]Mr. Python[/bold] is hungry, and all he wants is that delicious but [bold]Poisonous Pie[/bold].
-  He has to cast the correct spell to swallow it safely!
+  He has to cast the correct healing spell to swallow it safely!
   Can you help him find the secret word in {num_chances} attempts? 
   [bold]Friendly Fairy[/bold] agrees to reveal hints as you go along:
     - [bold black on bright_green]Green[/bold black on bright_green] means the letter is in the secret word and at the same place.
@@ -37,9 +37,11 @@ hint_messages = [
 ]
 
 win_messages = [
-    "Yum Yum! Mr. Python is really happy.",
-    "You feel relieved.",
-    "Mr. Python invites you to join the feast."
+    "Yum Yum! Mr. Python was really happy.",
+    "You felt relieved.",
+    "Mr. Python invited you to join the feast.",
+    "Mr. Python tossed a small piece of the pie to Friendly Fairy.",
+    "Friendly Fairy smiled and flew away."
 ]
 
 lose_messages = [
@@ -47,5 +49,6 @@ lose_messages = [
     "Too late! Poisonous Pie dissolved on the ground.",
     "Friendly Fairy shrugged and flew away.",
     "A portal opened and the pie vanished. The pie is a lie!",
-    "Poisonous Pie got impatient and walked away."
+    "Poisonous Pie got impatient and walked away.",
+    "Mr. Python swallowed the pie, then turned to look at you."
 ]

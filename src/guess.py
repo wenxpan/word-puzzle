@@ -1,16 +1,12 @@
 import random
 from rich import print
-from rich.prompt import Prompt
 from datetime import datetime
 from spellchecker import SpellChecker
 from player import create_player
 from story import print_welcome, hint_messages, win_messages, lose_messages
+from helper import StartAgainException, current_time_string
 
 player = create_player()
-
-
-class StartAgainException(Exception):
-    pass
 
 
 # open word list file and create a word list
@@ -146,7 +142,7 @@ def play_once():
     hints = "\n"
     num_chances = player.get_num_chances()
     print(f"****for dev: word is {answer}****")
-    start_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+    start_time = current_time_string("%Y-%m-%d %H:%M:%S")
     # loop 6 rounds of guess
     for i in range(1, num_chances+1, 1):
         print(
@@ -171,7 +167,7 @@ def play_once():
         print(
             f"You've run out of chances! The secret word is [bold]{answer}[/bold]\n[italic]{random.choice(lose_messages)}[/italic]\n")
     # check how the user would like to continue
-    end_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+    end_time = current_time_string("%Y-%m-%d %H:%M:%S")
     player.update_records(answer, guessed_list, start_time, end_time)
     player.save_data()
     continue_prompt = take_input(
