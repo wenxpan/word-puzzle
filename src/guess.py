@@ -141,7 +141,7 @@ def highlight_letter(letter, result):
 
 # highlight word based on analysis
 def highlight_word(guess, result_list):
-    highlighted_line = ""
+    highlighted_line = "      "
     # loop through each letter
     for index, result in enumerate(result_list):
         highlighted_line += highlight_letter(guess[index], result)
@@ -177,8 +177,8 @@ def play_once():
         # if guess matches answer, show winning message and end the loop
         if check_exact_match(answer, guess):
             print(
-                "[italic green]The spell works! "
-                f"{random.choice(win_messages)}[/italic green]")
+                "[italic reverse]The spell works! "
+                f"{random.choice(win_messages)}[/italic reverse]")
             break
         # if not won, compare and show hints
         else:
@@ -189,9 +189,9 @@ def play_once():
     # if loop ends without breaking(i.e. the user has not won), display losing message
     else:
         print(
-            "[italic purple]You've run out of chances! "
+            "[italic reverse]You've run out of chances! "
             f"The secret word is [bold]{answer}[/bold].\n"
-            f"{random.choice(lose_messages)}[/italic purple]\n"
+            f"{random.choice(lose_messages)}[/italic reverse]\n"
         )
     # store current record in player object and export as json file
     player.update_records(answer, guessed_list, start_time)
@@ -221,8 +221,8 @@ def play_loop():
     # exit the game when user raises keyboard interrupt (ctrl+c and \q)
     except KeyboardInterrupt:
         print(
-            "[italic blue]Mr. Python seems disappointed. "
-            "He hopes to see you soon![/italic blue]")
+            "[reverse]Mr. Python seems disappointed. "
+            "He hopes to see you soon![/reverse]")
 
 
 if __name__ == "__main__":

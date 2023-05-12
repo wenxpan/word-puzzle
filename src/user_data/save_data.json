@@ -1,48 +1,43 @@
 {
-    "name": "python1",
+    "name": "ami",
     "spell_check_enabled": true,
     "num_chances": 6,
-    "list_path": "word_lists/5-letter-words-all.txt",
+    "list_path": "word_lists/5-letter-words-easy.txt",
     "records": [
         {
-            "answer": "BIRTH",
+            "answer": "RULED",
             "guess": [
-                "BIRTH"
+                "RULED"
             ],
-            "start_time": "2023-05-12 14:43:21"
+            "start_time": "2023-05-12 17:32:39"
         },
         {
-            "answer": "ROOFS",
+            "answer": "WAXES",
             "guess": [
-                "ROOFS"
+                "WAXES"
             ],
-            "start_time": "2023-05-12 14:44:02"
+            "start_time": "2023-05-12 17:34:20"
         },
         {
-            "answer": "LABOR",
+            "answer": "CHEST",
             "guess": [
-                "LABOR"
+                "CHEST"
             ],
-            "start_time": "2023-05-12 14:44:15"
+            "start_time": "2023-05-12 17:38:32"
         },
         {
-            "answer": "TITLE",
+            "answer": "AFTER",
             "guess": [
-                "APPLE",
-                "WATER",
-                "FAILS",
-                "POOLS",
-                "FIRES",
-                "MOUNT"
+                "AFTER"
             ],
-            "start_time": "2023-05-12 14:44:49"
+            "start_time": "2023-05-12 17:38:50"
         },
         {
-            "answer": "TOUGH",
+            "answer": "THERE",
             "guess": [
-                "TOUGH"
+                "THERE"
             ],
-            "start_time": "2023-05-12 14:46:32"
+            "start_time": "2023-05-12 17:39:41"
         }
     ]
 }

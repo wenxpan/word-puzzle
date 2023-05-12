@@ -211,4 +211,4 @@ class Player():
         start_time = latest_record["start_time"]
         start_time_formatted = convert_time_string(
             start_time, "%Y-%m-%d %H:%M:%S", "%Y%m%d%H%M%S")
-        self.export_records(latest_record, start_time_formatted)
+        self.export_records([latest_record], start_time_formatted)
