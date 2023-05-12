@@ -70,12 +70,12 @@ def check_input_word(guessed_list, word_length):
         elif not guess.isalpha() or len(guess) != word_length:
             print(
                 f"Input not valid. "
-                "Please enter a {word_length}-letter English word\n")
+                f"Please enter a {word_length}-letter English word\n")
         # if spell check enabled, check if it is misspelled
         elif player.get_spell_check_enabled() and misspelled:
             print(
                 "Friendly Fairy warns you that the word "
-                "is [bold]not in the dictionary[/bold]."
+                "is [bold]not in the dictionary[/bold]. "
                 "Try another word!\n")
         # return guessed word if all validation passed
         else:

@@ -27,16 +27,15 @@ def test_update_records(player):
     answer = 'APPLE'
     guessed_list = ["PUPIL", "APPLY", "ORBIT"]
     start_time = '16:40'
-    end_time = '16:41'
-    player.update_records(answer, guessed_list, start_time, end_time)
+    player.update_records(answer, guessed_list, start_time)
     assert player.get_records() == [
-        {'answer': 'APPLE', 'guess': ["PUPIL", "APPLY", "ORBIT"], 'time': ['16:40', '16:41']}]
+        {'answer': 'APPLE', 'guess': ["PUPIL", "APPLY", "ORBIT"], 'start_time': '16:40'}]
 
     another_answer = "QUICK"
     another_guessed_list = ["PUPIL", "APPLY", "QUICK"]
     another_start_time = '16:41'
-    another_end_time = '16:42'
     player.update_records(
-        another_answer, another_guessed_list, another_start_time, another_end_time)
-    assert player.get_records() == [{'answer': 'APPLE', 'guess': ["PUPIL", "APPLY", "ORBIT"], 'time': ['16:40', '16:41']}, {
-        'answer': "QUICK", 'guess': ["PUPIL", "APPLY", "QUICK"], "time": ['16:41', '16:42']}]
+        another_answer, another_guessed_list, another_start_time)
+    updated_records = [{'answer': 'APPLE', 'guess': ["PUPIL", "APPLY", "ORBIT"], 'start_time': '16:40'}, {
+        'answer': "QUICK", 'guess': ["PUPIL", "APPLY", "QUICK"], "start_time": '16:41'}]
+    assert player.get_records() == updated_records

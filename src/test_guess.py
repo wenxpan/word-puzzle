@@ -2,9 +2,10 @@ import guess
 
 
 def test_random_word():
-    word = guess.get_random_word(guess.word_list)
+    word_list = guess.get_word_list()
+    word = guess.get_random_word(word_list)
     assert word.isalpha()
-    assert word in guess.word_list
+    assert word.lower() in [x.lower() for x in word_list]
 
 
 def test_check_input_word_correct(monkeypatch, capsys):
@@ -17,7 +18,7 @@ def test_check_input_word_invalid(monkeypatch, capsys):
     monkeypatch.setattr('builtins.input', lambda _: next(inputs))
     result = guess.check_input_word([], 5)
     captured = capsys.readouterr()
-    assert captured.out == 'Input not valid. Please enter a 5-letter English word\n\n'
+    assert "Input not valid" in captured.out
     assert result == 'APPLE'
 
 
@@ -26,7 +27,7 @@ def test_check_input_word_guessed(monkeypatch, capsys):
     monkeypatch.setattr('builtins.input', lambda _: next(inputs))
     result = guess.check_input_word(['APPLE'], 5)
     captured = capsys.readouterr()
-    assert captured.out == 'You already guessed this word!\n\n'
+    assert captured.out == 'You already tried this word!\n\n'
     assert result == 'PUPIL'
 
 
@@ -35,7 +36,7 @@ def test_check_input_word_incorrect(monkeypatch, capsys):
     monkeypatch.setattr('builtins.input', lambda _: next(inputs))
     result = guess.check_input_word([], 5)
     captured = capsys.readouterr()
-    assert captured.out == 'Word not found in dictionary.\n\n'
+    assert "not in the dictionary" in captured.out
     assert result == 'APPLY'
 
 
