@@ -17,7 +17,8 @@ def get_word_list():
         return word_list
     except FileNotFoundError:
         print_red(
-            "Word list not found! Go back to player settings and confirm you have the right list selected.")
+            "Word list not found! "
+            "Go back to player settings and confirm you have the right list selected.")
         raise KeyboardInterrupt
 
 
@@ -30,7 +31,9 @@ def get_random_word(words):
             return word
     # if unable to find a matching word, return error message and exit the game
     else:
-        print_red("\nUh oh! Looks like no word can be drawn from the selected word list. \nThe list needs to contain words with more than 2 characters.\nSelect another word list in player settings and come back later.")
+        print_red("\nUh oh! Looks like no word can be drawn from the selected word list.\n"
+                  "The list needs to contain words with more than 2 characters.\n"
+                  "Select another word list in player settings and come back later.")
         raise KeyboardInterrupt
 
 
@@ -50,7 +53,8 @@ def take_input(prompt):
         return user_input
 
 
-# check the user guess is a valid English word that matches the answer length and not already guessed
+# check the user guess is a valid English word that
+# matches the answer length and not already guessed
 def check_input_word(guessed_list, word_length):
     # repeatedly ask for input until it receives a valid word for analysis
     while True:
@@ -65,11 +69,14 @@ def check_input_word(guessed_list, word_length):
         # check if input is an English word and the same length as answer
         elif not guess.isalpha() or len(guess) != word_length:
             print(
-                f"Input not valid. Please enter a {word_length}-letter English word\n")
+                f"Input not valid. "
+                "Please enter a {word_length}-letter English word\n")
         # if spell check enabled, check if it is misspelled
         elif player.get_spell_check_enabled() and misspelled:
             print(
-                f"Friendly Fairy warns you that the word is [bold]not in the dictionary[/bold]. Try another word!\n")
+                "Friendly Fairy warns you that the word "
+                "is [bold]not in the dictionary[/bold]."
+                "Try another word!\n")
         # return guessed word if all validation passed
         else:
             return guess
@@ -93,7 +100,8 @@ def check_letter(answer, guess, word_length):
     for index, letter in enumerate(guess):
         if letter == answer_list[index]:
             result[index] = 2
-            # correct letter will be reset to 0 in the answer list to avoid duplicate match
+            # correct letter will be reset to 0
+            # in the answer list to avoid duplicate match
             answer_list[index] = 0
     # round 2: check for misplaced letters
     for index, letter in enumerate(guess):
@@ -101,7 +109,8 @@ def check_letter(answer, guess, word_length):
             # avoid overwriting correct result
             if result[index] != 2:
                 result[index] = 1
-                # find the index of answer letter and reset that to 0 to avoid duplicate match
+                # find the index of answer letter and
+                # reset that to 0 to avoid duplicate match
                 answer_list[answer_list.index(letter)] = 0
     # return result array ready for highlighting
     return result
@@ -111,9 +120,12 @@ def check_letter(answer, guess, word_length):
 def highlight_letter(letter, result):
     # define coloring in rich
     colors = {"green": "bold black on bright_green",
-              "yellow": "bold black on bright_yellow", "grey": "bold black on white"}
+              "yellow": "bold black on bright_yellow",
+              "grey": "bold black on white"}
     color = ""
-    # grey for wrong letter, yellow for misplaced letter, green for correct letter
+    # grey for wrong letter,
+    # yellow for misplaced letter,
+    # green for correct letter
     match result:
         case 0:
             color = "grey"
@@ -121,7 +133,9 @@ def highlight_letter(letter, result):
             color = "yellow"
         case 2:
             color = "green"
-    highlighted_letter = f"[{colors[color]}] {letter} [/{colors[color]}]"
+    highlighted_letter = (
+        f"[{colors[color]}] {letter} [/{colors[color]}]"
+    )
     return highlighted_letter
 
 
@@ -154,7 +168,8 @@ def play_once():
     # loop guesses based on number of chances set
     for i in range(1, num_chances+1, 1):
         print(
-            f"==========================================\n(Round: {i}/{num_chances}              SpellCheck: {player.display_spell_check_status()})\n")
+            f"==========================================\n(Round: {i}/{num_chances}"
+            f"              SpellCheck: {player.display_spell_check_status()})\n")
         # get a valid word for analysis
         guess = check_input_word(guessed_list, word_length)
         # add the word to guessed list
@@ -162,7 +177,8 @@ def play_once():
         # if guess matches answer, show winning message and end the loop
         if check_exact_match(answer, guess):
             print(
-                f"[italic green]The spell works! {random.choice(win_messages)}[/italic green]")
+                "[italic green]The spell works! "
+                f"{random.choice(win_messages)}[/italic green]")
             break
         # if not won, compare and show hints
         else:
@@ -205,7 +221,8 @@ def play_loop():
     # exit the game when user raises keyboard interrupt (ctrl+c and \q)
     except KeyboardInterrupt:
         print(
-            "[italic blue]Mr. Python seems disappointed. He hopes to see you soon![/italic blue]")
+            "[italic blue]Mr. Python seems disappointed. "
+            "He hopes to see you soon![/italic blue]")
 
 
 if __name__ == "__main__":

@@ -1,5 +1,4 @@
 from rich import print
-import random
 
 
 def print_welcome(name, num_chances):
