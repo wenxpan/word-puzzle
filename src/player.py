@@ -1,5 +1,6 @@
 import json
 import os
+from datetime import datetime
 
 
 def create_player():
@@ -138,6 +139,7 @@ class Player():
         return self.records
 
     def update_records(self, answer, guessed_list, start_time, end_time):
+        # start_time.strftime("%Y-%m-%d %H:%M:%S")
         entry = {'answer': answer, 'guess': guessed_list,
                  'time': [start_time, end_time]}
         self.records.append(entry)
@@ -186,4 +188,7 @@ class Player():
 
     def export_records_latest(self):
         start_time = self.records[-1]["time"][0]
-        self.export_records([self.records[-1]], start_time)
+        start_time_obj = datetime.strptime(
+            start_time, '%Y-%m-%d %H:%M:%S')
+        start_time_formatted = start_time_obj.strftime("%Y%m%d%H%M%S")
+        self.export_records([self.records[-1]], start_time_formatted)

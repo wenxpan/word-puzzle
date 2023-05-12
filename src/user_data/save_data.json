@@ -1,28 +1,127 @@
 {
-  "name": "snakkie",
-  "spell_check_enabled": false,
-  "num_chances": 4,
-  "list_path": "word_lists/problematic-li.txt",
-  "records": [
-    {
-      "answer": "CENTS",
-      "guess": ["CENTS"],
-      "time": ["2023-05-11 17:15:24", "2023-05-11 17:15:26"]
-    },
-    {
-      "answer": "WINDS",
-      "guess": ["HELLO", "WATER", "DINKS", "WINDS"],
-      "time": ["2023-05-12 09:07:25", "2023-05-12 09:08:04"]
-    },
-    {
-      "answer": "AVOID",
-      "guess": ["APPLE", "APPLY", "FAIRY", "WILDS", "PUPIL", "CLICK"],
-      "time": ["2023-05-12 09:53:09", "2023-05-12 09:53:47"]
-    },
-    {
-      "answer": "WATCH",
-      "guess": ["APPLE", "APPLY", "FAIRY", "MOUNT", "QUICK", "FLIES"],
-      "time": ["2023-05-12 09:55:15", "2023-05-12 09:55:36"]
-    }
-  ]
+    "name": "snakkie",
+    "spell_check_enabled": false,
+    "num_chances": 4,
+    "list_path": "word_lists/5-letter-words-all.txt",
+    "records": [
+        {
+            "answer": "CENTS",
+            "guess": [
+                "CENTS"
+            ],
+            "time": [
+                "2023-05-11 17:15:24",
+                "2023-05-11 17:15:26"
+            ]
+        },
+        {
+            "answer": "WINDS",
+            "guess": [
+                "HELLO",
+                "WATER",
+                "DINKS",
+                "WINDS"
+            ],
+            "time": [
+                "2023-05-12 09:07:25",
+                "2023-05-12 09:08:04"
+            ]
+        },
+        {
+            "answer": "AVOID",
+            "guess": [
+                "APPLE",
+                "APPLY",
+                "FAIRY",
+                "WILDS",
+                "PUPIL",
+                "CLICK"
+            ],
+            "time": [
+                "2023-05-12 09:53:09",
+                "2023-05-12 09:53:47"
+            ]
+        },
+        {
+            "answer": "WATCH",
+            "guess": [
+                "APPLE",
+                "APPLY",
+                "FAIRY",
+                "MOUNT",
+                "QUICK",
+                "FLIES"
+            ],
+            "time": [
+                "2023-05-12 09:55:15",
+                "2023-05-12 09:55:36"
+            ]
+        },
+        {
+            "answer": "ABAFT",
+            "guess": [
+                "APPLE",
+                "QUIET",
+                "FAIRY",
+                "ABAFT"
+            ],
+            "time": [
+                "2023-05-12 11:29:55",
+                "2023-05-12 11:30:20"
+            ]
+        },
+        {
+            "answer": "PILOT",
+            "guess": [
+                "APPLE",
+                "FAINT",
+                "WATER",
+                "FINER"
+            ],
+            "time": [
+                "2023-05-12 11:33:13",
+                "2023-05-12 11:34:21"
+            ]
+        },
+        {
+            "answer": "NYMPH",
+            "guess": [
+                "NYMPH"
+            ],
+            "time": [
+                "2023-05-12 11:45:58",
+                "2023-05-12 11:46:01"
+            ]
+        },
+        {
+            "answer": "PILOT",
+            "guess": [
+                "PILOT"
+            ],
+            "time": [
+                "2023-05-12 11:47:10",
+                "2023-05-12 11:47:11"
+            ]
+        },
+        {
+            "answer": "RUINS",
+            "guess": [
+                "RUINS"
+            ],
+            "time": [
+                "2023-05-12 11:48:37",
+                "2023-05-12 11:48:39"
+            ]
+        },
+        {
+            "answer": "NURSE",
+            "guess": [
+                "NURSE"
+            ],
+            "time": [
+                "2023-05-12 11:48:55",
+                "2023-05-12 11:48:59"
+            ]
+        }
+    ]
 }

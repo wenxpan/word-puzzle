@@ -4,7 +4,7 @@ from rich.prompt import Prompt
 from datetime import datetime
 from spellchecker import SpellChecker
 from player import create_player
-from story import print_welcome, hint_message, win_message, lose_message
+from story import print_welcome, hint_messages, win_messages, lose_messages
 
 player = create_player()
 
@@ -121,17 +121,17 @@ def highlight_letter(letter, result):
             color = 'yellow'
         case 2:
             color = 'green'
-    message = f"[{colors[color]}] {letter} [/{colors[color]}]"
-    return message
+    highlighted_letter = f"[{colors[color]}] {letter} [/{colors[color]}]"
+    return highlighted_letter
 
 
 # highlight word based on analysis
 def highlight_word(guess, result_list):
-    message = ''
+    highlighted_line = ''
     for index, result in enumerate(result_list):
-        message += highlight_letter(guess[index], result)
-    message += '\n'
-    return message
+        highlighted_line += highlight_letter(guess[index], result)
+    highlighted_line += '\n'
+    return highlighted_line
 
 
 # one round of play
@@ -143,11 +143,10 @@ def play_once():
     # set a list of guessed words
     guessed_list = []
     # set initial message
-    message = '\n'
+    hints = '\n'
     num_chances = player.get_num_chances()
     print(f'****for dev: word is {answer}****')
     start_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-    # start_time = datetime.now()
     # loop 6 rounds of guess
     for i in range(1, num_chances+1, 1):
         print(
@@ -158,21 +157,21 @@ def play_once():
         guessed_list.append(guess)
         # if guess matches answer, show winning message and end the loop
         if check_exact_match(answer, guess):
-            print(f"The spell works! {random.choice(win_message)}")
+            print(
+                f"[green]The spell works! {random.choice(win_messages)}[/green]")
             break
         # if not won, compare and show result
         else:
             result = check_letter(answer, guess, word_length)
-            message += highlight_word(guess, result)
+            hints += highlight_word(guess, result)
             print(
-                f'\n[italic]{random.choice(hint_message)}[/italic]\n{message}')
+                f'\n[italic]{random.choice(hint_messages)}[/italic]\n{hints}')
     # after loop ends and the user has not won, display losing message
     else:
         print(
-            f"You've run out of chances! The secret word is [bold]{answer}[/bold]\n[italic]{random.choice(lose_message)}[/italic]\n")
+            f"You've run out of chances! The secret word is [bold]{answer}[/bold]\n[italic]{random.choice(lose_messages)}[/italic]\n")
     # check how the user would like to continue
     end_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-    # end_time = datetime.now()
     player.update_records(answer, guessed_list, start_time, end_time)
     player.save_data()
     continue_prompt = take_input(

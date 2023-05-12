@@ -1,4 +1,5 @@
 from rich import print
+import random
 
 
 def print_welcome(name, num_chances):
@@ -12,7 +13,7 @@ def print_welcome(name, num_chances):
   Hello, {name}! Welcome to WORD PIE.
 
   [bold]Mr. Python[/bold] is hungry, and all he wants is that delicious but [bold]Poisonous Pie[/bold].
-  He has to cast the correct spell to consume it safely!
+  He has to cast the correct spell to swallow it safely!
   Can you help him find the secret word in {num_chances} attempts? 
   [bold]Friendly Fairy[/bold] agrees to reveal hints as you go along:
     - [bold black on bright_green]Green[/bold black on bright_green] means the letter is in the secret word and at the same place.
@@ -22,30 +23,26 @@ def print_welcome(name, num_chances):
     print(welcome_message)
 
 
-# print_welcome('user', 10)
-
-
-hint_message = [
-    "Mr. Python stares at the pie eagerly.",
+hint_messages = [
+    "Mr. Python stares at the Poisonous Pie eagerly.",
     "Mr. Python stares at you. You feel cold sweat.",
     "Mr. Python's tongues flicks.",
     "Friendly Fairy reveals a hint.",
     "Mr. Python thanks the Friendly Fairy.",
     "Friendly Fairy looks at you encouragingly.",
-    "Poisonous pie just moved an inch; or maybe just an illusion...",
-    "Poisonous pie is turning purple.",
+    "Poisonous Pie just moved an inch; maybe an illusion...",
+    "Poisonous Pie is starting to turn [purple]purple[/purple].",
     "Poisonous Pie smells putrid.",
-    "Mr. Python comes closers to Poisonous Pie."
+    "Mr. Python comes closer to the Poisonous Pie."
 ]
 
-win_message = [
+win_messages = [
     "Yum Yum! Mr. Python is really happy.",
     "You feel relieved.",
     "Mr. Python invites you to join the feast."
 ]
 
-
-lose_message = [
+lose_messages = [
     "Mr. Python couldn't wait! He inhaled the pie and lost 500 health points.",
     "Too late! Poisonous Pie dissolved on the ground.",
     "Friendly Fairy shrugged and flew away.",
