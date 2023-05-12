@@ -12,6 +12,7 @@ def show_options():
                 5 - export all records as txt file
                 6 - clear records[/bold]
                 help - show options
+                show - show current profile
                 save - save changes
                 reset - discard changes
                 quit - quit
@@ -38,10 +39,12 @@ def change_settings_loop(player):
                 player.clear_records()
             case "help":
                 show_options()
+            case "show":
+                player.show_status()
             case "save":
                 player.save_data()
                 print('**Changes saved.**\n')
-            case 'reset':
+            case "reset":
                 player.load_data()
                 print('\n**Changes discarded. Status loaded from last saved.**\n')
                 player.show_status()
