@@ -31,7 +31,7 @@ def get_random_word(words):
         if len(word) >= 3 and word.isalpha():
             return word
     else:
-        print('\n[red]Uh oh! Looks like no word can be drawn from the selected word list. \nThe list needs to contain words with more than 2 characters.\nSelect another word list in player settings and come back later.[/red]')
+        print("\n[red]Uh oh! Looks like no word can be drawn from the selected word list. \nThe list needs to contain words with more than 2 characters.\nSelect another word list in player settings and come back later.[/red]")
         raise KeyboardInterrupt
 
 
@@ -143,9 +143,9 @@ def play_once():
     # set a list of guessed words
     guessed_list = []
     # set initial message
-    hints = '\n'
+    hints = "\n"
     num_chances = player.get_num_chances()
-    print(f'****for dev: word is {answer}****')
+    print(f"****for dev: word is {answer}****")
     start_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
     # loop 6 rounds of guess
     for i in range(1, num_chances+1, 1):
@@ -165,7 +165,7 @@ def play_once():
             result = check_letter(answer, guess, word_length)
             hints += highlight_word(guess, result)
             print(
-                f'\n[italic]{random.choice(hint_messages)}[/italic]\n{hints}')
+                f"\n[italic]{random.choice(hint_messages)}[/italic]\n{hints}")
     # after loop ends and the user has not won, display losing message
     else:
         print(
@@ -175,7 +175,7 @@ def play_once():
     player.update_records(answer, guessed_list, start_time, end_time)
     player.save_data()
     continue_prompt = take_input(
-        'Progress auto saved. \nEnter "\\s" to save a separate record and start a new game.\nEnter "\\q" to quit. Enter any other button to start a new game.\n').upper()
+        "Progress auto saved. \nEnter '\\s' to save a separate record and start a new game.\nEnter '\\q' to quit. Enter any other button to start a new game.\n").upper()
     if continue_prompt == "\\S":
         player.export_records_latest()
 
@@ -194,8 +194,8 @@ def play_loop():
     # exit the game when user uses \q
     except KeyboardInterrupt:
         print(
-            '[blue]Mr. Python seems disappointed. He hopes to see you soon![/blue]')
+            "[blue]Mr. Python seems disappointed. He hopes to see you soon![/blue]")
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     play_loop()

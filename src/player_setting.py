@@ -43,28 +43,28 @@ def change_settings_loop(player):
                 player.show_status()
             case "save":
                 player.save_data()
-                print('**Changes saved.**\n')
+                print("**Changes saved.**\n")
             case "reset":
                 player.load_data()
-                print('\n**Changes discarded. Status loaded from last saved.**\n')
+                print("\n**Changes discarded. Status loaded from last saved.**\n")
                 player.show_status()
             case "quit":
                 confirm = input(
-                    '\n**Confirm you want to quit? Type "Y" to confirm.**\n').upper()
+                    "\n**Confirm you want to quit? Type 'Y' to confirm.**\n").upper()
                 if confirm == "Y":
                     break
             case other:
-                print('**Invalid input. Try again.**')
+                print("**Invalid input. Try again.**")
 
 
 def setting():
     player = create_player()
-    print(f'\n        Welcome, {player.get_name()}!')
+    print(f"\n        Welcome, {player.get_name()}!")
     player.show_status()
     show_options()
     change_settings_loop(player)
-    print('See you next time!')
+    print("See you next time!")
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     setting()

@@ -144,7 +144,7 @@ class Player():
         self.records.append(entry)
 
     def clear_records(self):
-        if input("Clearing all records? Type "Y" to confirm.\n").upper() == "Y":
+        if input("Clearing all records? Type 'Y' to confirm.\n").upper() == "Y":
             self.records = []
         else:
             print("Back to setting.")
