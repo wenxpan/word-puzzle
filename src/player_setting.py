@@ -4,18 +4,18 @@ from rich import print
 
 
 def show_options():
-    message = """               Settings:
-                [bold]1 - rename
-                2 - toggle spell check
-                3 - change word list
-                4 - set number of chances
-                5 - export all records as txt file
-                6 - clear records[/bold]
-                help - show options
-                show - show current profile
-                save - save changes
-                reset - discard changes
-                quit - quit
+    message = """           Settings:
+            [bold]1 - rename
+            2 - toggle spell check
+            3 - change word list
+            4 - set number of chances
+            5 - export all records as txt file
+            6 - clear records[/bold]
+            help - show options
+            show - show current profile
+            save - save changes
+            reset - discard changes
+            quit - quit
     """
     print(message)
 
@@ -50,7 +50,7 @@ def change_settings_loop(player):
                 player.show_status()
             case "quit":
                 confirm = input(
-                    "\n**Confirm you want to quit? Type 'Y' to confirm.**\n").upper()
+                    "\n**Are you sure you want to quit? Type 'Y' to confirm.**\n").upper()
                 if confirm == "Y":
                     break
             case other:

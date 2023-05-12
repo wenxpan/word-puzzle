@@ -3,7 +3,7 @@ from datetime import datetime
 
 
 def print_red(text):
-    print(f"[red]{text}[/red]")
+    print(f"[red bold]{text}[/red bold]")
 
 
 class StartAgainException(Exception):

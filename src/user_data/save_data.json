@@ -1,17 +1,17 @@
 {
-    "name": "test1",
-    "spell_check_enabled": false,
+    "name": "snake",
+    "spell_check_enabled": true,
     "num_chances": 6,
     "list_path": "word_lists/5-letter-words-easy.txt",
     "records": [
         {
-            "answer": "DANCE",
+            "answer": "ADULT",
             "guess": [
-                "DANCE"
+                "ADULT"
             ],
             "time": [
-                "2023-05-12 12:36:11",
-                "2023-05-12 12:36:12"
+                "2023-05-12 12:58:09",
+                "2023-05-12 12:59:09"
             ]
         }
     ]

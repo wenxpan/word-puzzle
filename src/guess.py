@@ -3,7 +3,10 @@ from rich import print
 from spellchecker import SpellChecker
 from player import create_player
 from story import print_welcome, hint_messages, win_messages, lose_messages
-from helper import StartAgainException, current_time_string
+from helper import StartAgainException, current_time_string, print_red
+
+# create a player object
+player = create_player()
 
 
 # open word list file and create a word list
@@ -13,7 +16,8 @@ def get_word_list():
             word_list = list(f.read().splitlines())
         return word_list
     except FileNotFoundError:
-        print("[red]Word list not found! Go back to player settings and confirm you have the right list selected.[/red]")
+        print_red(
+            "Word list not found! Go back to player settings and confirm you have the right list selected.")
         raise KeyboardInterrupt
 
 
@@ -21,10 +25,11 @@ def get_word_list():
 def get_random_word(words):
     for i in words:
         word = random.choice(words).upper()
+        # check if the word is longer than 2 characters and contains alphabet only
         if len(word) >= 3 and word.isalpha():
             return word
     else:
-        print("\n[red]Uh oh! Looks like no word can be drawn from the selected word list. \nThe list needs to contain words with more than 2 characters.\nSelect another word list in player settings and come back later.[/red]")
+        print_red("\nUh oh! Looks like no word can be drawn from the selected word list. \nThe list needs to contain words with more than 2 characters.\nSelect another word list in player settings and come back later.")
         raise KeyboardInterrupt
 
 
@@ -168,14 +173,12 @@ def play_once():
     player.update_records(answer, guessed_list, start_time, end_time)
     player.save_data()
     continue_prompt = take_input(
-        "Progress auto saved. \nEnter '\\s' to save a separate record and start a new game.\nEnter '\\q' to quit. Enter any other button to start a new game.\n").upper()
+        "Progress auto saved. Head to user_data/save_data.json to copy backups.\nEnter '\\s' to save a separate record and start a new game.\nEnter '\\q' to quit. Enter any other button to start a new game.\n").upper()
     if continue_prompt == "\\S":
         player.export_records_latest()
 
 
 def play_loop():
-    # create a player object
-    player = create_player()
     # display welcome message
     print_welcome(player.get_name(), player.get_num_chances())
     try:

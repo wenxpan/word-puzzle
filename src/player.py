@@ -20,7 +20,7 @@ def create_player():
 class Player():
     def __init__(self):
         self.spell_check_enabled = True
-        self.name = "default_name"
+        self.name = "default_user"
         self.records = []
         self.list_path = "word_lists/5-letter-words-easy.txt"
         self.num_chances = 6
@@ -58,7 +58,7 @@ class Player():
 
     def set_list_path(self):
         print(
-            "\nChanging to another word list - current files in the word_lists folder:")
+            "\nSelecting word list - You can upload custom word lists to the word_lists folder.\n(Note: the list should be txt file and contain words longer than 2 characters)\n\nCurrent options:")
         file_list = os.listdir("word_lists")
         for i, v in enumerate(file_list):
             print(f"{i} - {v}")
@@ -68,7 +68,7 @@ class Player():
                     input("please enter the file index you want to use\n\n"))
                 if new_index in range(0, len(file_list)):
                     new_path = f"word_lists/{file_list[new_index]}"
-                    self.list_path = {new_path}
+                    self.list_path = new_path
                     print(
                         f"Word list now set to {new_path}\nNote: toggle off spell check if the words cannot be found in dictionary.")
                     break
@@ -85,7 +85,6 @@ class Player():
                 "records": self.records}
         with open(f"user_data/save_data.json", "w") as f:
             json.dump(save, f, indent=4)
-        print(f"data saved to user_data/save_data.json")
 
     def load_data(self):
         try:
@@ -97,9 +96,9 @@ class Player():
                 self.list_path = save["list_path"]
                 self.records = save["records"]
             print("*data loaded from user_data/save_data.json*")
-        except KeyError:
+        except KeyError and json.decoder.JSONDecodeError:
             print_red(
-                "Save file corrupted. Default settings will be used.")
+                "WARNING: Save file corrupted. Upload backup save to replace user_data/save_data.json, or default settings will be used.")
 
     def calculate_wins(self):
         win_count = 0
@@ -112,11 +111,11 @@ class Player():
     def show_status(self):
         print(f"""
         ------------------------PLAYER PROFILE---------------------------
-        Player: {self.name}
-        Total wins: {self.calculate_wins()}
-        Spellcheck: {self.display_spell_check_status()}
-        Number of chances for each game: {self.num_chances}
-        Selected word list: {self.list_path}
+         Player: {self.name}
+         Total wins: {self.calculate_wins()}
+         Spellcheck: {self.display_spell_check_status()}
+         Number of chances for each game: {self.num_chances}
+         Selected word list: {self.list_path}
         -----------------------------------------------------------------
         """)
 
