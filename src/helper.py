@@ -19,3 +19,7 @@ def convert_time_string(time, old_format, new_format):
     time_object = datetime.strptime(time, old_format)
     new_time = time_object.strftime(new_format)
     return new_time
+
+
+def highlight_text(text, fore, bg):
+    return f"[{fore} on {bg}]{text}[/{fore} on {bg}]"

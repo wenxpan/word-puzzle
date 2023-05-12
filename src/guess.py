@@ -3,7 +3,7 @@ from rich import print
 from spellchecker import SpellChecker
 from player import create_player
 from story import print_welcome, hint_messages, win_messages, lose_messages
-from helper import StartAgainException, current_time_string, print_red
+from helper import StartAgainException, current_time_string, print_red, highlight_text
 
 # create a player object
 player = create_player()
@@ -119,23 +119,20 @@ def check_letter(answer, guess, word_length):
 # highlight letter based on analysis
 def highlight_letter(letter, result):
     # define coloring in rich
-    colors = {"green": "bold black on bright_green",
-              "yellow": "bold black on bright_yellow",
-              "grey": "bold black on white"}
-    color = ""
-    # grey for wrong letter,
-    # yellow for misplaced letter,
-    # green for correct letter
+    text = f" {letter} "
+    fore_color = "bold black"
+    bg_color = ""
     match result:
         case 0:
-            color = "grey"
+            # grey for wrong letter
+            bg_color = "white"
         case 1:
-            color = "yellow"
+            # yellow for misplaced letter
+            bg_color = "bright_yellow"
         case 2:
-            color = "green"
-    highlighted_letter = (
-        f"[{colors[color]}] {letter} [/{colors[color]}]"
-    )
+            # green for correct letter
+            bg_color = "bright_green"
+    highlighted_letter = highlight_text(text, fore_color, bg_color)
     return highlighted_letter
 
 
