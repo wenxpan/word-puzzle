@@ -183,7 +183,6 @@ def play_once():
 
 def play_loop():
     # display welcome message
-    player.load_data()
     print_welcome(player.get_name(), player.get_num_chances())
     try:
         # main play loop
