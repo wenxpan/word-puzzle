@@ -1,12 +1,9 @@
 import random
 from rich import print
-from datetime import datetime
 from spellchecker import SpellChecker
 from player import create_player
 from story import print_welcome, hint_messages, win_messages, lose_messages
 from helper import StartAgainException, current_time_string
-
-player = create_player()
 
 
 # open word list file and create a word list
@@ -177,6 +174,8 @@ def play_once():
 
 
 def play_loop():
+    # create a player object
+    player = create_player()
     # display welcome message
     print_welcome(player.get_name(), player.get_num_chances())
     try:

@@ -1,6 +1,5 @@
 import json
 import os
-from datetime import datetime
 from helper import print_red, convert_time_string
 
 
