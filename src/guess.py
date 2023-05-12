@@ -14,13 +14,25 @@ class StartAgainException(Exception):
 
 
 # open word list file and create a word list
-with open(player.get_list_path()) as f:
-    word_list = list(f.read().splitlines())
+def get_word_list():
+    try:
+        with open(player.get_list_path()) as f:
+            word_list = list(f.read().splitlines())
+        return word_list
+    except FileNotFoundError:
+        print("[red]Word list not found! Go back to player settings and confirm you have the right list selected.[/red]")
+        raise KeyboardInterrupt
 
 
-# return random word from word list
+# return random word in upper case from word list
 def get_random_word(words):
-    return random.choice(words)
+    for i in words:
+        word = random.choice(words).upper()
+        if len(word) >= 3 and word.isalpha():
+            return word
+    else:
+        print('\n[red]Uh oh! Looks like no word can be drawn from the selected word list. \nThe list needs to contain words with more than 2 characters.\nSelect another word list in player settings and come back later.[/red]')
+        raise KeyboardInterrupt
 
 
 # take user input and validate if it is special command; if not, return the input value
@@ -125,7 +137,8 @@ def highlight_word(guess, result_list):
 # one round of play
 def play_once():
     # draw a random word from list
-    answer = get_random_word(word_list[0:500]).upper()
+    word_list = get_word_list()
+    answer = get_random_word(word_list)
     word_length = len(answer)
     # set a list of guessed words
     guessed_list = []
@@ -182,7 +195,8 @@ def play_loop():
                 continue
     # exit the game when user uses \q
     except KeyboardInterrupt:
-        print('Mr. Python seems disappointed. He hopes to see you next time!')
+        print(
+            '[blue]Mr. Python seems disappointed. He hopes to see you soon![/blue]')
 
 
 if __name__ == '__main__':
