@@ -2,27 +2,27 @@ from player import create_player
 
 
 def show_options():
-    instructions = {
-        '1': 'toggle spell check',
-        '2': 'export records (txt)',
-        '3': 'select word list',
-        '4': "rename",
-        '5': 'set number of chances',
-        '6': 'clear records',
-        '\\s': 'save changes',
-        '\\r': 'reset',
-        '\\q': 'close'}
-    message = '    What do you want to do?\n'
-    for k, v in instructions.items():
-        message += f'    {k} - {v}\n'
-    return message
+    message = """
+    1 - toggle spell check
+    2 - export records (txt)
+    3 - select word list
+    4 - rename
+    5 - set number of chances
+    6 - clear records
+    \\h - show options
+    \\s - save changes
+    \\r - discard changes
+    \\q - quit
+    """
+    print(message)
 
 
 def change_settings_loop(player):
+    show_options()
     while True:
         player.show_status()
-        print(show_options())
-        prompt = input()
+        prompt = input(
+            "What do you want to do?\nEnter \\h to show a list of options available")
         match prompt:
             case "1":
                 player.toggle_spell_check_enabled()
@@ -36,12 +36,13 @@ def change_settings_loop(player):
                 player.set_num_chances()
             case "6":
                 player.clear_records()
+            case "\\h":
+                show_options()
             case "\\s":
                 player.save_data()
                 print('Changes saved.\n')
             case '\\r':
                 player.load_data()
-                pass
             case "\\q":
                 confirm = input(
                     'Confirm you want to quit? Type "Y" to confirm.\n').upper()

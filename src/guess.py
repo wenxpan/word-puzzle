@@ -4,7 +4,7 @@ from rich.prompt import Prompt
 from datetime import datetime
 from spellchecker import SpellChecker
 from player import create_player
-from story import print_welcome
+from story import print_welcome, hint_message, win_message, lose_message
 
 player = create_player()
 
@@ -57,7 +57,7 @@ def check_input_word(guessed_list, word_length):
         # if spell check enabled, check if it is misspelled
         elif player.get_spell_check_enabled() and misspelled:
             print(
-                f'Friendly Fairy warns you that the word is not in the dictionary. Try another word!\n')
+                f'Friendly Fairy warns you that the word is [bold]not in the dictionary[/bold]. Try another word!\n')
         # return guessed word if all validation passed
         else:
             return guess
@@ -145,16 +145,18 @@ def play_once():
         guessed_list.append(guess)
         # if guess matches answer, show winning message and end the loop
         if check_exact_match(answer, guess):
-            print('You won!')
+            print(f"The spell works! {random.choice(win_message)}")
             break
         # if not won, compare and show result
         else:
             result = check_letter(answer, guess, word_length)
             message += highlight_word(guess, result)
-            print(message)
+            print(
+                f'\n[italic]{random.choice(hint_message)}[/italic]\n{message}')
     # after loop ends and the user has not won, display losing message
     else:
-        print(f'You lose! The answer is {answer}')
+        print(
+            f"You've run out of chances! The secret word is [bold]{answer}[/bold]\n[italic]{random.choice(lose_message)}[/italic]\n")
     # check how the user would like to continue
     end_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
     # end_time = datetime.now()
@@ -180,7 +182,7 @@ def play_loop():
                 continue
     # exit the game when user uses \q
     except KeyboardInterrupt:
-        print('Thank you for playing. See you next time!')
+        print('Mr. Python seems disappointed. He hopes to see you next time!')
 
 
 if __name__ == '__main__':

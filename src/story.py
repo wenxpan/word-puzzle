@@ -11,10 +11,10 @@ def print_welcome(name, num_chances):
 
   Hello, {name}! Welcome to WORD PIE.
 
-  Mr. Python is hungry, and all he wants is that delicious but poisonous pie.
+  [bold]Mr. Python[/bold] is hungry, and all he wants is that delicious but [bold]Poisonous Pie[/bold].
   He has to cast the correct spell to consume it safely!
   Can you help him find the secret word in {num_chances} attempts? 
-  A Friendly Fairy agrees to reveal hints as you go along:
+  [bold]Friendly Fairy[/bold] agrees to reveal hints as you go along:
     - [bold black on bright_green]Green[/bold black on bright_green] means the letter is in the secret word and at the same place.
     - [bold black on bright_yellow]Yellow[/bold black on bright_yellow] means the letter is in the secret word but at the wrong place.
     - [bold black on white]Grey[/bold black on white] means the letter is not in the secret word.
@@ -29,11 +29,13 @@ hint_message = [
     "Mr. Python stares at the pie eagerly.",
     "Mr. Python stares at you. You feel cold sweat.",
     "Mr. Python's tongues flicks.",
-    "Friendly Fairy reveals a hint",
+    "Friendly Fairy reveals a hint.",
     "Mr. Python thanks the Friendly Fairy.",
     "Friendly Fairy looks at you encouragingly.",
-    "The pie just moved an inch; or maybe just an illusion..."
-    "The pie is turning purple somehow."
+    "Poisonous pie just moved an inch; or maybe just an illusion...",
+    "Poisonous pie is turning purple.",
+    "Poisonous Pie smells putrid.",
+    "Mr. Python comes closers to Poisonous Pie."
 ]
 
 win_message = [
