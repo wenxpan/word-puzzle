@@ -1,5 +1,6 @@
 src/.venv
 src/__pycache__
+src/.pytest_cache
 src/.vscode
 .vscode
 .DS_Store

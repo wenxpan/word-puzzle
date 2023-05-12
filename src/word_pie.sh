@@ -13,5 +13,5 @@ then
         echo "Invalid command. Please enter 'play' or 'settings' after ./wrapper.sh"
     fi
 else
-    echo "You need Python 3.10 or higher to run this application." >&2
+    echo "You need Python 3.10 or higher to run this application. You can download the latest version of Python at https://www.python.org/downloads/" >&2
 fi
