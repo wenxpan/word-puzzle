@@ -4,17 +4,15 @@ from rich import print
 
 
 def show_options():
-    message = """           Settings:
+    message = """           Commands (case-insensitive):
             [bold]1 - rename
             2 - toggle spell check
             3 - change word list
             4 - set number of chances
             5 - export all records as txt file
             6 - clear records[/bold]
-            help - show options
+            help - show commands
             show - show current profile
-            save - save changes
-            reset - discard changes
             quit - quit
     """
     print(message)
@@ -23,7 +21,7 @@ def show_options():
 def change_settings_loop(player):
     while True:
         prompt = input(
-            "\n**What do you want to do? (Enter 'help' for a list of options)**\n")
+            "\n**What do you want to do? (Enter 'help' for a list of commands)**\n").upper()
         match prompt:
             case "1":
                 player.rename()
@@ -37,33 +35,39 @@ def change_settings_loop(player):
                 player.export_records_all()
             case "6":
                 player.clear_records()
-            case "help":
+            case "HELP":
                 show_options()
-            case "show":
+            case "SHOW":
                 player.show_status()
-            case "save":
-                player.save_data()
-                print("**Changes saved.**\n")
-            case "reset":
-                player.load_data()
-                print("\n**Changes discarded. Status loaded from last saved.**\n")
-                player.show_status()
-            case "quit":
-                confirm = input(
-                    "\n**Are you sure you want to quit? Type 'Y' to confirm.**\n").upper()
-                if confirm == "Y":
-                    break
+            # case "save":
+            #     player.save_data()
+            #     print("**Changes saved.**\n")
+            # case "reset":
+            #     player.load_data()
+            #     print("\n**Changes discarded. Status loaded from last saved.**\n")
+            #     player.show_status()
+            case "QUIT":
+                will_save = input(
+                    "\n**Save changes before quit?\n"
+                    "Type 'Y' to save, type any other buttons to discard all changes.**\n")
+                if will_save.upper() == "Y":
+                    player.save_data()
+                    print("**Changes saved.**\n")
+                else:
+                    print("Changes discarded.")
+                break
             case other:
                 print("**Invalid input. Try again.**")
 
 
 def setting():
     player = create_player()
-    print(f"\n        Welcome, {player.get_name()}!")
+    name = player.get_name()
+    print(f"\n        Welcome, {name}!")
     player.show_status()
     show_options()
     change_settings_loop(player)
-    print("See you next time!")
+    print(f"See you next time, {name}!")
 
 
 if __name__ == "__main__":

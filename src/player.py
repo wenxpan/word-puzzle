@@ -16,27 +16,27 @@ def create_player():
     return player
 
 
-# class with game settings
 class Player():
+    """ Player profile class.
+
+    A class that stores player attributes, 
+    including player name, spell check status, 
+    number of chances, selected word list, and 
+    game records.
+
+    Methods including getting, setting and toggling 
+    these attributes, as well as importing and exporting
+    data using json.
+    """
+
     def __init__(self):
-        self.spell_check_enabled = True
         self.name = "default_user"
-        self.records = []
-        self.list_path = "word_lists/5-letter-words-easy.txt"
+        self.spell_check_enabled = True
         self.num_chances = 6
+        self.list_path = "word_lists/5-letter-words-easy.txt"
+        self.records = []
 
-    def get_num_chances(self):
-        return self.num_chances
-
-    def set_num_chances(self):
-        num = input("Enter number of chances:\n")
-        while True:
-            try:
-                self.num_chances = int(num)
-                break
-            except:
-                print("Please input number. Try again.")
-
+    # name getter, setter and rename methods
     def set_name(self, name):
         self.name = name
 
@@ -53,29 +53,73 @@ class Player():
     def get_name(self):
         return self.name
 
+    # spell check status getter, setter and toggler
+    def get_spell_check_enabled(self):
+        return self.spell_check_enabled
+
+    def display_spell_check_status(self):
+        """return spell check status as string"""
+        return "ON" if self.spell_check_enabled else "OFF"
+
+    def toggle_spell_check_enabled(self):
+        """toggle spell check on or off"""
+        self.spell_check_enabled = not self.spell_check_enabled
+        print(
+            f"Spell check setting is now {self.display_spell_check_status()}.")
+
+    # number of changes - getter and setter
+    def get_num_chances(self):
+        return self.num_chances
+
+    def set_num_chances(self):
+        num = input("Enter number of chances:\n")
+        while True:
+            try:
+                self.num_chances = int(num)
+                break
+            except:
+                print("Please input number. Try again.")
+
+    # word list file path - getter and setter
     def get_list_path(self):
         return self.list_path
 
     def set_list_path(self):
-        print(
-            "\nSelecting word list - You can upload custom word lists to the word_lists folder.\n(Note: the list should be txt file and contain words longer than 2 characters)\n\nCurrent options:")
+        """Guides user through selecting word list."""
+
+        # display prompt
+        print("""       Selecting word list - "
+        You can upload custom word lists to the word_lists folder.
+        (Note: the list should be txt file and contain words longer than 2 characters)
+        Current options: 
+        """)
+        # list all the files in the directory
         file_list = os.listdir("word_lists")
+        # iterate file list and display file index and name like "0 - filename.txt"
         for i, v in enumerate(file_list):
             print(f"{i} - {v}")
+        # loop until user enters valid input to select a word list
         while True:
             try:
+                max_index = len(file_list)-1
+                # let user input new file index
                 new_index = int(
-                    input("please enter the file index you want to use\n\n"))
+                    input(f"please enter the file number you want to use (0 to {max_index})\n\n"))
+                # if new index is bigger than 0 and not exceed max-index, set file path
                 if new_index in range(0, len(file_list)):
                     new_path = f"word_lists/{file_list[new_index]}"
                     self.list_path = new_path
+                    # print sucess message and remind about spell check
                     print(
-                        f"Word list now set to {new_path}\nNote: toggle off spell check if the words cannot be found in dictionary.")
+                        f"Word list now set to {new_path}\n"
+                        "Note: toggle off spell check if the words cannot be found in dictionary.")
                     break
                 else:
                     raise ValueError
+            # if the input raises error, print error message and go back to loop start
             except ValueError:
-                print("invalid. try again.")
+                print(
+                    f"Input invalid. Try again.")
 
     def save_data(self):
         save = {"name": self.name,
@@ -118,19 +162,6 @@ class Player():
          Selected word list: {self.list_path}
         -----------------------------------------------------------------
         """)
-
-    # get current spell check state
-    def get_spell_check_enabled(self):
-        return self.spell_check_enabled
-
-    def display_spell_check_status(self):
-        return "ON" if self.spell_check_enabled else "OFF"
-
-    # toggle spell check on or off
-    def toggle_spell_check_enabled(self):
-        self.spell_check_enabled = not self.spell_check_enabled
-        print(
-            f"Spell check setting is now {self.display_spell_check_status()}.")
 
     def get_records(self):
         return self.records

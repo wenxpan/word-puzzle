@@ -1,8 +1,8 @@
 {
-    "name": "usertest",
+    "name": "python1",
     "spell_check_enabled": true,
     "num_chances": 6,
-    "list_path": "word_lists/5-letter-words-easy.txt",
+    "list_path": "word_lists/5-letter-words-all.txt",
     "records": [
         {
             "answer": "BIRTH",
