@@ -177,13 +177,16 @@ def play_once():
             f"The secret word is [bold]{answer}[/bold].\n"
             f"[italic purple]{random.choice(lose_messages)}[/italic purple]\n"
         )
-    # check how the user would like to continue
-    end_time = current_time_string("%Y-%m-%d %H:%M:%S")
-    player.update_records(answer, guessed_list, start_time, end_time)
+    # store current record in player object and export as json file
+    player.update_records(answer, guessed_list, start_time)
     player.save_data()
+    # display prompt to continue/save/quit the game
     continue_prompt = take_input(
-        "Progress auto saved. Head to user_data/save_data.json to copy backups.\nEnter '\\s' to save a separate record and start a new game.\nEnter '\\q' to quit. Enter any other button to start a new game.\n").upper()
-    if continue_prompt == "\\S":
+        "Progress auto saved. Head to user_data/save_data.json to copy backups.\n"
+        "Enter '\\s' to export current round as txt and start a new game.\n"
+        "Enter '\\q' to quit. Enter any other button to start a new game.\n")
+    # if user types \s, export record of the latest play
+    if continue_prompt.upper() == "\\S":
         player.export_records_latest()
 
 
@@ -198,7 +201,7 @@ def play_loop():
             # restart the game when user uses \r
             except StartAgainException:
                 continue
-    # exit the game when user uses \q
+    # exit the game when user raises keyboard interrupt (ctrl+c and \q)
     except KeyboardInterrupt:
         print(
             "[blue]Mr. Python seems disappointed. He hopes to see you soon![/blue]")

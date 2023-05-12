@@ -135,9 +135,9 @@ class Player():
     def get_records(self):
         return self.records
 
-    def update_records(self, answer, guessed_list, start_time, end_time):
+    def update_records(self, answer, guessed_list, start_time):
         entry = {"answer": answer, "guess": guessed_list,
-                 "time": [start_time, end_time]}
+                 "start_time": start_time}
         self.records.append(entry)
 
     def clear_records(self):
@@ -148,14 +148,14 @@ class Player():
             print("Back to setting.")
 
     # export record as txt file
-    def export_records(self, record_list, name):
+    def export_records(self, record_list, file_name):
         try:
             if record_list:
-                with open(f"user_data/record_{name}.txt", "w") as f:
+                with open(f"user_data/record_{file_name}.txt", "w") as f:
                     for entry_dict in record_list:
                         answer = entry_dict["answer"]
                         guessed_list = entry_dict["guess"]
-                        time = entry_dict["time"][0]
+                        time = entry_dict["start_time"]
 
                         f.write(f"Start time: {time}\n")
                         decorating_line = f"{'=' * (2*len(answer) + 7)}\n"
@@ -165,7 +165,7 @@ class Player():
                         f.write(decorating_line)
                         f.write(f"CORRECT WORD IS: {answer}\n\n")
                     print(
-                        f"Record exported! You can find it in user_data/record/record_{name}.txt")
+                        f"Record exported! You can find it in user_data/record/record_{file_name}.txt")
             else:
                 print("no record found.")
         except IndexError:
@@ -176,7 +176,8 @@ class Player():
         self.export_records(self.records, self.name)
 
     def export_records_latest(self):
-        start_time = self.records[-1]["time"][0]
+        latest_record = self.records[-1]
+        start_time = latest_record["start_time"]
         start_time_formatted = convert_time_string(
             start_time, "%Y-%m-%d %H:%M:%S", "%Y%m%d%H%M%S")
-        self.export_records([self.records[-1]], start_time_formatted)
+        self.export_records(latest_record, start_time_formatted)
