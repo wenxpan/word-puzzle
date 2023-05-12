@@ -16,9 +16,9 @@ def print_welcome(name, num_chances):
   He has to cast the correct healing spell to swallow it safely!
   Can you help him find the secret word in {num_chances} attempts? 
   [bold]Friendly Fairy[/bold] agrees to reveal hints as you go along:
-    - [bold black on bright_green]Green[/bold black on bright_green] means the letter is in the secret word and at the same place.
-    - [bold black on bright_yellow]Yellow[/bold black on bright_yellow] means the letter is in the secret word but at the wrong place.
-    - [bold black on white]Grey[/bold black on white] means the letter is not in the secret word.
+    - [bold black on bright_green] Green [/bold black on bright_green] means the letter is in the secret word and at the same place.
+    - [bold black on bright_yellow] Yellow [/bold black on bright_yellow] means the letter is in the secret word but at the wrong place.
+    - [bold black on white] Grey [/bold black on white] means the letter is not in the secret word.
   """)
     print(welcome_message)
 

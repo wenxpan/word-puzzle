@@ -25,9 +25,10 @@ def get_word_list():
 def get_random_word(words):
     for i in words:
         word = random.choice(words).upper()
-        # check if the word is longer than 2 characters and contains alphabet only
+        # check if the random word is longer than 2 characters and contains alphabet only
         if len(word) >= 3 and word.isalpha():
             return word
+    # if unable to find a matching word, return error message and exit the game
     else:
         print_red("\nUh oh! Looks like no word can be drawn from the selected word list. \nThe list needs to contain words with more than 2 characters.\nSelect another word list in player settings and come back later.")
         raise KeyboardInterrupt
@@ -38,36 +39,37 @@ def take_input(prompt):
     user_input = input(prompt)
 
     # quit game
-    if user_input.upper() == '\\Q':
+    if user_input.upper() == "\\Q":
         raise KeyboardInterrupt
 
     # restart game
-    elif user_input.upper() == '\\R':
+    elif user_input.upper() == "\\R":
         raise StartAgainException
 
     else:
         return user_input
 
 
-# check the user guess is a valid 5 letter word and not already guessed
+# check the user guess is a valid English word that matches the answer length and not already guessed
 def check_input_word(guessed_list, word_length):
     # repeatedly ask for input until it receives a valid word for analysis
     while True:
         # convert to uppercase to compare with previous results
-        guess = take_input(f'Take a guess: ({word_length} letters)\n').upper()
+        guess = take_input(f"Take a guess: ({word_length} letters)\n").upper()
+        # spellcheck the guess
         spell = SpellChecker()
         misspelled = bool(spell.unknown([guess]))
         # check if word is already guessed
         if guess in guessed_list:
-            print('You already guessed this word!\n')
-        # check if input is an English word and 5 letters long
+            print("You already tried this word!\n")
+        # check if input is an English word and the same length as answer
         elif not guess.isalpha() or len(guess) != word_length:
             print(
-                f'Input not valid. Please enter a {word_length}-letter English word\n')
+                f"Input not valid. Please enter a {word_length}-letter English word\n")
         # if spell check enabled, check if it is misspelled
         elif player.get_spell_check_enabled() and misspelled:
             print(
-                f'Friendly Fairy warns you that the word is [bold]not in the dictionary[/bold]. Try another word!\n')
+                f"Friendly Fairy warns you that the word is [bold]not in the dictionary[/bold]. Try another word!\n")
         # return guessed word if all validation passed
         else:
             return guess
@@ -108,27 +110,28 @@ def check_letter(answer, guess, word_length):
 # highlight letter based on analysis
 def highlight_letter(letter, result):
     # define coloring in rich
-    colors = {'green': 'bold black on bright_green',
-              'yellow': 'bold black on bright_yellow', 'grey': 'bold black on white'}
-    color = ''
+    colors = {"green": "bold black on bright_green",
+              "yellow": "bold black on bright_yellow", "grey": "bold black on white"}
+    color = ""
     # grey for wrong letter, yellow for misplaced letter, green for correct letter
     match result:
         case 0:
-            color = 'grey'
+            color = "grey"
         case 1:
-            color = 'yellow'
+            color = "yellow"
         case 2:
-            color = 'green'
+            color = "green"
     highlighted_letter = f"[{colors[color]}] {letter} [/{colors[color]}]"
     return highlighted_letter
 
 
 # highlight word based on analysis
 def highlight_word(guess, result_list):
-    highlighted_line = ''
+    highlighted_line = ""
+    # loop through each letter
     for index, result in enumerate(result_list):
         highlighted_line += highlight_letter(guess[index], result)
-    highlighted_line += '\n'
+    highlighted_line += "\n"
     return highlighted_line
 
 
@@ -137,15 +140,18 @@ def play_once():
     # draw a random word from list
     word_list = get_word_list()
     answer = get_random_word(word_list)
+    # get length of the word
     word_length = len(answer)
     # set a list of guessed words
     guessed_list = []
-    # set initial message
+    # set initial hint message
     hints = "\n"
+    # get the total number of chances
     num_chances = player.get_num_chances()
     print(f"****for dev: word is {answer}****")
+    # return start time in given format
     start_time = current_time_string("%Y-%m-%d %H:%M:%S")
-    # loop 6 rounds of guess
+    # loop guesses based on number of chances set
     for i in range(1, num_chances+1, 1):
         print(
             f"==========================================\n(Round: {i}/{num_chances}              SpellCheck: {player.display_spell_check_status()})\n")
@@ -158,16 +164,19 @@ def play_once():
             print(
                 f"[green]The spell works! {random.choice(win_messages)}[/green]")
             break
-        # if not won, compare and show result
+        # if not won, compare and show hints
         else:
             result = check_letter(answer, guess, word_length)
             hints += highlight_word(guess, result)
             print(
                 f"\n[italic]{random.choice(hint_messages)}[/italic]\n{hints}")
-    # after loop ends and the user has not won, display losing message
+    # if loop ends without breaking(i.e. the user has not won), display losing message
     else:
         print(
-            f"You've run out of chances! The secret word is [bold]{answer}[/bold]\n[italic]{random.choice(lose_messages)}[/italic]\n")
+            "You've run out of chances! "
+            f"The secret word is [bold]{answer}[/bold].\n"
+            f"[italic purple]{random.choice(lose_messages)}[/italic purple]\n"
+        )
     # check how the user would like to continue
     end_time = current_time_string("%Y-%m-%d %H:%M:%S")
     player.update_records(answer, guessed_list, start_time, end_time)
