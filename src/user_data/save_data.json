@@ -1,13 +1,7 @@
 {
-  "name": "",
-  "spell_check_enabled": true,
-  "num_chances": 20,
-  "list_path": "word_lists/demo.txt",
-  "records": [
-    {
-      "answer": "THANK",
-      "guess": ["APPLE", "FINER", "LUCKY", "QUIET", "FINES", "WATER"],
-      "start_time": "2023-05-13 18:30:20"
-    }
-  ]
+    "name": "0",
+    "spell_check_enabled": false,
+    "num_chances": 10,
+    "list_path": "word_lists/demo.txt",
+    "records": []
 }

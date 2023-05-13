@@ -49,8 +49,8 @@ class Player():
 
     def set_valid_name(self, prompt):
         """validate user input and set player name"""
-        name = input(prompt)
         while True:
+            name = input(prompt)
             # input 1-15 characters long is accepted
             if len(name) <= 15 and len(name) > 0:
                 self.name = name
