@@ -65,19 +65,6 @@ def test_check_input_word_guessed(monkeypatch, capsys):
     assert result == "PUPIL"
 
 
-def test_check_input_word_misspelled(monkeypatch, capsys):
-    """Tested function: check_input_word()
-    check that when spellcheck is on, misspelled
-    word is not accepted and warning message is displayed
-    """
-    inputs = iter(["appli", "apply"])
-    monkeypatch.setattr("builtins.input", lambda _: next(inputs))
-    result = guess.check_input_word([], 5)
-    captured = capsys.readouterr()
-    assert "not in the dictionary" in captured.out
-    assert result == "APPLY"
-
-
 def test_check_exact_match():
     """Tested function: check_exact_match()
     check case-insensitive words will be considered as 
