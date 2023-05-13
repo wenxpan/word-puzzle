@@ -3,7 +3,7 @@ from rich import print
 
 def print_welcome(name, num_chances):
     welcome_message = (
-        f"""[default]        _       ______  ____  ____     ____  __________      
+        f"""[default]         _       ______  ____  ____     ____  __________
         | |     / / __ \/ __ \/ __ \   / __ \/  _/ ____/     
         | | /| / / / / / /_/ / / / /  / /_/ // // __/        
         | |/ |/ / /_/ / _, _/ /_/ /  / ____// // /___        
@@ -12,13 +12,17 @@ def print_welcome(name, num_chances):
 
   Hello, {name}! Welcome to [bold]WORD PIE[/bold], a word guessing game.
 
-  [bold]Mr. Python[/bold] is hungry, and all he wants is that delicious but [bold]Poisonous Pie[/bold].
+  [bold]Mr. Python[/bold] is hungry, and all he wants is that delicious \
+but [bold]Poisonous Pie[/bold].
   He has to cast the correct healing spell to swallow it safely!
   Can you help him find the secret word in {num_chances} attempts? 
   [bold]Friendly Fairy[/bold] agrees to reveal hints as you go along:
-    - [bold black on bright_green] Green [/bold black on bright_green] means the letter is in the secret word and at the same place.
-    - [bold black on bright_yellow] Yellow [/bold black on bright_yellow] means the letter is in the secret word but at the wrong place.
-    - [bold black on white] Grey [/bold black on white] means the letter is not in the secret word.
+    - [bold black on bright_green] Green [/bold black on bright_green] \
+means the letter is in the secret word and at the same place.
+    - [bold black on bright_yellow] Yellow [/bold black on bright_yellow] \
+means the letter is in the secret word but at the wrong place.
+    - [bold black on white] Grey [/bold black on white] means the letter \
+is not in the secret word.
   """)
     print(welcome_message)
 
@@ -44,10 +48,13 @@ win_messages = [
 ]
 
 lose_messages = [
-    "Mr. Python couldn't wait! He inhaled the pie and lost 500 health points.",
+    "Mr. Python couldn't wait! He inhaled the pie and lost \
+500 health points.",
     "Too late! Poisonous Pie dissolved on the ground.",
     "Friendly Fairy shrugged and flew away.",
     "A portal opened and Poisonous Pie vanished. The pie is a lie!",
     "Poisonous Pie got impatient and walked away.",
     "Mr. Python swallowed the pie, then turned to look at you."
 ]
+
+print_welcome('hello', 3)

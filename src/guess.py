@@ -2,8 +2,10 @@ import random
 from rich import print
 from spellchecker import SpellChecker
 from player import create_player
-from story import print_welcome, hint_messages, win_messages, lose_messages
-from helper import StartAgainException, current_time_string, print_red, highlight_text
+from story import (print_welcome, hint_messages,
+                   win_messages, lose_messages)
+from helper import (StartAgainException, current_time_string,
+                    print_red, highlight_text)
 
 # create a player object
 player = create_player()
@@ -18,7 +20,8 @@ def get_word_list():
     except FileNotFoundError:
         print_red(
             "Word list not found! "
-            "Go back to player settings and confirm you have the right list selected.")
+            "Go back to player settings and "
+            "confirm you have the right list selected.")
         raise KeyboardInterrupt
 
 
@@ -26,18 +29,23 @@ def get_word_list():
 def get_random_word(words):
     for i in words:
         word = random.choice(words).upper()
-        # check if the random word is longer than 2 characters and contains alphabet only
+        # check if the random word is longer than
+        # 2 characters and contains alphabet only
         if len(word) >= 3 and word.isalpha():
             return word
-    # if unable to find a matching word, return error message and exit the game
+    # if unable to find a matching word,
+    # return error message and exit the game
     else:
-        print_red("\nUh oh! Looks like no word can be drawn from the selected word list.\n"
-                  "The list needs to contain words with more than 2 characters.\n"
-                  "Select another word list in player settings and come back later.")
+        print_red("\nUh oh! Looks like no word can be drawn from "
+                  "the selected word list.\nThe list needs to "
+                  "contain words with more than 2 characters.\n"
+                  "Select another word list in player settings "
+                  "and come back later.")
         raise KeyboardInterrupt
 
 
-# take user input and validate if it is special command; if not, return the input value
+# take user input and validate if it is special command;
+# if not, return the input value
 def take_input(prompt):
     user_input = input(prompt)
 
@@ -56,7 +64,8 @@ def take_input(prompt):
 # check the user guess is a valid English word that
 # matches the answer length and not already guessed
 def check_input_word(guessed_list, word_length):
-    # repeatedly ask for input until it receives a valid word for analysis
+    # repeatedly ask for input until
+    # it receives a valid word for analysis
     while True:
         # convert to uppercase to compare with previous results
         guess = take_input(f"Take a guess: ({word_length} letters)\n").upper()
@@ -159,19 +168,20 @@ def play_once():
     hints = "\n"
     # get the total number of chances
     num_chances = player.get_num_chances()
-    print(f"****for dev: word is {answer}****")
     # return start time in given format
     start_time = current_time_string("%Y-%m-%d %H:%M:%S")
     # loop guesses based on number of chances set
     for i in range(1, num_chances+1, 1):
         print(
-            f"==========================================\n(Round: {i}/{num_chances}"
-            f"              SpellCheck: {player.display_spell_check_status()})\n")
+            "==========================================\n"
+            f"(Round: {i}/{num_chances}"
+            "              SpellCheck: "
+            "f{player.display_spell_check_status()})\n")
         # get a valid word for analysis
         guess = check_input_word(guessed_list, word_length)
         # add the word to guessed list
         guessed_list.append(guess)
-        # if guess matches answer, show winning message and end the loop
+        # if guess matches answer, show win message and end loop
         if check_exact_match(answer, guess):
             print(
                 "[italic reverse]The spell works! "
@@ -183,7 +193,7 @@ def play_once():
             hints += highlight_word(guess, result)
             print(
                 f"\n[italic]{random.choice(hint_messages)}[/italic]\n{hints}")
-    # if loop ends without breaking(i.e. the user has not won), display losing message
+    # if loop ends without breaking, display losing message
     else:
         print(
             "[italic reverse]You've run out of chances! "
@@ -195,7 +205,8 @@ def play_once():
     player.save_data()
     # display prompt to continue/save/quit the game
     continue_prompt = take_input(
-        "\n**Progress auto saved. Head to user_data/save_data.json to copy backups.**\n"
+        "\n**Progress auto saved. Head to user_data/save_data.json "
+        "to copy backups.**\n"
         "Enter '\\s' to export current round as txt and start a new game.\n"
         "Enter '\\q' to quit.\n"
         "Enter any other button to start a new game.\n")
@@ -212,7 +223,8 @@ def play_loop():
         while True:
             try:
                 play_once()
-            # restart the game when user uses \r
+            # when user uses \r, raise exception to jump out
+            # of current play round and restart from the beginning
             except StartAgainException:
                 continue
     # exit the game when user raises keyboard interrupt (ctrl+c and \q)

@@ -1,5 +1,4 @@
 from player import create_player
-from rich.prompt import Prompt
 from rich import print
 
 
@@ -21,7 +20,8 @@ def show_options():
 def change_settings_loop(player):
     while True:
         prompt = input(
-            "\n**What do you want to do? (Enter 'help' for a list of commands)**\n").upper()
+            "\n**What do you want to do? (Enter 'help' for a \
+list of commands)**\n").upper()
         match prompt:
             case "1":
                 player.rename()

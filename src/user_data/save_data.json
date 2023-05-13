@@ -1,51 +1,7 @@
 {
-    "name": "ami",
+    "name": "John Doe",
     "spell_check_enabled": true,
     "num_chances": 6,
     "list_path": "word_lists/5-letter-words-easy.txt",
-    "records": [
-        {
-            "answer": "RULED",
-            "guess": [
-                "RULED"
-            ],
-            "start_time": "2023-05-12 17:32:39"
-        },
-        {
-            "answer": "WAXES",
-            "guess": [
-                "WAXES"
-            ],
-            "start_time": "2023-05-12 17:34:20"
-        },
-        {
-            "answer": "CHEST",
-            "guess": [
-                "CHEST"
-            ],
-            "start_time": "2023-05-12 17:38:32"
-        },
-        {
-            "answer": "AFTER",
-            "guess": [
-                "AFTER"
-            ],
-            "start_time": "2023-05-12 17:38:50"
-        },
-        {
-            "answer": "THERE",
-            "guess": [
-                "THERE"
-            ],
-            "start_time": "2023-05-12 17:39:41"
-        },
-        {
-            "answer": "LABOR",
-            "guess": [
-                "HELLO",
-                "LABOR"
-            ],
-            "start_time": "2023-05-12 17:50:56"
-        }
-    ]
+    "records": []
 }
