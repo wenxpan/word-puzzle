@@ -1,24 +1,36 @@
 # WenxuanPan_T1A3
 
-## Links (R2)
+## Links (R4)
 
 - [Github repo](https://github.com/wenxuan-pan/WenxuanPan_T1A3)
+- Walkthrough Video
+
+The order of sections in this document are mostly based on the rubrics of T1A3 assignment.
+
+For an overview and installation guide of this application, jump to section - [Help Documentation (R8)](#help-documentation-r8).
 
 ## References (R3)
 
+- [Wordle - New York Times](https://www.nytimes.com/games/wordle/index.html): This project takes inspiration and extends from the popular word game Wordle.
 - [rich - Pypi](https://pypi.org/project/rich/) - I used this python library to render colored and styled text.
 - [pyspellchecker - Pypi](https://pypi.org/project/pyspellchecker/) - I used this python library to check spelling of user input.
 - I referred to the following text files to generate word lists:
-  - [The Stanford GraphBase: A Platform for Combinatorial Computing](https://www-cs-faculty.stanford.edu/~knuth/sgb.html): I used this to generate two lists with 5-letter words.
+  - [The Stanford GraphBase: A Platform for Combinatorial Computing](https://www-cs-faculty.stanford.edu/~knuth/sgb.html): I used this to generate the two lists with 5-letter words.
   - [common-7-letter-words - Github](https://github.com/powerlanguage/word-lists/blob/master/common-7-letter-words.txt)
-  - [google-profanity-words - Github](https://github.com/coffee-and-fun/google-profanity-words): I used this list to filter out inappropriate words in the 5-letter-word list
-  - [Wordle - New York Times](https://www.nytimes.com/games/wordle/index.html): This project takes inspiration and extends from the popular word game Wordle.
-  - [A Python Wordle Clone - Practice Python](https://www.practicepython.org/blog/2022/02/12/wordle.html): I referred to the codes in this webpage to develop my function to compare two words
-  - [Text to ASCII Art Generator - patorjk](http://patorjk.com/software/taag/): I used this link to generate the ascii art for my title
+  - [google-profanity-words - Github](https://github.com/coffee-and-fun/google-profanity-words): I used this list to filter out inappropriate words in the 5-letter-word lists
+- [A Python Wordle Clone - Practice Python](https://www.practicepython.org/blog/2022/02/12/wordle.html): I referred to the codes in this webpage to develop my function to compare two words
+- [Text to ASCII Art Generator - patorjk](http://patorjk.com/software/taag/): I used this link to generate the ascii art for my title
 
 ## Style guide (R5)
 
 Identify any code style guide or styling conventions that the application will adhere to.
+
+The development of this application adheres to the [PEP 8 Style Guide](https://peps.python.org/pep-0008/) and [PEP 257 Docstring Conventions](https://peps.python.org/pep-0257/). In particular, the following conventions are followed:
+
+- Maximum 79 characters per lines of code, 72 characters per lines of comments and docstrings.Implied line continuation inside parentheses are mainly used to break down longer codes and strings.
+- Double quote characters are used for strings
+- Docstrings and comments are used to explain modules, functions, classes and methods after the `def` line.
+- 
 
 ## Features (R6)
 
@@ -37,7 +49,7 @@ Word Pie consists of the following features:
 
 #### Allow user to restart and quit the game at any time
 
-- This can be considered as the sub-feature for taking user input. Conditionals and error handling is utlisied, so that when the user types special commands, exception will be raised and then catched outside the loop to restart/quit the game gracefully.
+- This can be considered as the sub-feature for taking user input. Conditionals and error handling is utlisied, so that when the user types special commands, exception (including a custom exception class) will be raised and then catched outside the loop to restart/quit the game gracefully.
 
 ### Compare user's guess with answer and display differences
 
@@ -150,13 +162,23 @@ Word Pie consists of the following features:
   - revise function to export one record
   - find way to make the two function codes DRY
 
-### Project management platform - Trello
+### Project management platform - Trell
 
 - [Link to Trello board](https://trello.com/b/QJX1M5UE/t1a3-implementation-plan)
 
 #### Screenshots
 
+Trello board overview (as at 13 May):
+
+![Trello board overview](docs/trello-overview-0513.png)
+
+Features (go to the board to see more details):
+
+![Trello board features](docs/trello-features.png)
+
 ## Help Documentation (R8)
+
+![Word Pie start screen](docs/app-start-screen.png)
 
 ### Word Pie - Description
 
