@@ -5,7 +5,7 @@
 - [Github repo](https://github.com/wenxuan-pan/WenxuanPan_T1A3)
 - Walkthrough Video
 
-The order of sections in this document are mostly based on the rubrics of T1A3 assignment.
+The order of sections in this document are mainly based on the rubrics of T1A3 assignment.
 
 For an overview and installation guide of this application, jump to section - [Help Documentation (R8)](#help-documentation-r8).
 
@@ -30,7 +30,10 @@ The development of this application adheres to the [PEP 8 Style Guide](https://p
 - Maximum 79 characters per lines of code, 72 characters per lines of comments and docstrings.Implied line continuation inside parentheses are mainly used to break down longer codes and strings.
 - Double quote characters are used for strings
 - Docstrings and comments are used to explain modules, functions, classes and methods after the `def` line.
-- 
+- imports are put at the top of the file in separate lines
+
+Python.org. 2001. PEP 8 - Style Guide for Python Code. [online] Available at: <https://www.python.org/dev/peps/pep-0008/>. [Accessed 13 May 2023].
+Python.org. 2001. PEP 257 – Docstring Conventions. [online] Available at: <https://peps.python.org/pep-0257/>. [Accessed 13 May 2023].
 
 ## Features (R6)
 
@@ -96,6 +99,8 @@ Word Pie consists of the following features:
 
 ### Features plan
 
+The following MVP features are prioritised:
+
 - Generate a random 5-letter word (due: 4 May)
   - revisit pytest
   - find a dictionary or word list package
@@ -142,6 +147,9 @@ Word Pie consists of the following features:
   - write conditional statements that checks spelling and ask user to input again if misspelled
   - write function to allow user to disable spellcheck
   - run test case
+
+After ensuring all the core features above are running efficiently, the following bonus features are implemented:
+
 - Add user profile (due: 10 May)
   - create a player class and store all the relevant attributes and methods
   - add save data function to class
@@ -162,7 +170,7 @@ Word Pie consists of the following features:
   - revise function to export one record
   - find way to make the two function codes DRY
 
-### Project management platform - Trell
+### Project management platform - Trello
 
 - [Link to Trello board](https://trello.com/b/QJX1M5UE/t1a3-implementation-plan)
 
@@ -172,7 +180,7 @@ Trello board overview (as at 13 May):
 
 ![Trello board overview](docs/trello-overview-0513.png)
 
-Features (go to the board to see more details):
+Features (go to the [board](https://trello.com/b/QJX1M5UE/t1a3-implementation-plan) to see more details):
 
 ![Trello board features](docs/trello-features.png)
 
