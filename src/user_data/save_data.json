@@ -3,5 +3,18 @@
     "spell_check_enabled": true,
     "num_chances": 6,
     "list_path": "word_lists/5-letter-words-easy.txt",
-    "records": []
+    "records": [
+        {
+            "answer": "BACON",
+            "guess": [
+                "HELLO",
+                "WATER",
+                "APPLE",
+                "PUPIL",
+                "FOUND",
+                "NAIVE"
+            ],
+            "start_time": "2023-05-13 16:43:14"
+        }
+    ]
 }

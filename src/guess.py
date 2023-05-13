@@ -176,7 +176,7 @@ def play_once():
             "==========================================\n"
             f"(Round: {i}/{num_chances}"
             "              SpellCheck: "
-            "f{player.display_spell_check_status()})\n")
+            f"{player.display_spell_check_status()})\n")
         # get a valid word for analysis
         guess = check_input_word(guessed_list, word_length)
         # add the word to guessed list
@@ -232,7 +232,3 @@ def play_loop():
         print(
             "[reverse]Mr. Python seems disappointed. "
             "He hopes to see you soon![/reverse]")
-
-
-# if __name__ == "__main__":
-#     play_loop()

@@ -74,7 +74,3 @@ def setting():
     change_settings_loop(player)
     # when loop ends, display quit message
     print(f"See you next time, {name}!")
-
-
-# if __name__ == "__main__":
-#     setting()

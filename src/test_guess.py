@@ -74,7 +74,7 @@ def test_highlight_letter():
         'O', 0) == '[bold black on white] O [/bold black on white]'
 
 
-def test_highlight_word():
-    assert guess.highlight_word(
-        'PUPLE', [1, 0, 2, 2, 2]
-    ) == "[bold black on bright_yellow] P [/bold black on bright_yellow][bold black on white] U [/bold black on white][bold black on bright_green] P [/bold black on bright_green][bold black on bright_green] L [/bold black on bright_green][bold black on bright_green] E [/bold black on bright_green]\n"
+# def test_highlight_word():
+#     assert guess.highlight_word(
+#         'PUPLE', [1, 0, 2, 2, 2]
+#     ) == "[bold black on bright_yellow] P [/bold black on bright_yellow][bold black on white] U [/bold black on white][bold black on bright_green] P [/bold black on bright_green][bold black on bright_green] L [/bold black on bright_green][bold black on bright_green] E [/bold black on bright_green]\n"

@@ -39,3 +39,8 @@ def test_update_records(player):
     updated_records = [{'answer': 'APPLE', 'guess': ["PUPIL", "APPLY", "ORBIT"], 'start_time': '16:40'}, {
         'answer': "QUICK", 'guess': ["PUPIL", "APPLY", "QUICK"], "start_time": '16:41'}]
     assert player.get_records() == updated_records
+
+
+def test_set_num_chances_number(player, monkeypatch):
+    monkeypatch.setattr('builtins.input', lambda _: '30')
+    assert player.set_num_chances() == 30
