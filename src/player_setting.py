@@ -25,7 +25,7 @@ def change_settings_loop(player):
     while True:
         # convert command to uppercase
         prompt = input(
-            "\n**What do you want to do? (Enter 'help' for a"
+            "\n**What do you want to do? (Enter 'help' for a "
             "list of commands)**\n").upper()
         match prompt:
             case "1":

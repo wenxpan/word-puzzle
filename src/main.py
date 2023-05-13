@@ -1,13 +1,13 @@
-import guess
-import player_setting
+from guess import play_loop
+from player_setting import setting
 from sys import argv
 
 if __name__ == "__main__":
     try:
         if argv[1] == "play":
-            guess.play_loop()
+            play_loop()
         elif argv[1] == "settings":
-            player_setting.setting()
+            setting()
         else:
             print("Invalid command. "
                   "Please enter 'play' or 'settings' and retry.")

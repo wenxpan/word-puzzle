@@ -1,0 +1,29 @@
+Start time: 2023-05-13 20:51:05
+=================
+  | W A T E R |  
+  | N E C K S |  
+  | W A G O N |  
+=================
+CORRECT WORD IS: WAGON
+
+Start time: 2023-05-13 20:52:53
+=================
+  | A U D I O |  
+  | B L O C K |  
+  | G L O B E |  
+  | E L B O W |  
+  | N O B L E |  
+=================
+CORRECT WORD IS: NOBLE
+
+Start time: 2023-05-13 20:57:26
+=================
+  | H E L L O |  
+  | A M E N D |  
+  | A G E N T |  
+  | A S I D E |  
+  | A S S E T |  
+  | A M B E R |  
+=================
+CORRECT WORD IS: AFTER
+

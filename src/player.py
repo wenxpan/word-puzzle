@@ -110,11 +110,10 @@ class Player():
     def set_list_path(self):
         """Guides user through setting word list file path."""
         # display prompt
-        print("""       Selecting word list - "
-        You can upload custom txt files to the word_lists folder.
-        (Note: the file should contain words longer than 2 characters)
-        Current options: 
-        """)
+        print("       Selecting word list -\n"
+              "       You can upload custom txt files to the word_lists folder.\n"
+              "       (Note: the file should contain words longer than 2 characters)\n"
+              "       Current options: \n")
         # list all the files in the directory
         file_list = os.listdir("word_lists")
         # iterate file list and display file index
