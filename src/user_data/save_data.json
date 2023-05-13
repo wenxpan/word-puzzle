@@ -1,20 +1,13 @@
 {
-    "name": "",
-    "spell_check_enabled": true,
-    "num_chances": 20,
-    "list_path": "word_lists/5-letter-words-easy.txt",
-    "records": [
-        {
-            "answer": "THANK",
-            "guess": [
-                "APPLE",
-                "FINER",
-                "LUCKY",
-                "QUIET",
-                "FINES",
-                "WATER"
-            ],
-            "start_time": "2023-05-13 18:30:20"
-        }
-    ]
+  "name": "",
+  "spell_check_enabled": true,
+  "num_chances": 20,
+  "list_path": "word_lists/demo.txt",
+  "records": [
+    {
+      "answer": "THANK",
+      "guess": ["APPLE", "FINER", "LUCKY", "QUIET", "FINES", "WATER"],
+      "start_time": "2023-05-13 18:30:20"
+    }
+  ]
 }

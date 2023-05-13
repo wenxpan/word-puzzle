@@ -54,7 +54,7 @@ class Player():
             # input 1-15 characters long is accepted
             if len(name) <= 15 and len(name) > 0:
                 self.name = name
-                return name
+                return
             # print error message if word limits not met
             else:
                 print("Name should be 1-15 characters long. Please try again.")
@@ -95,7 +95,7 @@ class Player():
                 if int(num) > 0:
                     self.num_chances = int(num)
                     print(f"You now have {self.num_chances} attempts.")
-                    break
+                    return
                 # if input is integer but not positive, raise error
                 else:
                     raise ValueError
