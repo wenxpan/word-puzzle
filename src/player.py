@@ -139,7 +139,6 @@ class Player():
                 self.num_chances = save["num_chances"]
                 self.list_path = save["list_path"]
                 self.records = save["records"]
-            print("*data loaded from user_data/save_data.json*")
         except KeyError and json.decoder.JSONDecodeError:
             print_red(
                 "WARNING: Save file corrupted. Upload backup save to replace user_data/save_data.json, or default settings will be used.")

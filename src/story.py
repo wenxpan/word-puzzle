@@ -56,5 +56,3 @@ lose_messages = [
     "Poisonous Pie got impatient and walked away.",
     "Mr. Python swallowed the pie, then turned to look at you."
 ]
-
-print_welcome('hello', 3)

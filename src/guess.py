@@ -234,5 +234,5 @@ def play_loop():
             "He hopes to see you soon![/reverse]")
 
 
-if __name__ == "__main__":
-    play_loop()
+# if __name__ == "__main__":
+#     play_loop()

@@ -76,5 +76,5 @@ def setting():
     print(f"See you next time, {name}!")
 
 
-if __name__ == "__main__":
-    setting()
+# if __name__ == "__main__":
+#     setting()
