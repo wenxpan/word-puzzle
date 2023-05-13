@@ -1,20 +1,20 @@
 {
-    "name": "John Doe",
+    "name": "",
     "spell_check_enabled": true,
-    "num_chances": 6,
+    "num_chances": 20,
     "list_path": "word_lists/5-letter-words-easy.txt",
     "records": [
         {
-            "answer": "BACON",
+            "answer": "THANK",
             "guess": [
-                "HELLO",
-                "WATER",
                 "APPLE",
-                "PUPIL",
-                "FOUND",
-                "NAIVE"
+                "FINER",
+                "LUCKY",
+                "QUIET",
+                "FINES",
+                "WATER"
             ],
-            "start_time": "2023-05-13 16:43:14"
+            "start_time": "2023-05-13 18:30:20"
         }
     ]
 }

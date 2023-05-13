@@ -11,8 +11,10 @@ from helper import (StartAgainException, current_time_string,
 player = create_player()
 
 
-# open word list file and create a word list
 def get_word_list():
+    """opens player's selected txt file and 
+    create a word list from it
+    """
     try:
         with open(player.get_list_path()) as f:
             word_list = list(f.read().splitlines())
@@ -25,8 +27,8 @@ def get_word_list():
         raise KeyboardInterrupt
 
 
-# return random word in upper case from word list
 def get_random_word(words):
+    """return random word in upper case from word list"""
     for i in words:
         word = random.choice(words).upper()
         # check if the random word is longer than
@@ -44,9 +46,11 @@ def get_random_word(words):
         raise KeyboardInterrupt
 
 
-# take user input and validate if it is special command;
-# if not, return the input value
 def take_input(prompt):
+    """take user input and validate if it is special command;
+    if valid, return the input value
+    if special command, raise error for program to catch later
+    """
     user_input = input(prompt)
 
     # quit game
@@ -61,9 +65,11 @@ def take_input(prompt):
         return user_input
 
 
-# check the user guess is a valid English word that
-# matches the answer length and not already guessed
 def check_input_word(guessed_list, word_length):
+    """check the user guess is an English word 
+    that matches the answer length and not already guessed
+    once user input is valid, return the value for analysis
+    """
     # repeatedly ask for input until
     # it receives a valid word for analysis
     while True:
@@ -91,16 +97,16 @@ def check_input_word(guessed_list, word_length):
             return guess
 
 
-# check if the input is the same as answer
 def check_exact_match(answer, guess):
+    """check if the user's guess is the same as answer"""
     if guess.upper() == answer.upper():
         return True
     else:
         return False
 
 
-# analyse user input and compare each letter
 def check_letter(answer, guess, word_length):
+    """analyse user's guess and compare letter by letter"""
     # set up result array, 0 = wrong, 1 = misplaced, 2 = correct
     result = [0] * word_length
     # convert answer string to a list, to compare both letter and order
@@ -125,10 +131,11 @@ def check_letter(answer, guess, word_length):
     return result
 
 
-# highlight letter based on analysis
 def highlight_letter(letter, result):
-    # define coloring in rich
+    """return highlighted letter based on analysed result"""
+    # add space before and after the letter for better visuals
     text = f" {letter} "
+    # set color to be used
     fore_color = "bold black"
     bg_color = ""
     match result:
@@ -141,22 +148,32 @@ def highlight_letter(letter, result):
         case 2:
             # green for correct letter
             bg_color = "bright_green"
+    # use helper function to highlight the text
     highlighted_letter = highlight_text(text, fore_color, bg_color)
     return highlighted_letter
 
 
-# highlight word based on analysis
 def highlight_word(guess, result_list):
+    """return highlighted word based on analysis"""
+    # add spaces (margin) to the screen left
     highlighted_line = "      "
-    # loop through each letter
+    # loop through each letter and highlight
     for index, result in enumerate(result_list):
         highlighted_line += highlight_letter(guess[index], result)
     highlighted_line += "\n"
     return highlighted_line
 
 
-# one round of play
 def play_once():
+    """Process for one round of play
+    1. generate word list and random word
+    2. set up relevant info
+    3. start loop: ask for user input
+    4. validate and analyse input
+    5. show ending message based on result
+    6. auto save data
+    7. ask if user wants to export records and start again
+    """
     # draw a random word from list
     word_list = get_word_list()
     answer = get_random_word(word_list)
@@ -216,6 +233,7 @@ def play_once():
 
 
 def play_loop():
+    """Main play"""
     # display welcome message
     print_welcome(player.get_name(), player.get_num_chances())
     try:

@@ -3,7 +3,7 @@ from rich import print
 
 
 def show_options():
-    # print a list of commands
+    """print a list of commands available for user"""
     message = """           Commands (case-insensitive):
             [bold]1 - rename
             2 - toggle spell check
@@ -19,9 +19,11 @@ def show_options():
 
 
 def change_settings_loop(player):
-    # Repeatedly ask user to input commands until they
-    # choose to quit (break the while loop)
+    """Repeatedly ask user to input commands 
+    until they choose to close settings
+    """
     while True:
+        # convert command to uppercase
         prompt = input(
             "\n**What do you want to do? (Enter 'help' for a"
             "list of commands)**\n").upper()
@@ -61,6 +63,7 @@ def change_settings_loop(player):
 
 
 def setting():
+    """main settings"""
     # create a player object
     player = create_player()
     # get and display player name

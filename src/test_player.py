@@ -44,3 +44,5 @@ def test_update_records(player):
 def test_set_num_chances_number(player, monkeypatch):
     monkeypatch.setattr('builtins.input', lambda _: '30')
     assert player.set_num_chances() == 30
+
+

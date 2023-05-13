@@ -4,15 +4,18 @@ from helper import print_red, convert_time_string
 
 
 def create_player():
+    """this function will create a player object and 
+    1. try to load data from existing save file
+    2. If no data is found, it will ask the user to 
+    enter name, and all the other attributes will be
+    using default values. It will then export a copy of 
+    save data file
+    """
+    player = Player()
     try:
-        player = Player()
         player.load_data()
     except FileNotFoundError:
-        prompt = input(
-            "Enter your name to create a profile:\n")
-        player = Player()
-        player.set_name(prompt)
-        player.save_data()
+        player.create_new_save()
     return player
 
 
@@ -30,76 +33,82 @@ class Player():
     """
 
     def __init__(self):
-        # default values are set when instances are created
-        # to prevent save file corruption
+        """Class constructor. Default values 
+        are set when instances are created to 
+        prevent save file corruption
+        """
         self.name = "default_user"
         self.spell_check_enabled = True
         self.num_chances = 6
         self.list_path = "word_lists/5-letter-words-easy.txt"
         self.records = []
 
-    # player name - getter and setter
-
-    def set_name(self, name):
-        self.name = name
-
-    def rename(self):
-        # loop until a valid input is received
-        while True:
-            name = input("Enter new name (15 characters max):\n")
-            if len(name) <= 15:
-                self.set_name(name)
-                print("Renamed successfully! "
-                      f"You are now called {self.name}")
-                return self.name
-            else:
-                print("Invalid input. Try again.")
-
     def get_name(self):
+        """name getter"""
         return self.name
 
-    # spell check status getter, setter and toggler
+    def set_valid_name(self, prompt):
+        """validate user input and set player name"""
+        name = input(prompt)
+        while True:
+            # input 1-15 characters long is accepted
+            if len(name) <= 15 and len(name) > 0:
+                self.name = name
+                return name
+            # print error message if word limits not met
+            else:
+                print("Name should be 1-15 characters long. Please try again.")
+
+    def rename(self):
+        """rename method"""
+        self.set_valid_name("Enter your new name:\n")
+        print("Renamed successfully! "
+              f"You are now called {self.name}")
+        return self.name
 
     def get_spell_check_enabled(self):
+        """spell check getter"""
         return self.spell_check_enabled
 
     def display_spell_check_status(self):
-        # return spell check status as a string
+        """return spell check setting as user-friendly string"""
         return "ON" if self.spell_check_enabled else "OFF"
 
     def toggle_spell_check_enabled(self):
-        # toggle spell check on or off
+        """toggle spell check on or off"""
         self.spell_check_enabled = not self.spell_check_enabled
         print(
             "Spell check setting is now "
             f"{self.display_spell_check_status()}.")
 
-    # number of changes - getter and setter
-
     def get_num_chances(self):
+        """number of chances - getter"""
         return self.num_chances
 
     def set_num_chances(self):
+        """set number of chances available per game play"""
         # loop and validate if input is a whole number
         while True:
             num = input("Enter number of chances:\n")
+            # if input is positive integer, set number
             try:
-                # if input can be converted to integer, set number
-                self.num_chances = int(num)
-                print(f"You now have {self.num_chances} attempts.")
-                return self.num_chances
-            # if input is not integer, go back to loop start
-            except ValueError:
-                print("Please input whole number. Try again.")
-
-    # word list file path - getter and setter
+                if int(num) > 0:
+                    self.num_chances = int(num)
+                    print(f"You now have {self.num_chances} attempts.")
+                    break
+                # if input is integer but not positive, raise error
+                else:
+                    raise ValueError
+            # if input is not positive integer, go back to loop start
+            except (TypeError, ValueError):
+                print("Please input a positive whole number. Try again.")
 
     def get_list_path(self):
+        """word list file path - getter"""
         return self.list_path
 
     def set_list_path(self):
-        # Guides user through selecting word list.
-
+        """Guides user through setting word list file path."""
         # display prompt
         print("""       Selecting word list - "
         You can upload custom txt files to the word_lists folder.
@@ -141,16 +150,25 @@ class Player():
                 print(
                     f"Input invalid. Try again.")
 
-    # file handling methods - saving and loading data using json
+    def create_new_save(self):
+        """ask for player name and create a save file"""
+        self.set_valid_name(
+            "Enter your name to create a profile:\n")
+        self.save_data()
 
     def save_data(self):
-        # save keys and values dict to a json file
+        """save keys and values dict to a json file"""
         save = self.__dict__
         with open(f"user_data/save_data.json", "w") as f:
             json.dump(save, f, indent=4)
 
     def load_data(self):
-        # try accessing values from json file
+        """Try accessing values and update object 
+        attributes from json file. If there is json 
+        file is corrupted and save data cannot be 
+        retrieved, warns user that default settings 
+        will be used.
+        """
         try:
             with open(f"user_data/save_data.json") as f:
                 save = json.load(f)
@@ -159,8 +177,7 @@ class Player():
                 self.num_chances = save["num_chances"]
                 self.list_path = save["list_path"]
                 self.records = save["records"]
-        # if there are entries missing or json file is corrupted,
-        # warn the user that default settings will be used
+        # error handling for corrupted file
         except KeyError and json.decoder.JSONDecodeError:
             print_red(
                 "WARNING: Save file corrupted."
@@ -168,7 +185,7 @@ class Player():
                 "or default settings will be used.")
 
     def calculate_wins(self):
-        # calculate number of wins based on records
+        """calculate number of wins based on records"""
         win_count = 0
         for round in self.records:
             if round["answer"] in round["guess"]:
@@ -177,7 +194,7 @@ class Player():
         return f"{win_count}/{all_count}"
 
     def show_status(self):
-        # print user profile with relevant information
+        """print user profile with relevant information"""
         print(f"""
         ------------------------PLAYER PROFILE---------------------------
          Player: {self.name}
@@ -188,19 +205,18 @@ class Player():
         -----------------------------------------------------------------
         """)
 
-    # records - getter, setter and deleter
-
     def get_records(self):
+        """get game records"""
         return self.records
 
     def update_records(self, answer, guessed_list, start_time):
-        # add game round to records list
+        """add current game round to records list"""
         entry = {"answer": answer, "guess": guessed_list,
                  "start_time": start_time}
         self.records.append(entry)
 
     def clear_records(self):
-        # confirm if user wants to clear records
+        """confirm if user wants to clear records"""
         confirm_prompt = input("Clearing all records? Type 'Y' to confirm.\n")
         if confirm_prompt.upper() == "Y":
             self.records = []
@@ -209,7 +225,7 @@ class Player():
             print("Back to setting.")
 
     def export_records(self, record_list, file_name):
-        # export records as a user-friendly txt file
+        """export records to a user-friendly txt file"""
         try:
             # check if there are records in the record list
             if record_list:
@@ -246,12 +262,12 @@ class Player():
                 "Clear all records to export future games.")
 
     def export_records_all(self):
-        # export all records of a player
+        """export all records of a player to a txt file"""
         self.export_records(self.records, self.name)
 
     def export_records_latest(self):
-        # export record of current game play
-        # extract current record from all the records
+        """export record of current game play to a txt file"""
+        # extract current round of record
         latest_record = self.records[-1]
         # use start time of the record as file name
         start_time = latest_record["start_time"]
