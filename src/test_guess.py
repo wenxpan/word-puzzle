@@ -2,6 +2,22 @@ import guess
 import pytest
 
 
+def test_get_word_list_invalid():
+    """Tested function: get_word_list()
+    test that non-existing file path will raise error
+    """
+    with pytest.raises(KeyboardInterrupt):
+        guess.get_word_list('')
+
+
+def test_get_word_list_success():
+    """Tested function: get_word_list()
+    test that correct file path will return valid word list
+    """
+    word_list = guess.get_word_list('word_lists/5-letter-words-easy.txt')
+    assert word_list
+
+
 def test_get_random_word_valid():
     """Tested function: get_random_word()
     test that a random word can be drawn from a valid word list
@@ -36,7 +52,7 @@ def test_check_input_word_valid(monkeypatch):
     check that valid input word will be returned in uppercase
     """
     monkeypatch.setattr("builtins.input", lambda _: "apple")
-    assert guess.check_input_word([], 5) == "APPLE"
+    assert guess.check_input_word(True, [], 5) == "APPLE"
 
 
 def test_check_input_word_invalid(monkeypatch, capsys):
@@ -46,7 +62,7 @@ def test_check_input_word_invalid(monkeypatch, capsys):
     """
     inputs = iter(["33", "apple"])
     monkeypatch.setattr("builtins.input", lambda _: next(inputs))
-    result = guess.check_input_word([], 5)
+    result = guess.check_input_word(True, [], 5)
     captured = capsys.readouterr()
     assert "Input not valid" in captured.out
     assert result == "APPLE"
@@ -59,10 +75,34 @@ def test_check_input_word_guessed(monkeypatch, capsys):
     """
     inputs = iter(["apple", "pupil"])
     monkeypatch.setattr("builtins.input", lambda _: next(inputs))
-    result = guess.check_input_word(["APPLE"], 5)
+    result = guess.check_input_word(True, ["APPLE"], 5)
     captured = capsys.readouterr()
     assert "You already tried this word!" in captured.out
     assert result == "PUPIL"
+
+
+def test_check_input_word_misspelled(monkeypatch, capsys):
+    """Tested function: check_input_word()
+    check that when spell check setting is ON, misspelled
+    word will be rejected and error message will be displayed;
+    it will accept correctly spelled word only
+    """
+    inputs = iter(["appli", "apple"])
+    monkeypatch.setattr("builtins.input", lambda _: next(inputs))
+    result = guess.check_input_word(True, [], 5)
+    captured = capsys.readouterr()
+    assert "not in the dictionary" in captured.out
+    assert result == "APPLE"
+
+
+def test_check_input_word_spellcheck_off(monkeypatch):
+    """Tested function: check_input_word()
+    check that when spell check setting is OFF, misspelled
+    word will be accepted and converted to uppercase
+    """
+    monkeypatch.setattr("builtins.input", lambda _: "aakkk")
+    result = guess.check_input_word(False, [], 5)
+    assert result == "AAKKK"
 
 
 def test_check_exact_match():

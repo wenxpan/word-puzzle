@@ -7,16 +7,13 @@ from story import (print_welcome, hint_messages,
 from helper import (StartAgainException, current_time_string,
                     print_red, highlight_text)
 
-# create a player object
-player = create_player()
 
-
-def get_word_list():
+def get_word_list(file_path):
     """opens player's selected txt file and 
     create a word list from it
     """
     try:
-        with open(player.get_list_path()) as f:
+        with open(file_path) as f:
             word_list = list(f.read().splitlines())
         return word_list
     except FileNotFoundError:
@@ -65,7 +62,7 @@ def take_input(prompt):
         return user_input
 
 
-def check_input_word(guessed_list, word_length):
+def check_input_word(spell_check_enabled, guessed_list, word_length):
     """check the user guess is an English word 
     that matches the answer length and not already guessed
     once user input is valid, return the value for analysis
@@ -87,7 +84,7 @@ def check_input_word(guessed_list, word_length):
                 f"Input not valid. "
                 f"Please enter a {word_length}-letter English word\n")
         # if spell check enabled, check if it is misspelled
-        elif player.get_spell_check_enabled() and misspelled:
+        elif spell_check_enabled and misspelled:
             print(
                 "Friendly Fairy warns you that the word "
                 "is [bold]not in the dictionary[/bold]. "
@@ -164,7 +161,7 @@ def highlight_word(guess, result_list):
     return highlighted_line
 
 
-def play_once():
+def play_once(player, word_list):
     """Process for one round of play
     1. generate word list and random word
     2. set up relevant info
@@ -175,7 +172,6 @@ def play_once():
     7. ask if user wants to export records and start again
     """
     # draw a random word from list
-    word_list = get_word_list()
     answer = get_random_word(word_list)
     # get length of the word
     word_length = len(answer)
@@ -185,6 +181,8 @@ def play_once():
     hints = "\n"
     # get the total number of chances
     num_chances = player.get_num_chances()
+    # get spell check status
+    spell_check_enabled = player.get_spell_check_enabled()
     # return start time in given format
     start_time = current_time_string("%Y-%m-%d %H:%M:%S")
     # loop guesses based on number of chances set
@@ -195,7 +193,8 @@ def play_once():
             "              SpellCheck: "
             f"{player.display_spell_check_status()})\n")
         # get a valid word for analysis
-        guess = check_input_word(guessed_list, word_length)
+        guess = check_input_word(
+            spell_check_enabled, guessed_list, word_length)
         # add the word to guessed list
         guessed_list.append(guess)
         # if guess matches answer, show win message and end loop
@@ -234,13 +233,19 @@ def play_once():
 
 def play_loop():
     """Main play"""
+    player = create_player()
     # display welcome message
-    print_welcome(player.get_name(), player.get_num_chances())
+    player_name = player.get_name()
+    player_chances = player.get_num_chances()
+    print_welcome(player_name, player_chances)
     try:
+        # generate word list based on txt file
+        list_path = player.get_list_path()
+        word_list = get_word_list(list_path)
         # main play loop
         while True:
             try:
-                play_once()
+                play_once(player, word_list)
             # when user uses \r, raise exception to jump out
             # of current play round and restart from the beginning
             except StartAgainException:

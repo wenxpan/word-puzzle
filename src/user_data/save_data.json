@@ -1,24 +1,17 @@
 {
-  "name": "Doe John",
-  "spell_check_enabled": false,
-  "num_chances": 10,
-  "list_path": "word_lists/5-letter-words-all.txt",
-  "records": [
-    {
-      "answer": "RUMPS",
-      "guess": [
-        "AUDIO",
-        "CURSE",
-        "BURST",
-        "SURLY",
-        "APPLE",
-        "JAKLF",
-        "AAFFK",
-        "FJENM",
-        "WIEMM",
-        "FFMMM"
-      ],
-      "start_time": "2023-05-13 21:16:51"
-    }
-  ]
+    "name": "variable",
+    "spell_check_enabled": true,
+    "num_chances": 3,
+    "list_path": "word_lists/5-letter-words-easy.txt",
+    "records": [
+        {
+            "answer": "STEAM",
+            "guess": [
+                "HELLO",
+                "AUDIO",
+                "QUIET"
+            ],
+            "start_time": "2023-05-14 09:05:07"
+        }
+    ]
 }
