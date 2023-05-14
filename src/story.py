@@ -23,6 +23,8 @@ means the letter is in the secret word and at the same place.
 means the letter is in the secret word but at the wrong place.
     - [bold black on white] Grey [/bold black on white] means the letter \
 is not in the secret word.
+
+**Type '\\r' to restart and '\\q' to quit at any time of the game.**
   """)
     print(welcome_message)
 
