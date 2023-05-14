@@ -34,6 +34,7 @@ The development of this application adheres to the [PEP 8 Style Guide](https://p
 - imports are put at the top of the file in separate lines
 
 Python.org. 2001. PEP 8 - Style Guide for Python Code. [online] Available at: <https://www.python.org/dev/peps/pep-0008/>. [Accessed 13 May 2023].
+
 Python.org. 2001. PEP 257 – Docstring Conventions. [online] Available at: <https://peps.python.org/pep-0257/>. [Accessed 13 May 2023].
 
 ## Features (R6)
