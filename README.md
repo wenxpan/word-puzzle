@@ -3,7 +3,7 @@
 ## Links (R4)
 
 - [Github repo](https://github.com/wenxuan-pan/WenxuanPan_T1A3)
-- Walkthrough Video
+- [Walkthrough Video](https://youtu.be/bJUBrcgbuTY)
 
 The order of sections in this document are mainly based on the rubrics of T1A3 assignment.
 
@@ -28,6 +28,7 @@ Identify any code style guide or styling conventions that the application will a
 The development of this application adheres to the [PEP 8 Style Guide](https://peps.python.org/pep-0008/) and [PEP 257 Docstring Conventions](https://peps.python.org/pep-0257/). In particular, the following conventions are followed:
 
 - Maximum 79 characters per lines of code, 72 characters per lines of comments and docstrings.Implied line continuation inside parentheses are mainly used to break down longer codes and strings.
+- snake_cases for variable and module names
 - Double quote characters are used for strings
 - Docstrings and comments are used to explain modules, functions, classes and methods after the `def` line.
 - imports are put at the top of the file in separate lines
@@ -96,6 +97,9 @@ Word Pie consists of the following features:
 - Wrap up and documentation: 11 - 12 May
 - Contingency: 13 May
 - Final review and submit: 14 May
+
+Here's an overview of how the application flows:
+![flowchart](docs/wordpie_flowchart.drawio.png)
 
 ### Features plan
 
@@ -224,8 +228,7 @@ You might not need to download them manually - follow the steps in the installat
 
 1. Open terminal. Use `cd` command and direct to the `WenxuanPan_T1A3/src` directory.
 2. Enter `chmod +x wrapper.sh`
-3. Enter `./word_pie.sh play` to start the main game.
-4. Enter `./word_pie.sh settings` to access the player settings.
+3. Enter `./word_pie.sh play` to start the game; enter `./word_pie.sh settings` to access the player settings.
 
    > If you do not have python installed or the version is older than "3.10", please follow the prompt in the termianl and install the newer version of Python.
 
