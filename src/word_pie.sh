@@ -10,7 +10,7 @@ then
         python3 main.py $1
         deactivate
     else
-        echo "Invalid command. Please enter 'play' or 'settings' after ./wrapper.sh"
+        echo "Invalid command. Please enter 'play' or 'settings' after ./word_pie.sh"
     fi
 else
     echo "You need Python 3.10 or higher to run this application. You can download the latest version of Python at https://www.python.org/downloads/" >&2
