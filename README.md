@@ -4,9 +4,11 @@ Word Puzzle is a Wordle-like word game app with various customisable and extende
 
 ![Word Puzzle Screenshot](docs/Cover.png)
 
+## Installation
+
 ### System Requirements
 
-The program should be able to run on cross platforms including Windows, Linux and MacOs. Note that the program is developed in MacOs environment.
+The program should be able to run on cross platforms including Windows, Linux and MacOs.
 
 Python 3.10 or higher is needed to run the program.
 
@@ -26,24 +28,24 @@ rich==13.3.5
 
 You might not need to download them manually - follow the steps in the installation guide below to find out.
 
-### Installation and execution
+### Option 1: using bash script
 
-#### Option 1: using bash script
-
-1. Open terminal. Use `cd` command and direct to the `src` directory.
-2. Enter `chmod +x word_puzzle.sh`
-3. Enter `./word_puzzle.sh play` to start the game; enter `./word_puzzle.sh settings` to access the player settings.
+1. Download or clone the repo.
+2. Open terminal. Use `cd` command and direct to `word-puzzle/src`.
+3. Enter `chmod +x word_puzzle.sh`
+4. Enter `./word_puzzle.sh play` to start the game; enter `./word_puzzle.sh settings` to access the player settings.
 
    > If you do not have python installed or the version is older than "3.10", please follow the prompt in the termianl and install the newer version of Python.
 
-#### Option 2: Manual set up
+### Option 2: Manual set up
 
 1. Open terminal. Enter `python3 --version` to confirm the numer is higher than "3.10". If not, please download a newer version of Python first.
-2. Use `cd` command and direct to the `WenxuanPan_T1A3/src` directory.
-3. Enter `python3 -m venv .venv` to create a virtual environment.
-4. Enter `source .venv/bin/activate` to activate venv.
-5. Enter `python3 -m pip install -r requirements.txt` to install all the required dependencies. (This step can be skipped if you're relaunching and have already installed all the packages)
-6. Enter `python3 main.py play` to play game; enter `python3 main.py settings` to view and change user settings.
+2. Download or clone the repo.
+3. Open terminal. Use `cd` command and direct to `word-puzzle/src`.
+4. Enter `python3 -m venv .venv` to create a virtual environment.
+5. Enter `source .venv/bin/activate` to activate venv.
+6. Enter `python3 -m pip install -r requirements.txt` to install all the required dependencies. (This step can be skipped if you're relaunching and have already installed all the packages)
+7. Enter `python3 main.py play` to play game; enter `python3 main.py settings` to view and change user settings.
 
 ## Features
 
@@ -74,7 +76,7 @@ Word Puzzle consists of the following features:
 ### Display progress information throughout the gameplay
 
 - The user has a certain number of attempts to guess the word. Loops are used to repeatedly get input until the user runs out of chances. Guessing the correct word early will also break the loop.
-- During each round, relevant information will be displayed including the user's previous guesses, number of chances used and total chances, spell check status (whether the program will check if the user's guess is an English word), as well as some narrative text.
+- During each round, relevant information will be displayed including the user's previous guesses, number of chances used and total chances, spell check status (whether the program will check if the user's guess is an English word).
 
 ### Show ending message based on result
 
@@ -96,6 +98,8 @@ Word Puzzle consists of the following features:
 
 - Player's information will be exported to a json file and imported back to the object when the program reopens.
 - Error handling is utlitised to deal with missing or corrupted files - when it catches relevant exceptions, default information will be set to allow the program to continue.
+
+![App flow](docs/app-flow.png)
 
 ## References
 
