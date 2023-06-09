@@ -76,4 +76,5 @@ def setting():
     # ask for user input
     change_settings_loop(player)
     # when loop ends, display quit message
+    name = player.get_name()
     print(f"See you next time, {name}!")

@@ -2,8 +2,6 @@ import random
 from rich import print
 from spellchecker import SpellChecker
 from player import create_player
-from story import (print_welcome, hint_messages,
-                   win_messages, lose_messages)
 from helper import (StartAgainException, current_time_string,
                     print_red, highlight_text)
 
@@ -85,10 +83,7 @@ def check_input_word(spell_check_enabled, guessed_list, word_length):
                 f"Please enter a {word_length}-letter English word\n")
         # if spell check enabled, check if it is misspelled
         elif spell_check_enabled and misspelled:
-            print(
-                "Friendly Fairy warns you that the word "
-                "is [bold]not in the dictionary[/bold]. "
-                "Try another word!\n")
+            print("This is not a valid word. Try again!\n")
         # return guessed word if all validation passed
         else:
             return guess
@@ -161,6 +156,32 @@ def highlight_word(guess, result_list):
     return highlighted_line
 
 
+def print_welcome(name, num_chances):
+    welcome_message = (
+        f"""[default]       
+ _ _ _ _____ _____ ____     _____ _____ _____ _____ __    _____ 
+| | | |     | __  |    \   |  _  |  |  |__   |__   |  |  |   __|
+| | | |  |  |    -|  |  |  |   __|  |  |   __|   __|  |__|   __|
+|_____|_____|__|__|____/   |__|  |_____|_____|_____|_____|_____|
+                                                          [/default]
+
+  Hello, {name}! Welcome to [bold]WORD PUZZLE[/bold].
+
+  You have {num_chances} attempts to guess a secret word. After each guess, hints will be provided:
+    - [bold black on bright_green] Green [/bold black on bright_green] \
+means the letter is in the secret word and at the same place.
+    - [bold black on bright_yellow] Yellow [/bold black on bright_yellow] \
+means the letter is in the secret word but at the wrong place.
+    - [bold black on white] Grey [/bold black on white] means the letter \
+is not in the secret word.
+
+You can customise the game by going to settings - upload a custom word list, set number of chances, and export all your records!
+
+**Type '\\r' to restart and '\\q' to quit at any time of the game.**
+  """)
+    print(welcome_message)
+
+
 def play_once(player, word_list):
     """Process for one round of play
     1. generate word list and random word
@@ -199,22 +220,19 @@ def play_once(player, word_list):
         guessed_list.append(guess)
         # if guess matches answer, show win message and end loop
         if check_exact_match(answer, guess):
-            print(
-                "[italic reverse]The spell works! "
-                f"{random.choice(win_messages)}[/italic reverse]")
+            print("[italic reverse]You won![/italic reverse]")
             break
         # if not won, compare and show hints
         else:
             result = check_letter(answer, guess, word_length)
             hints += highlight_word(guess, result)
             print(
-                f"\n[italic]{random.choice(hint_messages)}[/italic]\n{hints}")
+                f"{hints}\n")
     # if loop ends without breaking, display losing message
     else:
         print(
-            "[italic reverse]You've run out of chances! "
+            "[italic reverse]Uh oh, you've run out of chances! "
             f"The secret word is [bold]{answer}[/bold].\n"
-            f"{random.choice(lose_messages)}[/italic reverse]\n"
         )
     # store current record in player object and export as json file
     player.update_records(answer, guessed_list, start_time)
@@ -253,5 +271,4 @@ def play_loop():
     # exit the game when user raises keyboard interrupt (ctrl+c and \q)
     except KeyboardInterrupt:
         print(
-            "[reverse]Mr. Python seems disappointed. "
-            "He hopes to see you soon![/reverse]")
+            "[reverse]See you next time![/reverse]")

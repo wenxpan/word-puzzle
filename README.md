@@ -2,6 +2,8 @@
 
 Word Puzzle is a Wordle-like word game app with various customisable and extended features. Try your best to guess the word - you will be able to enjoy this game offline anytime, to your liking, with all the records safely stored in a save file.
 
+![Word Puzzle Screenshot](docs/Cover.png)
+
 ### System Requirements
 
 The program should be able to run on cross platforms including Windows, Linux and MacOs. Note that the program is developed in MacOs environment.
@@ -28,8 +30,8 @@ You might not need to download them manually - follow the steps in the installat
 
 #### Option 1: using bash script
 
-1. Open terminal. Use `cd` command and direct to the `WenxuanPan_T1A3/src` directory.
-2. Enter `chmod +x wrapper.sh`
+1. Open terminal. Use `cd` command and direct to the `src` directory.
+2. Enter `chmod +x word_puzzle.sh`
 3. Enter `./word_puzzle.sh play` to start the game; enter `./word_puzzle.sh settings` to access the player settings.
 
    > If you do not have python installed or the version is older than "3.10", please follow the prompt in the termianl and install the newer version of Python.
@@ -45,7 +47,9 @@ You might not need to download them manually - follow the steps in the installat
 
 ## Features
 
-Word Pie consists of the following features:
+![Terminal Screenshots](docs/game-screenshot.png)
+
+Word Puzzle consists of the following features:
 
 ### Draw a random word from a given word list
 
